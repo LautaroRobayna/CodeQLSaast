@@ -151,7 +151,7 @@ namespace PharmaGo.BusinessLogic
             var userId = session.UserId;
             User user = _userRepository.GetOneDetailByExpression(u => u.Id == userId);
             Pharmacy pharmacyOfDrug = _pharmacyRepository.GetOneByExpression(p => p.Name == user.Pharmacy.Name);
-            IEnumerable<Drug> drugsSaved = _drugRepository.GetAllByExpression(d => d.Name == d.Name && d.Pharmacy.Id == pharmacyOfDrug.Id);
+            IEnumerable<Drug> drugsSaved = _drugRepository.GetAllByExpression(d => d.Deleted == false && d.Pharmacy.Id == pharmacyOfDrug.Id);
             IEnumerable<DrugExportationModel> drugsToExport = drugsSaved.Select(d =>
                 new DrugExportationModel
                 {

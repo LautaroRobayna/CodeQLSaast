@@ -364,10 +364,10 @@ namespace PharmaGo.Test.BusinessLogic.Test
             _sessionRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Session, bool>>>())).Returns(session);
             _userRepository.Setup(r => r.GetOneDetailByExpression(It.IsAny<Expression<Func<User, bool>>>())).Returns(user);
             List<Drug> drugList = GenerateDrugList() as List<Drug>;
-            
+
             _drugRepository.Setup(r => r.GetAllByExpression(It.IsAny<Expression<Func<Drug, bool>>>())).Returns(drugList);
             var drugsToExport = (List<DrugExportationModel>)_drugManager.GetDrugsToExport(token);
-            
+
             // Assert
             _drugRepository.VerifyAll();
             for (int i = 0; i < drugsToExport.Count(); i++)
@@ -376,6 +376,64 @@ namespace PharmaGo.Test.BusinessLogic.Test
                 Assert.AreEqual(drugsToExport[i].Name, drugList[i].Name);
                 Assert.AreEqual(drugsToExport[i].Symptom, drugList[i].Symptom);
             }
+        }
+
+        [TestMethod]
+        public void GetDrugsToExport_Excludes_SoftDeleted_Drugs()
+        {
+            // Bug #21: previously the predicate used d.Name == d.Name with no Deleted
+            // filter, so soft-deleted drugs leaked into pharmacy catalog exports.
+            var ownerPharmacy = new Pharmacy { Id = 42, Name = "Pharmacy 42", Address = "Av. Italia" };
+            var ownerUser = new User
+            {
+                Id = 1,
+                UserName = "owner",
+                Email = "owner@x.com",
+                Address = "addr",
+                Pharmacy = ownerPharmacy
+            };
+            var activeDrug = new Drug
+            {
+                Id = 100,
+                Code = "ACT-001",
+                Name = "ActiveDrug",
+                Symptom = "headache",
+                Deleted = false,
+                Pharmacy = ownerPharmacy
+            };
+            var softDeletedDrug = new Drug
+            {
+                Id = 200,
+                Code = "DEL-001",
+                Name = "DeletedDrug",
+                Symptom = "fever",
+                Deleted = true,
+                Pharmacy = ownerPharmacy
+            };
+            var drugsInDb = new List<Drug> { activeDrug, softDeletedDrug };
+
+            _sessionRepository
+                .Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Session, bool>>>()))
+                .Returns(session);
+            _userRepository
+                .Setup(r => r.GetOneDetailByExpression(It.IsAny<Expression<Func<User, bool>>>()))
+                .Returns(ownerUser);
+            _pharmacyRepository
+                .Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Pharmacy, bool>>>()))
+                .Returns(ownerPharmacy);
+            _drugRepository
+                .Setup(r => r.GetAllByExpression(It.IsAny<Expression<Func<Drug, bool>>>()))
+                .Returns((Expression<Func<Drug, bool>> predicate) =>
+                    drugsInDb.AsQueryable().Where(predicate).ToList());
+
+            var exported = _drugManager.GetDrugsToExport(token).ToList();
+
+            Assert.IsFalse(exported.Any(d => d.Code == softDeletedDrug.Code),
+                "Soft-deleted drugs must not be included in pharmacy exports.");
+            Assert.IsTrue(exported.Any(d => d.Code == activeDrug.Code),
+                "Active drugs must be included in the export.");
+            Assert.AreEqual(1, exported.Count,
+                "Exactly the active drug should be exported.");
         }
 
         private IEnumerable<Drug> GenerateDrugList()
