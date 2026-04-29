@@ -43,7 +43,7 @@ jobs:
         with:
           languages: csharp
 
-      # Build (CodeQL lo observa)
+      # Build
       - name: Build
         run: dotnet build --no-restore --configuration Release
 
