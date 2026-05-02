@@ -381,8 +381,6 @@ namespace PharmaGo.Test.BusinessLogic.Test
         [TestMethod]
         public void GetDrugsToExport_Excludes_SoftDeleted_Drugs()
         {
-            // Bug #21: previously the predicate used d.Name == d.Name with no Deleted
-            // filter, so soft-deleted drugs leaked into pharmacy catalog exports.
             var ownerPharmacy = new Pharmacy { Id = 42, Name = "Pharmacy 42", Address = "Av. Italia" };
             var ownerUser = new User
             {
