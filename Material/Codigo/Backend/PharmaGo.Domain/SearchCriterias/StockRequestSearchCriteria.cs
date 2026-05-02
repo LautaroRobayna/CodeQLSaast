@@ -7,8 +7,8 @@ using System.Reflection;
 
 namespace PharmaGo.Domain.SearchCriterias
 {
-	public class StockRequestSearchCriteria
-	{
+    public class StockRequestSearchCriteria
+    {
         public int EmployeeId { get; set; }
         public DateTime? FromDate { get; set; }
         public DateTime? ToDate { get; set; }
@@ -46,17 +46,17 @@ namespace PharmaGo.Domain.SearchCriterias
             }
             else if (FromDate.HasValue && ToDate.HasValue)
             {
-                result = p => p.Employee.Id == EmployeeId && 
+                result = p => p.Employee.Id == EmployeeId &&
                 p.RequestDate >= FromDate && p.RequestDate <= ToDate;
             }
             else if (!string.IsNullOrEmpty(Code))
             {
-                result = p => p.Employee.Id == EmployeeId && 
+                result = p => p.Employee.Id == EmployeeId &&
                 p.Details.Any(d => d.Drug.Code == Code);
             }
             else if (!string.IsNullOrEmpty(Status))
             {
-                result = p => p.Employee.Id == EmployeeId && 
+                result = p => p.Employee.Id == EmployeeId &&
                 p.Status == (Enums.StockRequestStatus)Enum.Parse(typeof(Enums.StockRequestStatus), Status);
             }
 

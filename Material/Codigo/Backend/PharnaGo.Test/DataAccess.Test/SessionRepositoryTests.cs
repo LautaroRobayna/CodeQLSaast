@@ -21,7 +21,7 @@ namespace PharmaGo.Test.DataAccess.Test
         [TestInitialize]
         public void InitializeTest()
         {
-            _session = new Session { Id = 4, Token = _token, UserId = 3};
+            _session = new Session { Id = 4, Token = _token, UserId = 3 };
         }
 
         [TestCleanup]

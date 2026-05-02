@@ -26,7 +26,7 @@ namespace PharmaGo.Test.WebApi.Test
             _loginManagerMock = new Mock<ILoginManager>(MockBehavior.Strict);
             _loginController = new LoginController(_loginManagerMock.Object, new CustomMetrics());
 
-            authorization = new Authorization { Token = token, Role = "Administrator", UserName = "Juan"};
+            authorization = new Authorization { Token = token, Role = "Administrator", UserName = "Juan" };
             loginModel = new LoginModelRequest()
             {
                 UserName = "Juan",

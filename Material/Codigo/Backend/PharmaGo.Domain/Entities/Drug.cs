@@ -19,8 +19,8 @@ namespace PharmaGo.Domain.Entities
 
         public void ValidOrFail()
         {
-            if (string.IsNullOrEmpty(Code) || string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Symptom) 
-                    || Quantity <= 0 || Price <= 0 || Stock < 0 
+            if (string.IsNullOrEmpty(Code) || string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Symptom)
+                    || Quantity <= 0 || Price <= 0 || Stock < 0
                     || UnitMeasure == null || Presentation == null || Pharmacy == null)
             {
                 throw new InvalidResourceException("The Drug is not correctly created.");

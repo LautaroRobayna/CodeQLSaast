@@ -19,12 +19,12 @@ namespace PharmaGo.WebApi.Controllers
         [HttpPost]
         public IActionResult CreateUser([FromBody] UserModelRequest userModel)
         {
-                var user = _userManager.CreateUser(userModel.UserName, userModel.UserCode,
-                                                   userModel.Email, userModel.Password,
-                                                   userModel.Address, userModel.RegistrationDate);
-                var userModelResponse = new UserModelResponse(user);
-                return Ok(userModelResponse);
-            
+            var user = _userManager.CreateUser(userModel.UserName, userModel.UserCode,
+                                               userModel.Email, userModel.Password,
+                                               userModel.Address, userModel.RegistrationDate);
+            var userModelResponse = new UserModelResponse(user);
+            return Ok(userModelResponse);
+
         }
     }
 }

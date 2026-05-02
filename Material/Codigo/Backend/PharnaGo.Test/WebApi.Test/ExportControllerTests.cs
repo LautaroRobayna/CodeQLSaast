@@ -86,7 +86,7 @@ namespace PharmaGo.Test.WebApi.Test
             _sessionRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Session, bool>>>())).Returns(session);
             _userRepository.Setup(r => r.GetOneDetailByExpression(It.IsAny<Expression<Func<User, bool>>>())).Returns(user);
             _transactionsManagerMock.Setup(u => u.ExportDrugs(drugExportationModel.FormatName, drugExportationModel.Parameters, token));
-            
+
             var result = _transactionController.ExportDrugs(drugExportationModel);
 
             // Assert

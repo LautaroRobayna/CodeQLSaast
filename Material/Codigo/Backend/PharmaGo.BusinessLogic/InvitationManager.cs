@@ -7,24 +7,24 @@ using PharmaGo.IDataAccess;
 
 namespace PharmaGo.BusinessLogic
 {
-	public class InvitationManager : IInvitationManager
-	{
-		private readonly IRepository<Invitation> _invitationRepository;
+    public class InvitationManager : IInvitationManager
+    {
+        private readonly IRepository<Invitation> _invitationRepository;
         private readonly IRepository<Pharmacy> _pharmacyRepository;
-		private readonly IRepository<Role> _roleRepository;
+        private readonly IRepository<Role> _roleRepository;
         private readonly IRepository<Session> _sessionRepository;
         private readonly IRepository<User> _userRepository;
 
         public InvitationManager(IRepository<Invitation> invitarionRepository,
             IRepository<Pharmacy> pharmacyRepository, IRepository<Role> roleRepository,
             IRepository<Session> sessionRepository, IRepository<User> userRepository)
-		{
-			_invitationRepository = invitarionRepository;
-			_pharmacyRepository = pharmacyRepository;
-			_roleRepository = roleRepository;
+        {
+            _invitationRepository = invitarionRepository;
+            _pharmacyRepository = pharmacyRepository;
+            _roleRepository = roleRepository;
             _sessionRepository = sessionRepository;
             _userRepository = userRepository;
-		}
+        }
 
         public Invitation CreateInvitation(string token, Invitation invitation)
         {
@@ -92,7 +92,7 @@ namespace PharmaGo.BusinessLogic
         }
 
         public string CreateUserCode()
-		{
+        {
             string validUserCode = @"^[0-9]{6}$";
             Regex regexUserCode = new(validUserCode);
 
@@ -103,8 +103,8 @@ namespace PharmaGo.BusinessLogic
             if (String.IsNullOrEmpty(userCode)) throw new InvalidResourceException("UserCode not generated.");
             if (!regexUserCode.IsMatch(userCode)) throw new InvalidResourceException("UserCode must be numeric.");
 
-			return userCode;
-		}
+            return userCode;
+        }
 
         public IEnumerable<Invitation> GetAllInvitations(InvitationSearchCriteria searchCriteria)
         {

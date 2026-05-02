@@ -20,7 +20,7 @@ namespace PharmaGo.Test.BusinessLogic.Test
         {
             _presentationRepository = new Mock<IRepository<Presentation>>(MockBehavior.Strict);
             _presentationManager = new PresentationManager(_presentationRepository.Object);
-            _presentation = new Presentation { Name = "tablet", Deleted = false};
+            _presentation = new Presentation { Name = "tablet", Deleted = false };
             _presentation2 = new Presentation { Name = "liquid", Deleted = false };
         }
 
@@ -36,7 +36,7 @@ namespace PharmaGo.Test.BusinessLogic.Test
             //Arrange
             var presentationList = new List<Presentation>
             {
-                _presentation, 
+                _presentation,
                 _presentation2
             };
             _presentationRepository.Setup(y => y.GetAllByExpression(s => s.Deleted == false)).Returns(presentationList);

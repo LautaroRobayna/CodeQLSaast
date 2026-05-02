@@ -22,10 +22,10 @@ namespace PharmaGo.BusinessLogic
 
         public IEnumerable<Pharmacy> GetAll(PharmacySearchCriteria pharmacySearchCriteria)
         {
-            Pharmacy pharmacyToSearch = new Pharmacy 
-            { 
-                Name = pharmacySearchCriteria.Name, 
-                Address = pharmacySearchCriteria.Address 
+            Pharmacy pharmacyToSearch = new Pharmacy
+            {
+                Name = pharmacySearchCriteria.Name,
+                Address = pharmacySearchCriteria.Address
             };
             return _pharmacyRepository.GetAllByExpression(pharmacySearchCriteria.Criteria(pharmacyToSearch));
         }
@@ -33,7 +33,7 @@ namespace PharmaGo.BusinessLogic
         public Pharmacy GetById(int id)
         {
             Pharmacy pharmacySaved = _pharmacyRepository.GetOneByExpression(p => p.Id == id);
-            if(pharmacySaved == null)
+            if (pharmacySaved == null)
             {
                 throw new ResourceNotFoundException("The pharmacy does not exist.");
             }
@@ -42,13 +42,13 @@ namespace PharmaGo.BusinessLogic
 
         public Pharmacy Create(Pharmacy pharmacy)
         {
-            if(pharmacy == null)
+            if (pharmacy == null)
             {
                 throw new InvalidResourceException("The pharmacy to create is invalid.");
             }
             pharmacy.ValidOrFail();
             Pharmacy pharmacySaved = _pharmacyRepository.GetOneByExpression(p => p.Name == pharmacy.Name);
-            if(pharmacySaved != null)
+            if (pharmacySaved != null)
             {
                 throw new InvalidResourceException("The pharmacy already exist.");
             }

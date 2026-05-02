@@ -21,7 +21,7 @@ namespace PharmaGo.Test.BusinessLogic.Test
             _sessionRespository = new Mock<IRepository<Session>>(MockBehavior.Strict);
             _loginManager = new LoginManager(_userRespository.Object, _sessionRespository.Object);
 
-            role = new Role { Id = 1, Name = "Administrator"} ;
+            role = new Role { Id = 1, Name = "Administrator" };
         }
 
         [TestCleanup]
@@ -40,9 +40,9 @@ namespace PharmaGo.Test.BusinessLogic.Test
             var userId = 1;
             Session session1 = null;
 
-           _userRespository
-                .Setup(x => x.GetOneDetailByExpression(x => x.UserName.ToLower().Equals(userName.ToLower())))
-                .Returns(new User() { UserName = "Juan", Password = "12345", Id = userId, Role = role });
+            _userRespository
+                 .Setup(x => x.GetOneDetailByExpression(x => x.UserName.ToLower().Equals(userName.ToLower())))
+                 .Returns(new User() { UserName = "Juan", Password = "12345", Id = userId, Role = role });
 
             _sessionRespository
                 .Setup(x => x.GetOneByExpression(x => x.UserId == userId))
@@ -55,7 +55,7 @@ namespace PharmaGo.Test.BusinessLogic.Test
             var response = _loginManager.Login(userName, password);
 
             //Assert
-             Assert.IsNotNull(response);
+            Assert.IsNotNull(response);
             Assert.AreEqual(response.Role, "Administrator");
         }
 
@@ -67,7 +67,7 @@ namespace PharmaGo.Test.BusinessLogic.Test
             var password = "12345";
             var userId = 1;
             var token_ = new Guid("c80da9ed-1b41-4768-8e34-b728cae25d2f");
-            Session session1 = new Session { Id = 1, Token =  token_, UserId = 1};
+            Session session1 = new Session { Id = 1, Token = token_, UserId = 1 };
 
             _userRespository
                  .Setup(x => x.GetOneDetailByExpression(x => x.UserName.ToLower().Equals(userName.ToLower())))
@@ -159,7 +159,7 @@ namespace PharmaGo.Test.BusinessLogic.Test
 
             _sessionRespository
                 .Setup(x => x.GetOneByExpression(x => x.Token == guidToken))
-                .Returns(new Session { Token = guidToken, UserId = 1, Id = 1});
+                .Returns(new Session { Token = guidToken, UserId = 1, Id = 1 });
 
             //Act
             var response = _loginManager.IsTokenValid(token);
@@ -174,7 +174,7 @@ namespace PharmaGo.Test.BusinessLogic.Test
             //Arrange
             string token = "c80da9ed-1b41-4768-8e34-b728cae25d2f";
             Guid guidToken = new Guid("c80da9ed-1b41-4768-8e34-b728cae25d2f");
-            Session session1 = null;    
+            Session session1 = null;
 
             _sessionRespository
                 .Setup(x => x.GetOneByExpression(x => x.Token == guidToken))
@@ -243,7 +243,7 @@ namespace PharmaGo.Test.BusinessLogic.Test
             Guid guidToken = new Guid("c80da9ed-1b41-4768-8e34-b728cae25d2f");
             var userId = 1;
             string[] roles = new string[] { "Owner" };
-            User user_ = null; 
+            User user_ = null;
 
             _sessionRespository
                 .Setup(x => x.GetOneByExpression(x => x.Token == guidToken))
