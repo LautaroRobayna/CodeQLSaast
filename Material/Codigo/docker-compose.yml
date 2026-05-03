@@ -5,64 +5,113 @@ services:
     image: mcr.microsoft.com/mssql/server:2019-latest
     container_name: pharmago-db
     environment:
-      - ACCEPT_EULA=Y
-      - SA_PASSWORD=Str0ngP@ssword!
+      - ACCEPT_EULA=${ACCEPT_EULA:-Y}
+      - SA_PASSWORD=${DB_PASSWORD:-Str0ngP@ssword!}
     ports:
-      - "11433:1433"
+      - "${DB_PORT:-1433}:1433"
     volumes:
       - sql_data:/var/opt/mssql
+    networks:
+      - pharmago-network
+    healthcheck:
+      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P ${DB_PASSWORD:-Str0ngP@ssword!} -Q "SELECT 1"
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   pharmago-api:
     build:
       context: ./Backend
       dockerfile: Dockerfile
+      args:
+        - ASPNETCORE_ENVIRONMENT=Development
     container_name: pharmago-api
     environment:
-      - ConnectionStrings__DefaultConnection=Server=pharmago-db;Database=PharmaDb;User Id=sa;Password=Str0ngP@ssword!
       - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__DefaultConnection=Server=pharmago-db,1433;Database=${DB_NAME:-PharmaGoDb};User Id=${DB_USER:-sa};Password=${DB_PASSWORD:-Str0ngP@ssword!};
+      - CORS_ALLOWED_ORIGINS=${CORS_ALLOWED_ORIGINS:-http://localhost:4200,http://localhost}
+      - OTLP_COLLECTOR_ENDPOINT=${OTLP_COLLECTOR_ENDPOINT:-http://otlp-collector:4317}
     ports:
-      - "5000:80"      # API available on localhost:5000
+      - "${BACKEND_PORT:-5000}:80"
     depends_on:
-      - pharmago-db
-      - otlp-collector
+      pharmago-db:
+        condition: service_healthy
+      otlp-collector:
+        condition: service_started
+    networks:
+      - pharmago-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/swagger/index.html"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   otlp-collector:
     image: otel/opentelemetry-collector-contrib:latest
     container_name: otlp-collector
     ports:
-      - "4317:4317"
-      - "8889:8889"
+      - "${OTLP_COLLECTOR_PORT:-4317}:4317"
+      - "${OTLP_COLLECTOR_METRICS_PORT:-8889}:8889"
     volumes:
       - ./Backend/otel-collector-config.yaml:/etc/otel-collector-config.yaml
     command: ["--config=/etc/otel-collector-config.yaml"]
+    networks:
+      - pharmago-network
 
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
     volumes:
       - ./Backend/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
     ports:
-      - "9090:9090"
+      - "${PROMETHEUS_PORT:-9090}:9090"
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    networks:
+      - pharmago-network
 
   grafana:
     image: grafana/grafana:latest
     container_name: grafana
     environment:
-      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD:-admin}
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
     ports:
-      - "3000:3000"
+      - "${GRAFANA_PORT:-3000}:3000"
     depends_on:
       - prometheus
+    volumes:
+      - grafana_data:/var/lib/grafana
+    networks:
+      - pharmago-network
 
   pharmago-ui:
     build:
       context: ./Frontend
       dockerfile: Dockerfile
+      args:
+        - API_URL=${API_URL:-http://localhost:5000}
+        - ENVIRONMENT=development
     container_name: pharmago-ui
     ports:
-      - "4200:80"  # The Angular app will be available on localhost:4200
+      - "${FRONTEND_PORT:-4200}:80"
     depends_on:
       - pharmago-api
+    environment:
+      - API_URL=${API_URL:-http://localhost:5000}
+      - ENVIRONMENT=development
+    networks:
+      - pharmago-network
 
 volumes:
   sql_data:
+  prometheus_data:
+  grafana_data:
+
+networks:
+  pharmago-network:
+    driver: bridge
