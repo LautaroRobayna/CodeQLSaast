@@ -73,10 +73,7 @@ namespace PharmaGo.BusinessLogic
             }
             drug.ValidOrFail();
 
-            var guidToken = new Guid(token);
-            Session session = _sessionRepository.GetOneByExpression(s => s.Token == guidToken);
-            var userId = session.UserId;
-            User user = _userRepository.GetOneDetailByExpression(u => u.Id == userId);
+            User user = GetUserFromToken(token);
 
             Pharmacy pharmacyOfDrug = _pharmacyRepository.GetOneByExpression(p => p.Name == user.Pharmacy.Name);
             if (pharmacyOfDrug == null)
@@ -146,31 +143,31 @@ namespace PharmaGo.BusinessLogic
 
         public IEnumerable<DrugExportationModel> GetDrugsToExport(string token)
         {
-            var guidToken = new Guid(token);
-            Session session = _sessionRepository.GetOneByExpression(s => s.Token == guidToken);
-            var userId = session.UserId;
-            User user = _userRepository.GetOneDetailByExpression(u => u.Id == userId);
+            User user = GetUserFromToken(token);
             Pharmacy pharmacyOfDrug = _pharmacyRepository.GetOneByExpression(p => p.Name == user.Pharmacy.Name);
-            IEnumerable<Drug> drugsSaved = _drugRepository.GetAllByExpression(d => d.Name == d.Name && d.Pharmacy.Id == pharmacyOfDrug.Id);
-            IEnumerable<DrugExportationModel> drugsToExport = drugsSaved.Select(d =>
-                new DrugExportationModel
-                {
-                    Code = d.Code,
-                    Name = d.Name,
-                    Symptom = d.Symptom,
-                    Deleted = d.Deleted
-                }).ToList();
-            return drugsToExport;
+            IEnumerable<Drug> drugsSaved = _drugRepository.GetAllByExpression(d => d.Deleted == false && d.Pharmacy.Id == pharmacyOfDrug.Id);
+            return drugsSaved.Select(d => new DrugExportationModel
+            {
+                Code = d.Code,
+                Name = d.Name,
+                Symptom = d.Symptom,
+                Deleted = d.Deleted
+            }).ToList();
         }
 
         public IEnumerable<Drug> GetAllByUser(string token)
         {
+            User user = GetUserFromToken(token);
+            Pharmacy pharmacy = user.Pharmacy;
+            return _drugRepository.GetAllByExpression(d => d.Deleted == false && d.Pharmacy.Id == pharmacy.Id);
+        }
+
+        private User GetUserFromToken(string token)
+        {
             var guidToken = new Guid(token);
             Session session = _sessionRepository.GetOneByExpression(s => s.Token == guidToken);
             var userId = session.UserId;
-            User user = _userRepository.GetOneDetailByExpression(u => u.Id == userId);
-            Pharmacy pharmacy = user.Pharmacy;
-            return _drugRepository.GetAllByExpression(d => d.Deleted == false && d.Pharmacy.Id == pharmacy.Id);
+            return _userRepository.GetOneDetailByExpression(u => u.Id == userId);
         }
     }
 }
