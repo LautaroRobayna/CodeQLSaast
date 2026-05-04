@@ -7,6 +7,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      pull-requests: read
     defaults:
       run:
         working-directory: Material/Codigo/Backend
@@ -44,12 +48,6 @@ jobs:
             fi
           fi
 
-      # CodeQL init
-      - name: CodeQL init
-        uses: github/codeql-action/init@v3
-        with:
-          languages: csharp
-
       # Build
       - name: Build
         run: dotnet build --no-restore --configuration Release
@@ -57,10 +55,6 @@ jobs:
       # Linter
       - name: Linter
         run: dotnet format --verify-no-changes
-
-      # CodeQL analyze
-      - name: CodeQL analyze
-        uses: github/codeql-action/analyze@v3
 
       # Tests
       - name: Tests

@@ -4,6 +4,7 @@ using PharmaGo.Exceptions;
 using Microsoft.Data.SqlClient.Server;
 
 namespace PharmaGo.WebApi.Filters;
+
 public class ExceptionFilter : IExceptionFilter
 {
     public void OnException(ExceptionContext context)
