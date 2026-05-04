@@ -4,6 +4,7 @@ using PharmaGo.Exceptions;
 using Microsoft.Data.SqlClient.Server;
 
 namespace PharmaGo.WebApi.Filters;
+
 public class ExceptionFilter : IExceptionFilter
 {
     public void OnException(ExceptionContext context)
@@ -14,7 +15,7 @@ public class ExceptionFilter : IExceptionFilter
         }
         catch (ResourceNotFoundException e)
         {
-            context.Result = new JsonResult(new {Message = e.Message }) { StatusCode = 404 };
+            context.Result = new JsonResult(new { Message = e.Message }) { StatusCode = 404 };
         }
         catch (InvalidResourceException e)
         {
@@ -22,7 +23,7 @@ public class ExceptionFilter : IExceptionFilter
         }
         catch (FormatException e)
         {
-            context.Result = new JsonResult(new { Message = "Invalid token format" }){ StatusCode = 400 };
+            context.Result = new JsonResult(new { Message = "Invalid token format" }) { StatusCode = 400 };
         }
         catch (Exception e)
         {

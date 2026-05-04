@@ -10,7 +10,8 @@ namespace PharmaGo.DataAccess.Repositories
 
         PharmacyGoDbContext _context;
         private DbSet<StockRequest> _stockRequests;
-        public StockRequestRepository(PharmacyGoDbContext context) : base(context) {
+        public StockRequestRepository(PharmacyGoDbContext context) : base(context)
+        {
             _context = context;
             _stockRequests = _context.Set<StockRequest>();
         }

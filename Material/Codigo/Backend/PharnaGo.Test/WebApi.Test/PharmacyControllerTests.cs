@@ -35,10 +35,10 @@ namespace PharmaGo.Test.WebApi.Test
                 Users = new List<User>(),
                 Drugs = new List<Drug>()
             };
-            pharmacyModel = new PharmacyModel { Name = pharmacy.Name, Address = pharmacy.Address};
-    }
+            pharmacyModel = new PharmacyModel { Name = pharmacy.Name, Address = pharmacy.Address };
+        }
 
-    [TestCleanup]
+        [TestCleanup]
         public void Cleanup()
         {
             _pharmacyManagerMock.VerifyAll();
@@ -260,7 +260,7 @@ namespace PharmaGo.Test.WebApi.Test
             searchCriteria.Name = "";
             searchCriteria.Address = "";
             var res4 = searchCriteria.Criteria(new Pharmacy { Address = "", Name = "" });
-            
+
             // Assert
             Assert.IsNotNull(res1);
             Assert.IsNotNull(res2);

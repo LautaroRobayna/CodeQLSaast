@@ -49,7 +49,7 @@ namespace PharmaGo.Test.WebApi.Test
             };
             converter = new PurchaseModelRequestToPurchaseConverter();
 
-            
+
             ICollection<PurchaseModelRequest.PurchaseDetailModelRequest> purchaseModelDetailRequest =
                 new List<PurchaseModelRequest.PurchaseDetailModelRequest>
             {
@@ -66,7 +66,7 @@ namespace PharmaGo.Test.WebApi.Test
 
             unitMeasure1 = new UnitMeasure { Id = 1, Deleted = false, Name = "ml" };
             unitMeasure2 = new UnitMeasure { Id = 2, Deleted = false, Name = "mg" };
-            presentation1 = new Presentation { Id = 1, Deleted = false,  Name = "liquid" };
+            presentation1 = new Presentation { Id = 1, Deleted = false, Name = "liquid" };
             presentation2 = new Presentation { Id = 2, Deleted = false, Name = "capsules" };
 
             pharmacy = new Pharmacy { Id = 1, Name = "Farmacia 1", Address = "Av. Italia 12345", Users = new List<User>() };
@@ -245,7 +245,7 @@ namespace PharmaGo.Test.WebApi.Test
                 .Throws(new InvalidResourceException(invalidResourceException));
 
             //Act
-            var result = _purchasesController.ByDate(start, end);   
+            var result = _purchasesController.ByDate(start, end);
         }
 
 
@@ -274,7 +274,7 @@ namespace PharmaGo.Test.WebApi.Test
         public void Approve_Purchase_Detail_Ok()
         {
             //Arrange
-            var model = new PurchaseAuthorizationModel { drugCode = "XF324", pharmacyId = 1};
+            var model = new PurchaseAuthorizationModel { drugCode = "XF324", pharmacyId = 1 };
             purchaseDetail.ElementAt(0).Status = "Approved";
 
             _purchasesManagerMock

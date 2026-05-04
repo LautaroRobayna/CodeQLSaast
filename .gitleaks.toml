@@ -1,0 +1,20 @@
+# GitLeaks configuration file
+# https://github.com/gitleaks/gitleaks
+
+title = "gitleaks config"
+
+# Exclude test files from scanning
+[allowlist]
+  description = "Allowlist for test files with mock credentials"
+  paths = [
+    '''.*Test.*\.cs$''',
+    '''.*\.Test\..*\.cs$''',
+  ]
+
+# You can also allowlist specific commits
+# commits = [ "commit-A", "commit-B"]
+
+# Or allowlist by regex on findings
+# regexes = [
+#   '''password = "fake"''',
+# ]

@@ -21,7 +21,8 @@ namespace PharmaGo.DataAccess
 
         public PharmacyGoDbContext(DbContextOptions<PharmacyGoDbContext> options) : base(options) { }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder) {
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
 
             modelBuilder.Entity<Drug>().Property(property => property.Price).HasPrecision(14, 2);
             modelBuilder.Entity<Purchase>().Property(property => property.TotalAmount).HasPrecision(14, 2);

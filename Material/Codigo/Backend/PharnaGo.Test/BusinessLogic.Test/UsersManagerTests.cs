@@ -25,9 +25,13 @@ namespace PharmaGo.Test.BusinessLogic.Test
             _invitationRespository = new Mock<IRepository<Invitation>>(MockBehavior.Strict);
             _userManager = new UsersManager(_userRespository.Object, _invitationRespository.Object);
 
-            pharmacy = new Pharmacy {Id = 1, Drugs = new List<Drug>(), 
-                                    Address = "Av. Rivera 1234", Name = "Farmacia 5566", 
-                                    Users = new List<User>()
+            pharmacy = new Pharmacy
+            {
+                Id = 1,
+                Drugs = new List<Drug>(),
+                Address = "Av. Rivera 1234",
+                Name = "Farmacia 5566",
+                Users = new List<User>()
             };
             role = new Role { Id = 1, Name = "Administrador" };
             invitation = new Invitation()
@@ -70,8 +74,8 @@ namespace PharmaGo.Test.BusinessLogic.Test
             var Password = "Abcdef12345678.";
             var RegistrationDate = new DateTime(2022, 09, 20, 14, 00, 00);
 
-           _userRespository.Setup(x => x.GetOneByExpression(u => u.UserName.ToLower() == UserName.ToLower())).Returns(exists);
-           _userRespository.Setup(x => x.GetOneByExpression(u => u.Email.ToLower() == Email.ToLower())).Returns(exists);
+            _userRespository.Setup(x => x.GetOneByExpression(u => u.UserName.ToLower() == UserName.ToLower())).Returns(exists);
+            _userRespository.Setup(x => x.GetOneByExpression(u => u.Email.ToLower() == Email.ToLower())).Returns(exists);
 
             _invitationRespository
                  .Setup(x => x.GetOneDetailByExpression(i => i.UserName.ToLower() == UserName.ToLower() && i.UserCode == UserCode && i.IsActive)).Returns(invitation);
@@ -300,12 +304,12 @@ namespace PharmaGo.Test.BusinessLogic.Test
             var Password = "Abcdef12345678.";
             var RegistrationDate = new DateTime(2022, 09, 20, 14, 00, 00);
 
-            User oldUser = new User { UserName = "pedro901", Email = "juan@gmail.com"};
+            User oldUser = new User { UserName = "pedro901", Email = "juan@gmail.com" };
 
             _invitationRespository
                  .Setup(x => x.GetOneDetailByExpression(i => i.UserName.ToLower() == UserName.ToLower() && i.UserCode == UserCode && i.IsActive)).Returns(invitation);
             _userRespository.Setup(x => x.GetOneByExpression(u => u.UserName.ToLower() == UserName.ToLower())).Returns(oldUser);
-            
+
             //Act
             try
             {

@@ -94,7 +94,7 @@ namespace PharmaGo.Test.DataAccess.Test
                 }
             }
         }
-        
+
         [TestMethod]
         public void TestInsertOne()
         {

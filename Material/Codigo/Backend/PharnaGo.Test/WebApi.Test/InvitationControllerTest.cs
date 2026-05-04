@@ -12,19 +12,19 @@ using PharmaGo.WebApi.Models.Out;
 
 namespace PharmaGo.Test.WebApi.Test
 {
-	[TestClass]
-	public class InvitationControllerTest
-	{
+    [TestClass]
+    public class InvitationControllerTest
+    {
         private Invitation _invitation;
-		private InvitationModelRequest _invitationModel;
-		private InvitationsController _invitationController;
-		private Mock<IInvitationManager> _invitationManagerMock;
+        private InvitationModelRequest _invitationModel;
+        private InvitationsController _invitationController;
+        private Mock<IInvitationManager> _invitationManagerMock;
         private InvitationSearchCriteriaModelRequest _searchCriteriaModelRequest;
 
-		[TestInitialize]
-		public void SetUp()
-		{
-			_invitationManagerMock = new Mock<IInvitationManager>(MockBehavior.Strict);
+        [TestInitialize]
+        public void SetUp()
+        {
+            _invitationManagerMock = new Mock<IInvitationManager>(MockBehavior.Strict);
 
             var httpContext = new DefaultHttpContext();
             httpContext.Request.Headers["Authorization"] = "Test";
@@ -37,11 +37,11 @@ namespace PharmaGo.Test.WebApi.Test
             };
 
             _invitationModel = new InvitationModelRequest()
-			{
-				Pharmacy = "PharmaGo",
-				UserName = "UserName",
-				Role = "Empleado"
-			};
+            {
+                Pharmacy = "PharmaGo",
+                UserName = "UserName",
+                Role = "Empleado"
+            };
 
             _invitation = new Invitation()
             {
@@ -61,55 +61,55 @@ namespace PharmaGo.Test.WebApi.Test
             };
 
             _searchCriteriaModelRequest = new InvitationSearchCriteriaModelRequest();
-		}
+        }
 
-		[TestCleanup]
-		public void CleanUp()
-		{
-			_invitationManagerMock.VerifyAll();
-		}
+        [TestCleanup]
+        public void CleanUp()
+        {
+            _invitationManagerMock.VerifyAll();
+        }
 
-		[TestMethod]
+        [TestMethod]
         [ExpectedException(typeof(Exception))]
-		public void CreateInvitation_WithInternalError_ShouldReturnInternalError()
-		{
+        public void CreateInvitation_WithInternalError_ShouldReturnInternalError()
+        {
             //Arrange
             _invitationManagerMock.Setup(i =>
-			i.CreateInvitation(It.IsAny<string>(), It.IsAny<Invitation>())).Throws(new Exception());
+            i.CreateInvitation(It.IsAny<string>(), It.IsAny<Invitation>())).Throws(new Exception());
 
             //Act
             var result = _invitationController.CreateInvitation(_invitationModel);
         }
 
-		[TestMethod]
+        [TestMethod]
         [ExpectedException(typeof(InvalidResourceException))]
-		public void CreateInvitation_WithInvalidResourceException_ShouldReturnBadRequest()
-		{
+        public void CreateInvitation_WithInvalidResourceException_ShouldReturnBadRequest()
+        {
             //Arrange
             _invitationManagerMock.Setup(i =>
             i.CreateInvitation(It.IsAny<string>(), It.IsAny<Invitation>())).Throws(
-				new InvalidResourceException("Invalid resource."));
+                new InvalidResourceException("Invalid resource."));
 
             //Act
             var result = _invitationController.CreateInvitation(_invitationModel);
         }
 
-		[TestMethod]
+        [TestMethod]
         [ExpectedException(typeof(ResourceNotFoundException))]
         public void CreateInvitation_WithResourceNotFoundException_ShouldReturnNotFound()
-		{
+        {
             //Arrange
             _invitationManagerMock.Setup(i =>
             i.CreateInvitation(It.IsAny<string>(), It.IsAny<Invitation>())).Throws(
-				new ResourceNotFoundException("Resource not found."));
+                new ResourceNotFoundException("Resource not found."));
 
             //Act
             var result = _invitationController.CreateInvitation(_invitationModel);
         }
 
-		[TestMethod]
-		public void CreateInvitation_ShouldReturnOk()
-		{
+        [TestMethod]
+        public void CreateInvitation_ShouldReturnOk()
+        {
             //Arrange
             _invitationManagerMock.Setup(i =>
             i.CreateInvitation(It.IsAny<string>(), It.IsAny<Invitation>())).Returns(_invitation);

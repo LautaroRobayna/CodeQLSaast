@@ -160,12 +160,12 @@ namespace PharmaGo.Test.WebApi.Test
         public void PostDrugFailInvalidResourceException()
         {
             _drugManagerMock.Setup(x => x.Create(It.IsAny<Drug>(), token)).Throws(new InvalidResourceException(invalidResourceExceptionMessage));
-            
+
             var result = _drugController.Create(drugModel);
             var objectResult = result as ObjectResult;
             var statusCode = objectResult.StatusCode;
             _drugManagerMock.VerifyAll();
-            
+
             // Assert
             Assert.AreEqual(400, statusCode);
         }
@@ -276,7 +276,7 @@ namespace PharmaGo.Test.WebApi.Test
                     Quantity = i,
                     Presentation = new Presentation { Id = i, Name = "capsules", Deleted = false },
                     UnitMeasure = new UnitMeasure { Id = i, Name = "g", Deleted = false }
-                    });
+                });
             }
             return drugList;
         }
@@ -295,14 +295,14 @@ namespace PharmaGo.Test.WebApi.Test
             Assert.IsNotNull(detailModel);
             Assert.AreEqual(detailModel.Name, "drugName");
             Assert.AreEqual(drugBasicModel.Id, 1);
-            Assert.AreEqual(detailModel.Code, "drugCode"); 
+            Assert.AreEqual(detailModel.Code, "drugCode");
             Assert.AreEqual(detailModel.Quantity, 10);
             Assert.AreEqual(detailModel.Stock, 0);
             Assert.AreEqual(detailModel.Price, 500);
             Assert.AreEqual(detailModel.Symptom, "headache");
             Assert.AreEqual(detailModel.Prescription, false);
             Assert.AreEqual(detailModel.Pharmacy.Name, pharmacy.Name);
-            Assert.AreEqual(detailModel.Pharmacy.Id, pharmacy.Id);            
+            Assert.AreEqual(detailModel.Pharmacy.Id, pharmacy.Id);
         }
 
         [TestMethod]
@@ -335,7 +335,7 @@ namespace PharmaGo.Test.WebApi.Test
         public void Test_DrugModelResponse()
         {
             DrugModelResponse drugModel = new DrugModelResponse(drug);
-            
+
             // Assert
             Assert.AreEqual(drugModel.Name, "drugName");
             Assert.AreEqual(drugModel.Code, "drugCode");
@@ -359,8 +359,8 @@ namespace PharmaGo.Test.WebApi.Test
         public void GetDrugsByEmployee_ShouldReturnOk()
         {
             //Arrange
-            IEnumerable<Drug> drugs = new List<Drug> { new Drug { Id = 1, Code = "ABC", Deleted = false, 
-                Name = "test", Price = 123, Prescription = false, Quantity = 10, Stock = 1000, Symptom = "test test", 
+            IEnumerable<Drug> drugs = new List<Drug> { new Drug { Id = 1, Code = "ABC", Deleted = false,
+                Name = "test", Price = 123, Prescription = false, Quantity = 10, Stock = 1000, Symptom = "test test",
             Pharmacy = pharmacy, Presentation = drug.Presentation, UnitMeasure = drug.UnitMeasure} };
             _drugManagerMock.Setup(i =>
             i.GetAllByUser(It.IsAny<string>())).Returns(drugs);

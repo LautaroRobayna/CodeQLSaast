@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PharmaGo.Exceptions
 {
-    public class InvalidResourceException: Exception
+    public class InvalidResourceException : Exception
     {
         public InvalidResourceException(string message) : base(message)
         {
