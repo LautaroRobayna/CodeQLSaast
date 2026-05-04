@@ -32,18 +32,21 @@ namespace PharmaGo.WebApi.Models.Out
             PurchaseDate = purchase.PurchaseDate;
             TrackingCode = purchase.TrackingCode;
             Details = new List<PurchaseDetailModelResponse>();
-            if (purchase.details != null) {
-                foreach (var detail in purchase.details) {
-                    Details.Add(new PurchaseDetailModelResponse {
-                        Id = detail.Id,         
-                        Name = detail.Drug.Name, 
-                        Code = detail.Drug.Code, 
-                        Price = detail.Drug.Price, 
+            if (purchase.details != null)
+            {
+                foreach (var detail in purchase.details)
+                {
+                    Details.Add(new PurchaseDetailModelResponse
+                    {
+                        Id = detail.Id,
+                        Name = detail.Drug.Name,
+                        Code = detail.Drug.Code,
+                        Price = detail.Drug.Price,
                         Quantity = detail.Quantity,
                         PharmacyId = detail.Pharmacy.Id,
                         PharmacyName = detail.Pharmacy.Name,
                         Status = detail.Status
-                });
+                    });
                 }
             }
         }

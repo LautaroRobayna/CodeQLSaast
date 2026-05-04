@@ -45,11 +45,11 @@ namespace PharmaGo.Test.BusinessLogic.Test
             _presentationRepository = new Mock<IRepository<Presentation>>();
             _userRepository = new Mock<IRepository<User>>();
             _sessionRepository = new Mock<IRepository<Session>>();
-            _drugManager = new DrugManager(_drugRepository.Object, 
-                _pharmacyRepository.Object, 
-                _unitMeasureRepository.Object, 
-                _presentationRepository.Object, 
-                _sessionRepository.Object, 
+            _drugManager = new DrugManager(_drugRepository.Object,
+                _pharmacyRepository.Object,
+                _unitMeasureRepository.Object,
+                _presentationRepository.Object,
+                _sessionRepository.Object,
                 _userRepository.Object);
             pharmacy = new Pharmacy() { Id = 1, Name = "pharmacy", Address = "address", Users = new List<User>() };
             drugSearch = new DrugSearchCriteria { PharmacyId = pharmacy.Id, Name = "drugName" };
@@ -101,8 +101,8 @@ namespace PharmaGo.Test.BusinessLogic.Test
                 Name = "capsules",
                 Deleted = false
             };
-            session = new Session {Id = 1, Token = new Guid(token), UserId = 1 };
-            user = new User() {Id = 1, UserName = "test", Email = "test@gmail.com", Address = "test" };
+            session = new Session { Id = 1, Token = new Guid(token), UserId = 1 };
+            user = new User() { Id = 1, UserName = "test", Email = "test@gmail.com", Address = "test" };
         }
 
         [TestCleanup]
@@ -163,7 +163,7 @@ namespace PharmaGo.Test.BusinessLogic.Test
 
             _drugRepository.Setup(x => x.InsertOne(It.IsAny<Drug>()));
             _drugRepository.Setup(x => x.Save());
-            
+
             var drugReturned = _drugManager.Create(drugModel.ToEntity(), token);
 
             // Assert
@@ -205,7 +205,7 @@ namespace PharmaGo.Test.BusinessLogic.Test
             _userRepository.Setup(r => r.GetOneDetailByExpression(It.IsAny<Expression<Func<User, bool>>>())).Returns(user);
             _pharmacyRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Pharmacy, bool>>>())).Returns(pharmacy);
             _unitMeasureRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<UnitMeasure, bool>>>())).Returns(nullUnitMeasure);
-           
+
             var drugReturned = _drugManager.Create(drugModel.ToEntity(), token);
             _drugRepository.VerifyAll();
         }
@@ -328,7 +328,7 @@ namespace PharmaGo.Test.BusinessLogic.Test
         [ExpectedException(typeof(ResourceNotFoundException))]
         public void UpdateNullDrug()
         {
-            var drugReturned = _drugManager.Update(drug.Id,nullDrug);
+            var drugReturned = _drugManager.Update(drug.Id, nullDrug);
         }
 
         [TestMethod]
@@ -364,10 +364,10 @@ namespace PharmaGo.Test.BusinessLogic.Test
             _sessionRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Session, bool>>>())).Returns(session);
             _userRepository.Setup(r => r.GetOneDetailByExpression(It.IsAny<Expression<Func<User, bool>>>())).Returns(user);
             List<Drug> drugList = GenerateDrugList() as List<Drug>;
-            
+
             _drugRepository.Setup(r => r.GetAllByExpression(It.IsAny<Expression<Func<Drug, bool>>>())).Returns(drugList);
             var drugsToExport = (List<DrugExportationModel>)_drugManager.GetDrugsToExport(token);
-            
+
             // Assert
             _drugRepository.VerifyAll();
             for (int i = 0; i < drugsToExport.Count(); i++)
@@ -396,7 +396,7 @@ namespace PharmaGo.Test.BusinessLogic.Test
                     Quantity = i,
                     Presentation = new Presentation { Id = i, Name = "capsules", Deleted = false },
                     UnitMeasure = new UnitMeasure { Id = i, Name = "g", Deleted = false }
-                    });
+                });
             }
             return drugList;
         }

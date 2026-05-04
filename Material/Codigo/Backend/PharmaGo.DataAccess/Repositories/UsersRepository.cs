@@ -8,7 +8,8 @@ namespace PharmaGo.DataAccess.Repositories
     {
 
         PharmacyGoDbContext _context;
-        public UsersRepository(PharmacyGoDbContext context) : base(context) {
+        public UsersRepository(PharmacyGoDbContext context) : base(context)
+        {
             _context = context;
         }
 
@@ -19,7 +20,8 @@ namespace PharmaGo.DataAccess.Repositories
             return exists;
         }
 
-        public override User GetOneDetailByExpression(Expression<Func<User, bool>> expression) {
+        public override User GetOneDetailByExpression(Expression<Func<User, bool>> expression)
+        {
 
             return _context.Set<User>()
                     .Include(x => x.Pharmacy)

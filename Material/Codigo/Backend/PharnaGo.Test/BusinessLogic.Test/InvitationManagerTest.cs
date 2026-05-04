@@ -145,7 +145,7 @@ namespace PharmaGo.Test.BusinessLogic.Test
             var invitation = new Invitation()
             {
                 Id = 1,
-                Pharmacy = new Pharmacy() { Name = "PharmaGo2"},
+                Pharmacy = new Pharmacy() { Name = "PharmaGo2" },
                 UserName = "jcastro",
                 Role = new Role() { Id = 1, Name = "Administrador" }
             };
@@ -209,9 +209,9 @@ namespace PharmaGo.Test.BusinessLogic.Test
         {
             //Arrange
             _invitationMock.Setup(repository => repository.
-            GetAllBasicByExpression(It.IsAny<Expression<Func<Invitation, bool>>>())).Returns( new List<Invitation>()
+            GetAllBasicByExpression(It.IsAny<Expression<Func<Invitation, bool>>>())).Returns(new List<Invitation>()
             {
-                new Invitation() 
+                new Invitation()
                     {
                         Id = 1,
                         Pharmacy = new Pharmacy() { Id = 1, Name = "Pharmacy" },
@@ -274,7 +274,7 @@ namespace PharmaGo.Test.BusinessLogic.Test
         {
             //Arrange
             var id = 1;
-            var invitation = new Invitation() { Role = new Role() { Name = "Ownerrr"} };
+            var invitation = new Invitation() { Role = new Role() { Name = "Ownerrr" } };
 
             _invitationMock.Setup(invitation => invitation
             .GetOneDetailByExpression(It.IsAny<Expression<Func<Invitation, bool>>>())).Returns(new Invitation());
@@ -326,9 +326,12 @@ namespace PharmaGo.Test.BusinessLogic.Test
         {
             //Arrange
             var id = 1;
-            var invitation = new Invitation() {
+            var invitation = new Invitation()
+            {
                 Pharmacy = new Pharmacy() { Id = 1, Name = "Pharmacy" },
-                Role = new Role() { Name = "Administrator" }, UserCode = "123456"};
+                Role = new Role() { Name = "Administrator" },
+                UserCode = "123456"
+            };
 
             _invitationMock.Setup(invitation => invitation
             .GetOneDetailByExpression(It.IsAny<Expression<Func<Invitation, bool>>>())).Returns(new Invitation());
@@ -556,7 +559,7 @@ namespace PharmaGo.Test.BusinessLogic.Test
             User user = null;
             var invitation = new Invitation() { UserName = "Test" };
             _sessionMock.Setup(session => session.GetOneByExpression(It.IsAny<Expression<Func<Session, bool>>>()))
-                .Returns(new Session { Id = 1, Token = new Guid("004fb0a6-847f-4194-9115-74f06cdac35d"), UserId = 1});
+                .Returns(new Session { Id = 1, Token = new Guid("004fb0a6-847f-4194-9115-74f06cdac35d"), UserId = 1 });
             _userMock.Setup(user => user.GetOneDetailByExpression(It.IsAny<Expression<Func<User, bool>>>())).Returns(user);
 
             //Act
@@ -598,7 +601,7 @@ namespace PharmaGo.Test.BusinessLogic.Test
 
             //Act
             _invitationManager.CreateInvitation(token, invitation);
-            
+
 
             //
             Assert.IsNotNull(invitation);
@@ -609,7 +612,7 @@ namespace PharmaGo.Test.BusinessLogic.Test
         {
             //Arrange
             var token = "Test";
-            var user = new User() { Id = 1, Role = new Role() { Name = "Owner" }, Pharmacy = new Pharmacy() { Id = 1, Name = "Pharmacy" }};
+            var user = new User() { Id = 1, Role = new Role() { Name = "Owner" }, Pharmacy = new Pharmacy() { Id = 1, Name = "Pharmacy" } };
             var invitation = new Invitation() { UserName = "Test" };
             _sessionMock.Setup(session => session.GetOneByExpression(It.IsAny<Expression<Func<Session, bool>>>()))
                 .Returns(new Session());
@@ -643,7 +646,7 @@ namespace PharmaGo.Test.BusinessLogic.Test
                 .Returns(new Session());
             _userMock.Setup(user => user.GetOneDetailByExpression(It.IsAny<Expression<Func<User, bool>>>())).Returns(user);
             _invitationMock.Setup(i => i.GetOneByExpression(It.IsAny<Expression<Func<Invitation, bool>>>())).Returns((Invitation)null);
-            _roleMock.Setup(role => role.GetOneByExpression(It.IsAny<Expression<Func<Role, bool>>>())).Returns(new Role() { Id = 1, Name = "Employee"});
+            _roleMock.Setup(role => role.GetOneByExpression(It.IsAny<Expression<Func<Role, bool>>>())).Returns(new Role() { Id = 1, Name = "Employee" });
 
             _invitationMock.Setup(repository => repository.InsertOne(invitation));
             _invitationMock.Setup(repository => repository.Save());

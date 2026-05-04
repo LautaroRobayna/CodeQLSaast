@@ -13,11 +13,11 @@ namespace PharmaGo.WebApi.Controllers
         private readonly ILoginManager _loginManager;
         private readonly ICustomMetrics _customMetrics;
 
-       public LoginController(ILoginManager manager, ICustomMetrics customMetrics)
-       {
+        public LoginController(ILoginManager manager, ICustomMetrics customMetrics)
+        {
             _loginManager = manager;
             _customMetrics = customMetrics;
-       }
+        }
 
         [HttpPost]
         public IActionResult Login([FromBody] LoginModelRequest userModel)

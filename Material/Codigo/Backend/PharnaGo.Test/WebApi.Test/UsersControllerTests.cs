@@ -28,9 +28,9 @@ namespace PharmaGo.Test.WebApi.Test
             {
                 UserName = "pedro901",
                 UserCode = "980357",
-                Email    = "pedro@gmail.com",
+                Email = "pedro@gmail.com",
                 Password = "12345678.",
-                Address  = "Av. Italia 1256, Montevideo",
+                Address = "Av. Italia 1256, Montevideo",
                 RegistrationDate = new DateTime(2022, 09, 19, 14, 34, 44)
             };
 
@@ -110,7 +110,7 @@ namespace PharmaGo.Test.WebApi.Test
                 .Throws(new Exception(resourceNotFoundException));
 
             //Act
-             var result = _userController.CreateUser(userModel);
+            var result = _userController.CreateUser(userModel);
         }
 
         [TestMethod]
@@ -123,7 +123,7 @@ namespace PharmaGo.Test.WebApi.Test
             Assert.AreEqual(userModel.Id, 0);
         }
 
-        
+
 
     }
 }

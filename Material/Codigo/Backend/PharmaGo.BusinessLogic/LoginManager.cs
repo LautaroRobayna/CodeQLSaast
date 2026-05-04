@@ -23,15 +23,18 @@ namespace PharmaGo.BusinessLogic
                 throw new InvalidResourceException("Invalid Username");
             }
             User user = _userRepository.GetOneDetailByExpression(u => u.UserName.ToLower().Equals(userName.ToLower()));
-            if (user == null) {
+            if (user == null)
+            {
                 throw new ResourceNotFoundException("The user does not exist");
             }
-            if (String.IsNullOrEmpty(password) || !user.Password.Equals(password)) {
+            if (String.IsNullOrEmpty(password) || !user.Password.Equals(password))
+            {
                 throw new InvalidResourceException("Invalid Password");
             }
             var _userId = user.Id;
             Session session = _sessionRepository.GetOneByExpression(s => s.UserId == _userId);
-            if (session == null) {
+            if (session == null)
+            {
                 var token = Guid.NewGuid();
                 Session newSession = new Session { Token = token, UserId = _userId };
                 _sessionRepository.InsertOne(newSession);
@@ -56,7 +59,7 @@ namespace PharmaGo.BusinessLogic
             var userId = session.UserId;
             User user = _userRepository.GetOneDetailByExpression(x => x.Id == userId);
             if (user == null) return false;
-            foreach(string role in roles)
+            foreach (string role in roles)
             {
                 if (user.Role.Name.ToLower() == role.ToLower()) return true;
             }

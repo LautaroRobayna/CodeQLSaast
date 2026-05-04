@@ -138,10 +138,12 @@ namespace PharmaGo.BusinessLogic
             Purchase purchase = _purchasesRepository.GetOneDetailByExpression(p => p.Id == purchaseId);
             if (purchase is null)
                 throw new ResourceNotFoundException($"Purchase not found {purchaseId}");
-            
+
             PurchaseDetail purchaseDetail = null;
-            foreach (PurchaseDetail d in purchase.details) {
-                if (d.Pharmacy.Id == pharmacyId && d.Drug.Code == drugCode && d.Status.Equals(PENDING)) {
+            foreach (PurchaseDetail d in purchase.details)
+            {
+                if (d.Pharmacy.Id == pharmacyId && d.Drug.Code == drugCode && d.Status.Equals(PENDING))
+                {
                     purchaseDetail = d;
                     break;
                 }
@@ -181,13 +183,15 @@ namespace PharmaGo.BusinessLogic
             var purchases = _purchasesRepository.GetAllByExpression(s => s.Id > 0);
 
             ICollection<Purchase> response = new List<Purchase>();
-            foreach(Purchase purchase in purchases)
+            foreach (Purchase purchase in purchases)
             {
                 ICollection<PurchaseDetail> _details = new List<PurchaseDetail>();
                 decimal total = 0;
-                foreach (PurchaseDetail detail in purchase.details) {
+                foreach (PurchaseDetail detail in purchase.details)
+                {
                     if (detail.Pharmacy.Id == pharmacy.Id &&
-                        (detail.Status.Equals(PENDING) || detail.Status.Equals(APPROVED))) {
+                        (detail.Status.Equals(PENDING) || detail.Status.Equals(APPROVED)))
+                    {
                         total += (detail.Price * detail.Quantity);
                         _details.Add(detail);
                     }
@@ -253,13 +257,14 @@ namespace PharmaGo.BusinessLogic
                 decimal total = 0;
                 foreach (PurchaseDetail detail in purchase.details)
                 {
-                    if (detail.Pharmacy.Id == pharmacy.Id) {
+                    if (detail.Pharmacy.Id == pharmacy.Id)
+                    {
                         if (detail.Status.Equals(PENDING) || detail.Status.Equals(APPROVED))
                         {
                             total += (detail.Price * detail.Quantity);
                             _details.Add(detail);
                         }
-                        else 
+                        else
                         {
                             _details.Add(detail);
                         }

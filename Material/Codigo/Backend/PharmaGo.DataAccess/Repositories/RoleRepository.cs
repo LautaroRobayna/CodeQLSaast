@@ -8,7 +8,8 @@ namespace PharmaGo.DataAccess.Repositories
 
         PharmacyGoDbContext _context;
         private DbSet<Role> _roles;
-        public RoleRepository(PharmacyGoDbContext context) : base(context) {
+        public RoleRepository(PharmacyGoDbContext context) : base(context)
+        {
             _context = context;
         }
     }

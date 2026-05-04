@@ -8,17 +8,17 @@ namespace PharmaGo.Domain.SearchCriterias
         public string? Name { get; set; }
         public string? Address { get; set; }
 
-        public Expression<Func<Pharmacy,bool>> Criteria(Pharmacy pharmacy)
+        public Expression<Func<Pharmacy, bool>> Criteria(Pharmacy pharmacy)
         {
-            if(!string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(Address))
+            if (!string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(Address))
             {
                 return p => p.Name == pharmacy.Name && p.Address == pharmacy.Address;
             }
-            else if(string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(Address))
+            else if (string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(Address))
             {
                 return p => p.Address == pharmacy.Address;
             }
-            else if(!string.IsNullOrEmpty(Name) && string.IsNullOrEmpty(Address))
+            else if (!string.IsNullOrEmpty(Name) && string.IsNullOrEmpty(Address))
             {
                 return p => p.Name == pharmacy.Name;
             }

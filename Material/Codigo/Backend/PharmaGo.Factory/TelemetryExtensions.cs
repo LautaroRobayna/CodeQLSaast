@@ -19,7 +19,9 @@ namespace PharmaGo.Factory
         public static IServiceCollection AddPharmaGoOpenTelemetryMetrics(this IServiceCollection services, string serviceName = "PharmaGo.WebApi")
         {
             services.AddOpenTelemetry()
-                    .WithMetrics(metricsBuilder => { metricsBuilder
+                    .WithMetrics(metricsBuilder =>
+                    {
+                        metricsBuilder
                     .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("PharmaGo.WebApi"))
                     .AddAspNetCoreInstrumentation()
                     .AddMeter("PharmaGo.CustomMetrics")

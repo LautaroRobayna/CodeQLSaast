@@ -16,9 +16,9 @@ namespace PharmaGo.BusinessLogic
         private readonly IRepository<Session> _sessionRepository;
         private readonly IRepository<User> _userRepository;
 
-        public DrugManager(IRepository<Drug> drugRepo, 
-                           IRepository<Pharmacy> pharmacyRepository, 
-                           IRepository<UnitMeasure> unitMeasureRepository, 
+        public DrugManager(IRepository<Drug> drugRepo,
+                           IRepository<Pharmacy> pharmacyRepository,
+                           IRepository<UnitMeasure> unitMeasureRepository,
                            IRepository<Presentation> presentationRepository,
                            IRepository<Session> sessionRespository,
                            IRepository<User> userRespository)
@@ -41,7 +41,7 @@ namespace PharmaGo.BusinessLogic
             else
             {
                 Pharmacy pharmacySaved = _pharmacyRepository.GetOneByExpression(p => p.Id == drugSearchCriteria.PharmacyId);
-                if(pharmacySaved != null)
+                if (pharmacySaved != null)
                 {
                     drugToSearch.Name = drugSearchCriteria.Name;
                     drugToSearch.Pharmacy = pharmacySaved;
@@ -109,15 +109,15 @@ namespace PharmaGo.BusinessLogic
             return drug;
         }
 
-        public Drug Update(int id, Drug updatedDrug) 
+        public Drug Update(int id, Drug updatedDrug)
         {
-            if(updatedDrug == null)
+            if (updatedDrug == null)
             {
                 throw new ResourceNotFoundException("The updated drug is invalid.");
             }
             updatedDrug.ValidOrFail();
             var drugSaved = _drugRepository.GetOneByExpression(d => d.Id == id);
-            if(drugSaved == null)
+            if (drugSaved == null)
             {
                 throw new ResourceNotFoundException("The drug to update does not exist.");
             }
@@ -135,7 +135,7 @@ namespace PharmaGo.BusinessLogic
         public void Delete(int id)
         {
             var drugSaved = _drugRepository.GetOneByExpression(d => d.Id == id);
-            if(drugSaved == null)
+            if (drugSaved == null)
             {
                 throw new ResourceNotFoundException("The drug to delete does not exist.");
             }
