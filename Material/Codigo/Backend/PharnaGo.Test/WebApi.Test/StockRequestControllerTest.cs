@@ -228,7 +228,7 @@ namespace PharmaGo.Test.WebApi.Test
         {
             var searchCriteria = new StockRequestSearchCriteriaModelRequest();
             ICollection<StockRequest> list = new List<StockRequest>();
-            list.Add(new StockRequest { Id = 1, RequestDate = DateTime.Now, Status = Domain.Enums.StockRequestStatus.Approved});
+            list.Add(new StockRequest { Id = 1, RequestDate = DateTime.Now, Status = Domain.Enums.StockRequestStatus.Approved });
 
             //Arrange
             _stockRequestManagerMock.Setup(i =>
@@ -282,7 +282,7 @@ namespace PharmaGo.Test.WebApi.Test
             //Arrange
             var searchCriteria = new StockRequestSearchCriteriaModelRequest();
 
-            
+
             _stockRequestManagerMock.Setup(i =>
             i.GetStockRequestsByOwner(It.IsAny<string>()))
                 .Throws(new InvalidResourceException("Invalid Employee."));

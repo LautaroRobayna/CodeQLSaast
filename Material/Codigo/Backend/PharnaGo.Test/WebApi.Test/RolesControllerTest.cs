@@ -35,9 +35,9 @@ namespace PharmaGo.Test.WebApi.Test
         public void GetAll_Ok()
         {
 
-            IEnumerable<Role> list = new List<Role> { 
-                new Role { Id = 1, Name = "Administrator" }, 
-                new Role { Id = 2, Name = "Employee" }, 
+            IEnumerable<Role> list = new List<Role> {
+                new Role { Id = 1, Name = "Administrator" },
+                new Role { Id = 2, Name = "Employee" },
                 new Role { Id = 3, Name = "Owner" } };
             _rolesManagerMock.Setup(u => u.GetAll()).Returns(list);
 

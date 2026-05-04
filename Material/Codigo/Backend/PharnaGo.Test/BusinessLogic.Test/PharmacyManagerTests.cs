@@ -238,4 +238,3 @@ namespace PharmaGo.Test.BusinessLogic.Test
         }
     }
 }
- 

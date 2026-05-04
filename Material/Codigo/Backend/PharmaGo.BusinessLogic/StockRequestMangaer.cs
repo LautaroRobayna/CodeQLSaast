@@ -15,7 +15,7 @@ namespace PharmaGo.BusinessLogic
 
         public StockRequestManager(IRepository<StockRequest> stockRequestRepository,
             IRepository<User> employeeRepository, IRepository<Drug> drugRepository, IRepository<Session> sessionRepository)
-		{
+        {
             _stockRequestRepository = stockRequestRepository;
             _employeeRepository = employeeRepository;
             _drugRepository = drugRepository;
@@ -57,7 +57,7 @@ namespace PharmaGo.BusinessLogic
             {
                 if (stockRequest.Status == Domain.Enums.StockRequestStatus.Approved) throw new InvalidResourceException("Stock request already approved.");
                 if (stockRequest.Status == Domain.Enums.StockRequestStatus.Rejected) throw new InvalidResourceException("Stock request already rejected.");
-            }  
+            }
 
             stockRequest.Status = Domain.Enums.StockRequestStatus.Rejected;
             _stockRequestRepository.UpdateOne(stockRequest);
@@ -107,7 +107,8 @@ namespace PharmaGo.BusinessLogic
             return stockRequests;
         }
 
-        public IEnumerable<StockRequest> GetStockRequestsByOwner(string token) {
+        public IEnumerable<StockRequest> GetStockRequestsByOwner(string token)
+        {
 
             if (string.IsNullOrEmpty(token.ToString())) throw new InvalidResourceException("Invalid owner.");
             var session = _sessionRepository.GetOneByExpression(session => session.Token == new Guid(token));

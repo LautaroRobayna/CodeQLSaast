@@ -8,14 +8,14 @@ namespace InstrumentationInterface
 {
     public interface ICustomMetrics
     {
-            // Counters
-            void LoginInvocations(long value = 1);
+        // Counters
+        void LoginInvocations(long value = 1);
 
-            // Gauges
-            void SetActiveUserCount(int count);
+        // Gauges
+        void SetActiveUserCount(int count);
 
-            // Histograms / Timings
-            void RequestDuration(double milliseconds);
-        
+        // Histograms / Timings
+        void RequestDuration(double milliseconds);
+
     }
 }

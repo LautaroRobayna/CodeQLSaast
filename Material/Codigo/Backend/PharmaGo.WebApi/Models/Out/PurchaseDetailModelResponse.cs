@@ -13,7 +13,8 @@ namespace PharmaGo.WebApi.Models.Out
         public string PharmacyName { get; set; }
         public string DrugCode { get; set; }
         public string DrugName { get; set; }
-        public PurchaseDetailModelResponse(int id, PurchaseDetail detail) {
+        public PurchaseDetailModelResponse(int id, PurchaseDetail detail)
+        {
             PurchaseId = id;
             PurchaseDetailId = detail.Id;
             Status = detail.Status;

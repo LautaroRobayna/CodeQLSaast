@@ -79,7 +79,7 @@ namespace PharmaGo.Test.BusinessLogic.Test
                 details = purchaseDetail
             };
             session = new Session { Id = 1, Token = new Guid(token), UserId = 1 };
-            user = new User { Id = 1, Email = "fernando@gmail.com", Password = "Asdfer234..", Pharmacy = pharmacy};
+            user = new User { Id = 1, Email = "fernando@gmail.com", Password = "Asdfer234..", Pharmacy = pharmacy };
         }
 
         [TestCleanup]
@@ -127,7 +127,7 @@ namespace PharmaGo.Test.BusinessLogic.Test
             purchase.BuyerEmail = "";
 
             //Act
-           var response = _purchasesManager.CreatePurchase(purchase);
+            var response = _purchasesManager.CreatePurchase(purchase);
 
         }
 
@@ -151,7 +151,7 @@ namespace PharmaGo.Test.BusinessLogic.Test
             purchase.details = new List<PurchaseDetail>();
 
             //Act
-           var response = _purchasesManager.CreatePurchase(purchase);
+            var response = _purchasesManager.CreatePurchase(purchase);
         }
 
         [TestMethod]
@@ -216,7 +216,7 @@ namespace PharmaGo.Test.BusinessLogic.Test
                 new PurchaseDetail{Id = 2, Quantity = 51, Price = new decimal(250), Drug = drug2 }
             };
             purchase.details = purchaseDetail;
-            
+
             //Act
             var response = _purchasesManager.CreatePurchase(purchase);
         }
@@ -273,7 +273,7 @@ namespace PharmaGo.Test.BusinessLogic.Test
             };
             var guidToken = new Guid(token);
             _sessionRespository.Setup(z => z.GetOneByExpression(s => s.Token == guidToken))
-                .Returns(new Session {Id = 1, Token = guidToken, UserId = 1 });
+                .Returns(new Session { Id = 1, Token = guidToken, UserId = 1 });
             _userRespository.Setup(u => u.GetOneDetailByExpression(u => u.Id == 1))
                 .Returns(user);
             _purchaseRespository.Setup(y => y.GetAllByExpression(s => s.Id > 0))
@@ -524,7 +524,7 @@ namespace PharmaGo.Test.BusinessLogic.Test
         public void Approve_Purchase_Fail_Purchase_Not_Found()
         {
             //Arrange
-            Purchase p = null; 
+            Purchase p = null;
             _purchaseRespository
                 .Setup(y => y.GetOneDetailByExpression(p => p.Id == 0))
                 .Returns(p);

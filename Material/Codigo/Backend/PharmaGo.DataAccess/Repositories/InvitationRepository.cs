@@ -9,7 +9,8 @@ namespace PharmaGo.DataAccess.Repositories
 
         PharmacyGoDbContext _context;
         private DbSet<Invitation> _invitations;
-        public InvitationRepository(PharmacyGoDbContext context) : base(context) {
+        public InvitationRepository(PharmacyGoDbContext context) : base(context)
+        {
             _context = context;
             _invitations = _context.Set<Invitation>();
         }
@@ -23,8 +24,8 @@ namespace PharmaGo.DataAccess.Repositories
 
         public int CountAsync()
         {
-			return _invitations.Count();
-		}
+            return _invitations.Count();
+        }
 
         public override Invitation GetOneDetailByExpression(Expression<Func<Invitation, bool>> expression)
         {

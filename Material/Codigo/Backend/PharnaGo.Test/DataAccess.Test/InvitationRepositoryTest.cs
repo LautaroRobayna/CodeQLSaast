@@ -6,9 +6,9 @@ using PharmaGo.Domain.Entities;
 
 namespace PharmaGo.Test.DataAccess.Test
 {
-	[TestClass]
-	public class InvitationRepositoryTest
-	{
+    [TestClass]
+    public class InvitationRepositoryTest
+    {
         private Invitation _invitation;
         private PharmacyGoDbContext _context;
         private DbContextOptions<PharmacyGoDbContext> _options;
@@ -131,7 +131,7 @@ namespace PharmaGo.Test.DataAccess.Test
                 _invitationRepository.InsertOne(_invitation);
                 _invitationRepository.Save();
                 Invitation invitation = _invitationRepository.GetOneDetailByExpression(u => u.Id == invitationId);
-                
+
                 // Assert
                 Assert.AreEqual(invitation.Id, _invitation.Id);
             }
