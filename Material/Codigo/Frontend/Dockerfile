@@ -9,7 +9,7 @@ WORKDIR /app
 LABEL stage=builder
 
 COPY package*.json ./
-COPY .npmrc .npmrc
+COPY .npmrc* ./
 
 RUN npm install --frozen-lockfile
 
