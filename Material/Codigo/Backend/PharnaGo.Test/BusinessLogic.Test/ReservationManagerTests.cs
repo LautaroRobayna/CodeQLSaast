@@ -1,0 +1,57 @@
+using Moq;
+using PharmaGo.BusinessLogic;
+using PharmaGo.Domain.Entities;
+using PharmaGo.Domain.Enums;
+using PharmaGo.IDataAccess;
+using System.Linq.Expressions;
+
+namespace PharmaGo.Test.BusinessLogic.Test
+{
+    [TestClass]
+    public class ReservationManagerTests
+    {
+        private Mock<IRepository<Reservation>> _reservationRepository;
+        private Mock<IRepository<Drug>> _drugRepository;
+        private Mock<IRepository<Pharmacy>> _pharmacyRepository;
+        private ReservationManager _reservationManager;
+
+        [TestInitialize]
+        public void InitTest()
+        {
+            _reservationRepository = new Mock<IRepository<Reservation>>();
+            _drugRepository = new Mock<IRepository<Drug>>();
+            _pharmacyRepository = new Mock<IRepository<Pharmacy>>();
+            _reservationManager = new ReservationManager(_reservationRepository.Object, 
+                                                         _drugRepository.Object, 
+                                                         _pharmacyRepository.Object);
+        }
+
+        [TestMethod]
+        public void CreateReservation_OK()
+        {
+            var pharmacy = new Pharmacy { Id = 1, Name = "Test Pharmacy" };
+            var drug = new Drug { Id = 1, Code = "D-001", Name = "Aspirina", Stock = 10 };
+            
+            var reservation = new Reservation
+            {
+                PharmacyId = 1,
+                UserEmail = "test@user.com",
+                Details = new List<ReservationDetail>
+                {
+                    new ReservationDetail { DrugCode = "D-001", Quantity = 5 }
+                }
+            };
+
+            _pharmacyRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Pharmacy, bool>>>())).Returns(pharmacy);
+            _drugRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Drug, bool>>>())).Returns(drug);
+            _reservationRepository.Setup(r => r.InsertOne(It.IsAny<Reservation>()));
+
+            var result = _reservationManager.Create(reservation);
+
+            Assert.AreEqual(ReservationStatus.Pending, result.Status);
+            Assert.IsNotNull(result.Code);
+            _reservationRepository.Verify(r => r.InsertOne(It.IsAny<Reservation>()), Times.Once);
+            _reservationRepository.Verify(r => r.Save(), Times.Once);
+        }
+    }
+}
