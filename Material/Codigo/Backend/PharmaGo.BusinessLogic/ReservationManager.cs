@@ -2,9 +2,6 @@ using PharmaGo.Domain.Entities;
 using PharmaGo.Domain.Enums;
 using PharmaGo.IBusinessLogic;
 using PharmaGo.IDataAccess;
-using System;
-using System.Linq;
-
 namespace PharmaGo.BusinessLogic
 {
     public class ReservationManager : IReservationManager
@@ -12,7 +9,16 @@ namespace PharmaGo.BusinessLogic
         private readonly IRepository<Reservation> _reservationRepository;
         private readonly IRepository<Drug> _drugRepository;
         private readonly IRepository<Pharmacy> _pharmacyRepository;
-        
+
+        public ReservationManager(IRepository<Reservation> reservationRepository,
+                                  IRepository<Drug> drugRepository,
+                                  IRepository<Pharmacy> pharmacyRepository)
+        {
+            _reservationRepository = reservationRepository;
+            _drugRepository = drugRepository;
+            _pharmacyRepository = pharmacyRepository;
+        }
+
         public Reservation Create(Reservation reservation)
         {
             var pharmacy = _pharmacyRepository.GetOneByExpression(p => p.Id == reservation.PharmacyId);
