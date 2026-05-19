@@ -30,6 +30,7 @@ namespace PharmaGo.Factory
             serviceCollection.AddScoped<IUnitMeasureManager, UnitMeasureManager>();
             serviceCollection.AddScoped<IExportManager, ExportManager>();
             serviceCollection.AddScoped<IRoleManager, RoleManager>();
+            serviceCollection.AddScoped<IReservationManager, ReservationManager>();
         }
 
         public static void RegisterDataAccessServices(this IServiceCollection serviceCollection, IConfiguration configuration)
