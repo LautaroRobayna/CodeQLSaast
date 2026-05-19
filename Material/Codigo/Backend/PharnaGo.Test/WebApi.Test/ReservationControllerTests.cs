@@ -47,6 +47,7 @@ namespace PharmaGo.Test.WebApi.Test
             {
                 Id = 1,
                 Code = "RES-001",
+                PublicKey = "PUB-KEY-001",
                 Details = new List<ReservationDetail>
                 {
                     new ReservationDetail { Id = 1, DrugCode = "DRUG-001", Quantity = 1 }
@@ -67,6 +68,7 @@ namespace PharmaGo.Test.WebApi.Test
             Assert.AreEqual(200, statusCode);
             var response = objectResult.Value as ReservationModelResponse;
             Assert.AreEqual(reservation.Code, response.Code);
+            Assert.AreEqual(reservation.PublicKey, response.PublicKey);
             Assert.AreEqual(1, response.Details.Count);
             Assert.AreEqual("Pending", response.Status);
         }
