@@ -50,6 +50,7 @@ namespace PharmaGo.Test.BusinessLogic.Test
 
             Assert.AreEqual(ReservationStatus.Pending, result.Status);
             Assert.IsNotNull(result.Code);
+            Assert.IsNotNull(result.PublicKey);
             _reservationRepository.Verify(r => r.InsertOne(It.IsAny<Reservation>()), Times.Once);
             _reservationRepository.Verify(r => r.Save(), Times.Once);
         }
