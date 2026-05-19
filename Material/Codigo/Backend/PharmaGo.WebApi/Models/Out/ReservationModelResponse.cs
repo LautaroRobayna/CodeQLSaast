@@ -8,6 +8,7 @@ namespace PharmaGo.WebApi.Models.Out
     {
         public int Id { get; set; }
         public string Code { get; set; }
+        public string PublicKey { get; set; }
         public ICollection<ReservationDetailModelResponse> Details { get; set; }
         public int PharmacyId { get; set; }
         public string UserEmail { get; set; }
@@ -18,6 +19,7 @@ namespace PharmaGo.WebApi.Models.Out
         {
             Id = reservation.Id;
             Code = reservation.Code;
+            PublicKey = reservation.PublicKey;
             Details = reservation.Details.Select(d => new ReservationDetailModelResponse
             {
                 Id = d.Id,

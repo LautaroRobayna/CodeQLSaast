@@ -30,6 +30,13 @@ namespace PharmaGo.BusinessLogic
 
             reservation.Status = ReservationStatus.Pending;
             reservation.Code = Guid.NewGuid().ToString();
+            
+            using (var rsa = System.Security.Cryptography.RSA.Create())
+            {
+                reservation.PublicKey = Convert.ToBase64String(rsa.ExportRSAPublicKey());
+                reservation.PrivateKey = Convert.ToBase64String(rsa.ExportRSAPrivateKey());
+            }
+
             reservation.ReservationDate = DateTime.Now;
 
             _reservationRepository.InsertOne(reservation);

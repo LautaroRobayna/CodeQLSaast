@@ -34,6 +34,8 @@ namespace PharmaGo.Test.DataAccess.Test
             var reservation = new Reservation
             {
                 Code = "RES-001",
+                PublicKey = "PUB-KEY-001",
+                PrivateKey = "PRIV-KEY-001",
                 UserEmail = "test@user.com",
                 PharmacyId = 1,
                 Status = ReservationStatus.Pending,
