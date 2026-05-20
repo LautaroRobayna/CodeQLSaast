@@ -2,7 +2,6 @@ using Moq;
 using PharmaGo.BusinessLogic;
 using PharmaGo.Domain.Entities;
 using PharmaGo.Domain.Enums;
-using PharmaGo.Exceptions;
 using PharmaGo.IDataAccess;
 using System.Linq.Expressions;
 
@@ -22,9 +21,10 @@ namespace PharmaGo.Test.BusinessLogic.Test
             _reservationRepository = new Mock<IRepository<Reservation>>();
             _drugRepository = new Mock<IRepository<Drug>>();
             _pharmacyRepository = new Mock<IRepository<Pharmacy>>();
-            _reservationManager = new ReservationManager(_reservationRepository.Object, 
-                                                         _drugRepository.Object, 
-                                                         _pharmacyRepository.Object);
+            _reservationManager = new ReservationManager(
+                _reservationRepository.Object,
+                _drugRepository.Object,
+                _pharmacyRepository.Object);
         }
 
         [TestMethod]
@@ -32,7 +32,7 @@ namespace PharmaGo.Test.BusinessLogic.Test
         {
             var pharmacy = new Pharmacy { Id = 1, Name = "Test Pharmacy" };
             var drug = new Drug { Id = 1, Code = "D-001", Name = "Aspirina", Stock = 10 };
-            
+
             var reservation = new Reservation
             {
                 PharmacyId = 1,
@@ -59,6 +59,6 @@ namespace PharmaGo.Test.BusinessLogic.Test
             _reservationRepository.Verify(r => r.Save(), Times.Once);
             _drugRepository.Verify(r => r.UpdateOne(It.Is<Drug>(d => d.Stock == 5)), Times.Once);
             _drugRepository.Verify(r => r.Save(), Times.Once);
-        }        
+        }
     }
 }

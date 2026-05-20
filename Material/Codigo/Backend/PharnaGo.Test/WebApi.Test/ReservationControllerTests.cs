@@ -59,7 +59,7 @@ namespace PharmaGo.Test.WebApi.Test
             };
 
             _reservationManagerMock.Setup(x => x.Create(It.IsAny<Reservation>())).Returns(reservation);
-            
+
             var result = _reservationController.Create(reservationModel);
             var objectResult = result as ObjectResult;
             var statusCode = objectResult.StatusCode;

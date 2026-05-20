@@ -2,6 +2,7 @@ using PharmaGo.Domain.Entities;
 using PharmaGo.Domain.Enums;
 using PharmaGo.IBusinessLogic;
 using PharmaGo.IDataAccess;
+
 namespace PharmaGo.BusinessLogic
 {
     public class ReservationManager : IReservationManager
@@ -22,7 +23,7 @@ namespace PharmaGo.BusinessLogic
         public Reservation Create(Reservation reservation)
         {
             var pharmacy = _pharmacyRepository.GetOneByExpression(p => p.Id == reservation.PharmacyId);
-            
+
             foreach (var detail in reservation.Details)
             {
                 var drug = _drugRepository.GetOneByExpression(d => d.Code == detail.DrugCode);
@@ -36,7 +37,7 @@ namespace PharmaGo.BusinessLogic
 
             reservation.Status = ReservationStatus.Pending;
             reservation.Code = Guid.NewGuid().ToString();
-            
+
             using (var rsa = System.Security.Cryptography.RSA.Create())
             {
                 reservation.PublicKey = Convert.ToBase64String(rsa.ExportRSAPublicKey());
