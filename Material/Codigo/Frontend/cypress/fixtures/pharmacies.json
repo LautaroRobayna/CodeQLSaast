@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "name": "Farmacia Central",
+    "address": "Av. Principal 123"
+  },
+  {
+    "id": 2,
+    "name": "Farmacia Norte",
+    "address": "Calle Norte 456"
+  }
+]
