@@ -76,6 +76,23 @@ namespace PharmaGo.Test.WebApi.Test
         
         [TestMethod]
         [ExpectedException(typeof(InvalidResourceException))]
+        public void CreateReservation_EmptyDetails_ReturnsBadRequest()
+        {
+            var reservationModel = new ReservationModelRequest
+            {
+                Details = new List<ReservationModelRequest.ReservationDetailModelRequest>(),
+                PharmacyId = 1,
+                UserEmail = "user@test.com"
+            };
+
+            _reservationManagerMock.Setup(x => x.Create(It.IsAny<Reservation>())).Throws(
+                new InvalidResourceException("Invalid reservation details."));
+
+            var result = _reservationController.Create(reservationModel);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidResourceException))]
         public void CreateReservation_QuantityOverLimit_ReturnsBadRequest()
         {
             var reservationModel = new ReservationModelRequest

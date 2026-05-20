@@ -24,7 +24,7 @@ namespace PharmaGo.BusinessLogic
 
         public Reservation Create(Reservation reservation)
         {
-            if (reservation?.Details == null)
+            if (reservation?.Details == null || reservation.Details.Count == 0)
             {
                 throw new InvalidResourceException("Invalid reservation details.");
             }

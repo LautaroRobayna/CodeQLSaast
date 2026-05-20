@@ -94,6 +94,25 @@ namespace PharmaGo.Test.BusinessLogic.Test
         }
         
         [TestMethod]
+        public void CreateReservation_EmptyDetails_ThrowsInvalidResourceException()
+        {
+            var reservation = new Reservation
+            {
+                PharmacyId = 1,
+                UserEmail = "test@user.com",
+                Details = new List<ReservationDetail>()
+            };
+
+            var ex = Assert.ThrowsException<InvalidResourceException>(() => _reservationManager.Create(reservation));
+            Assert.AreEqual("Invalid reservation details.", ex.Message);
+
+            _reservationRepository.Verify(r => r.InsertOne(It.IsAny<Reservation>()), Times.Never);
+            _reservationRepository.Verify(r => r.Save(), Times.Never);
+            _drugRepository.Verify(r => r.UpdateOne(It.IsAny<Drug>()), Times.Never);
+            _drugRepository.Verify(r => r.Save(), Times.Never);
+        }
+
+        [TestMethod]
         public void CreateReservation_WithQuantityOverLimit_ThrowsInvalidResourceException()
         {
             var reservation = new Reservation
