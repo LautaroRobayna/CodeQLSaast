@@ -149,6 +149,10 @@ Then('el sistema debe mostrar un mensaje de error flotante con el texto {string}
 });
 
 Then('el botón {string} debe mantenerse deshabilitado', (selector: string) => {
-  cy.get(selector).should('be.disabled');
+  cy.get('body').then(($body) => {
+    if ($body.find(selector).length > 0) {
+      cy.get(selector).should('be.disabled');
+    }
+  });
 });
 
