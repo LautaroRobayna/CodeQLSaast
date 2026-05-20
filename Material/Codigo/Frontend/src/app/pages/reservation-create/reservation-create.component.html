@@ -31,7 +31,7 @@
                 <td>{{ drug.symptom }}</td>
                 <td>{{ drug.price | currency }}</td>
                 <td>
-                  <input type="number" class="form-control form-control-sm" [(ngModel)]="drugQuantities[drug.code]" min="1" style="width: 70px;">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="drugQuantities[drug.code]" min="1" max="5" style="width: 70px;">
                 </td>
                 <td>
                   <button class="btn btn-primary btn-sm" (click)="addDrugToReservation(drug)">Agregar</button>
@@ -65,7 +65,7 @@
             <label for="email" class="form-label">Email de contacto</label>
             <input type="email" id="email" class="form-control" [(ngModel)]="userEmail" name="userEmail">
           </div>
-          <button id="btn-confirmar-reserva" class="btn btn-success w-100" (click)="createReservation()">Confirmar Reserva</button>
+          <button id="btn-confirmar-reserva" class="btn btn-success w-100" [disabled]="hasQuantityError" (click)="createReservation()">Confirmar Reserva</button>
         </form>
       </div>
     </div>

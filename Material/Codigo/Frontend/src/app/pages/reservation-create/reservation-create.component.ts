@@ -24,6 +24,7 @@ export class ReservationCreateComponent implements OnInit {
   successMessage: string = "";
   publicKey: string = "";
   showSuccessModal: boolean = false;
+  hasQuantityError: boolean = false;
 
   constructor(
     private pharmacyService: PharmacyService,
@@ -51,19 +52,32 @@ export class ReservationCreateComponent implements OnInit {
 
   addDrugToReservation(drug: Drug): void {
     const qty = this.drugQuantities[drug.code];
-    if (qty > 0) {
-      this.reservationDetails.push({
-        drugCode: drug.code,
-        name: drug.name,
-        quantity: qty
-      });
-    } else {
+    if (qty <= 0) {
       this.commonService.updateToastData("Cantidad inválida", "warning", "Atención");
+      return;
     }
+
+    const existingTotal = this.reservationDetails
+      .filter(d => d.drugCode === drug.code)
+      .reduce((sum, d) => sum + d.quantity, 0);
+
+    if (existingTotal + qty > 5) {
+      this.commonService.updateToastData("No se permiten más de 5 unidades del mismo medicamento", "danger", "Error");
+      this.hasQuantityError = true;
+      return;
+    }
+
+    this.hasQuantityError = false;
+    this.reservationDetails.push({
+      drugCode: drug.code,
+      name: drug.name,
+      quantity: qty
+    });
   }
 
   removeDetail(index: number): void {
     this.reservationDetails.splice(index, 1);
+    this.hasQuantityError = false;
   }
 
   createReservation(): void {
@@ -133,5 +147,6 @@ export class ReservationCreateComponent implements OnInit {
     this.userEmail = "";
     this.selectedPharmacyId = 0;
     this.availableDrugs = [];
+    this.hasQuantityError = false;
   }
 }
