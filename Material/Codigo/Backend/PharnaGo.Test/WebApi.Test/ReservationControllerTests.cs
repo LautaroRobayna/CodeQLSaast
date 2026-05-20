@@ -72,6 +72,27 @@ namespace PharmaGo.Test.WebApi.Test
             Assert.AreEqual(1, response.Details.Count);
             Assert.AreEqual("Pending", response.Status);
         }
+
+        
+        [TestMethod]
+        [ExpectedException(typeof(InvalidResourceException))]
+        public void CreateReservation_QuantityOverLimit_ReturnsBadRequest()
+        {
+            var reservationModel = new ReservationModelRequest
+            {
+                Details = new List<ReservationModelRequest.ReservationDetailModelRequest>
+                {
+                    new ReservationModelRequest.ReservationDetailModelRequest { DrugCode = "DRUG-001", Quantity = 6 }
+                },
+                PharmacyId = 1,
+                UserEmail = "user@test.com"
+            };
+
+            _reservationManagerMock.Setup(x => x.Create(It.IsAny<Reservation>())).Throws(
+                new InvalidResourceException("No se permiten mas de 5 unidades del mismo medicamento"));
+
+            var result = _reservationController.Create(reservationModel);
+        }
     }
 }
 
