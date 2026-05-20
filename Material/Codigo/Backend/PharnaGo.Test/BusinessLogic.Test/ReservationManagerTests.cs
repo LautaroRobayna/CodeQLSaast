@@ -2,6 +2,7 @@ using Moq;
 using PharmaGo.BusinessLogic;
 using PharmaGo.Domain.Entities;
 using PharmaGo.Domain.Enums;
+using PharmaGo.Exceptions;
 using PharmaGo.IDataAccess;
 using System.Linq.Expressions;
 
@@ -45,6 +46,7 @@ namespace PharmaGo.Test.BusinessLogic.Test
             _pharmacyRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Pharmacy, bool>>>())).Returns(pharmacy);
             _drugRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Drug, bool>>>())).Returns(drug);
             _reservationRepository.Setup(r => r.InsertOne(It.IsAny<Reservation>()));
+            _drugRepository.Setup(r => r.UpdateOne(It.IsAny<Drug>()));
 
             var result = _reservationManager.Create(reservation);
 
@@ -52,8 +54,11 @@ namespace PharmaGo.Test.BusinessLogic.Test
             Assert.IsNotNull(result.Code);
             Assert.IsNotNull(result.PublicKey);
             Assert.IsNotNull(result.PrivateKey);
+            Assert.AreEqual(5, drug.Stock);
             _reservationRepository.Verify(r => r.InsertOne(It.IsAny<Reservation>()), Times.Once);
             _reservationRepository.Verify(r => r.Save(), Times.Once);
-        }
+            _drugRepository.Verify(r => r.UpdateOne(It.Is<Drug>(d => d.Stock == 5)), Times.Once);
+            _drugRepository.Verify(r => r.Save(), Times.Once);
+        }        
     }
 }

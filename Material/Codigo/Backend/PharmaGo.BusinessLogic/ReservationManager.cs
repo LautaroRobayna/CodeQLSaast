@@ -26,7 +26,13 @@ namespace PharmaGo.BusinessLogic
             foreach (var detail in reservation.Details)
             {
                 var drug = _drugRepository.GetOneByExpression(d => d.Code == detail.DrugCode);
+                if (drug != null)
+                {
+                    drug.Stock -= detail.Quantity;
+                    _drugRepository.UpdateOne(drug);
+                }
             }
+            _drugRepository.Save();
 
             reservation.Status = ReservationStatus.Pending;
             reservation.Code = Guid.NewGuid().ToString();
