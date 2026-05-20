@@ -11,6 +11,7 @@ namespace PharmaGo.BusinessLogic
         private readonly IRepository<Reservation> _reservationRepository;
         private readonly IRepository<Drug> _drugRepository;
         private readonly IRepository<Pharmacy> _pharmacyRepository;
+        private const int MaxUnitsPerDrug = 5;
 
         public ReservationManager(IRepository<Reservation> reservationRepository,
                                   IRepository<Drug> drugRepository,
@@ -37,7 +38,7 @@ namespace PharmaGo.BusinessLogic
                 })
                 .ToList();
 
-            var exceedsLimit = groupedDetails.Any(d => d.Quantity > 5);
+            var exceedsLimit = groupedDetails.Any(d => d.Quantity > MaxUnitsPerDrug);
 
             if (exceedsLimit)
             {
