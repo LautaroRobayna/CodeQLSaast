@@ -71,6 +71,30 @@ Given('agrega {int} unidades del medicamento {string}', (quantity: number, drugN
   });
 });
 
+Given('un usuario ya agregó a la reserva {int} unidades de {string} y {int} unidades de {string}', (qty1: number, drug1: string, qty2: number, drug2: string) => {
+  cy.contains('td', drug1)
+    .parents('tr')
+    .within(() => {
+      cy.get('input[type="number"]').clear().type(qty1.toString());
+      cy.contains('button', 'Agregar').click();
+    });
+  cy.contains('td', drug2)
+    .parents('tr')
+    .within(() => {
+      cy.get('input[type="number"]').clear().type(qty2.toString());
+      cy.contains('button', 'Agregar').click();
+    });
+});
+
+Given('el usuario intenta agregar {int} unidades de {string}', (quantity: number, drugName: string) => {
+  cy.contains('td', drugName)
+    .parents('tr')
+    .within(() => {
+      cy.get('input[type="number"]').clear().type(quantity.toString());
+    });
+  cy.wrap(drugName).as('intendedDrug');
+});
+
 Given('el sistema debe permitir seleccionar como máximo 5 unidades por medicamento', () => {
   cy.get('table tbody tr input[type="number"]').each(($input) => {
     cy.wrap($input).should('have.attr', 'max', '5');
@@ -94,6 +118,17 @@ When('ingresa el valor {string} en el campo de cantidad {string}', (value: strin
 });
 
 When('hace clic en el botón {string}', (selector: string) => {
+  if (selector === '#btn-agregar-reserva') {
+    cy.get<string>('@intendedDrug').then((drugName) => {
+      cy.contains('td', drugName)
+        .parents('tr')
+        .within(() => {
+          cy.contains('button', 'Agregar').click();
+        });
+    });
+    return;
+  }
+
   if (selector === '#btn-confirmar-reserva') {
     cy.intercept('POST', '**/api/reservation', {
       statusCode: 201,
@@ -146,6 +181,10 @@ Then('el stock en backend de {string} debe actualizarse a {int} unidad(es)', (dr
 
 Then('el sistema debe mostrar un mensaje de error flotante con el texto {string}', (message: string) => {
   cy.get('c-toast .customToastBody').contains(message).should('be.visible');
+});
+
+Then('el sistema debe impedir la acción y mostrar la alerta {string} con el texto {string}', (alertSelector: string, message: string) => {
+  cy.get(alertSelector).should('be.visible').and('contain.text', message);
 });
 
 Then('el botón {string} debe mantenerse deshabilitado', (selector: string) => {

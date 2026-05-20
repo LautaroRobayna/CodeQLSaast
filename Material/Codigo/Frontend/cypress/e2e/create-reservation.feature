@@ -31,6 +31,14 @@ Scenario: Intento de reserva sin medicamentos
     And selecciona la farmacia "Farmacia Central" de la lista desplegable "#select-farmacia"
     Then el botón "#btn-confirmar-reserva" debe mantenerse deshabilitado
 
+Scenario: Intento de reserva superando el límite total de 15 unidades
+    Given un usuario no autenticado visita la página de reservas "/reservations/create"
+    And selecciona la farmacia "Farmacia Central" de la lista desplegable "#select-farmacia"
+    And un usuario ya agregó a la reserva 5 unidades de "Paracetamol 500mg" y 5 unidades de "Amoxicilina 500mg"
+    And el usuario intenta agregar 6 unidades de "Ibuprofeno 400mg"
+    When hace clic en el botón "#btn-agregar-reserva"
+    Then el sistema debe impedir la acción y mostrar la alerta "#alert-error" con el texto "La reserva no puede superar las 15 unidades totales"
+
 Scenario: Intento de reserva superando el límite de 5 unidades del mismo medicamento
     Given un usuario no autenticado visita la página de reservas "/reservations/create"
     And selecciona la farmacia "Farmacia Central" de la lista desplegable "#select-farmacia"
