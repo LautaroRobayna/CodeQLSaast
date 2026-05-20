@@ -7,6 +7,8 @@ services:
     environment:
       - ACCEPT_EULA=${ACCEPT_EULA:-Y}
       - SA_PASSWORD=${DB_PASSWORD:-Str0ngP@ssword!}
+      - MSSQL_PID=Developer
+      - MSSQL_MEMORY_LIMIT_MB=2048
     ports:
       - "${DB_PORT:-1433}:1433"
     volumes:
@@ -14,9 +16,9 @@ services:
     networks:
       - pharmago-network
     healthcheck:
-      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P ${DB_PASSWORD:-Str0ngP@ssword!} -Q "SELECT 1"
-      interval: 10s
-      timeout: 5s
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P ${DB_PASSWORD:-Str0ngP@ssword!} -Q \"SELECT 1\" -C"]
+      interval: 30s
+      timeout: 10s
       retries: 5
 
   pharmago-api:
@@ -29,7 +31,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
-      - ConnectionStrings__DefaultConnection=Server=pharmago-db,1433;Database=${DB_NAME:-PharmaGoDb};User Id=${DB_USER:-sa};Password=${DB_PASSWORD:-Str0ngP@ssword!};
+      - ConnectionStrings__DefaultConnection=Server=pharmago-db,1433;Database=${DB_NAME:-PharmaGoDb};User Id=${DB_USER:-sa};Password=${DB_PASSWORD:-Str0ngP@ssword!};TrustServerCertificate=True;
       - CORS_ALLOWED_ORIGINS=${CORS_ALLOWED_ORIGINS:-http://localhost:4200,http://localhost}
       - OTLP_COLLECTOR_ENDPOINT=${OTLP_COLLECTOR_ENDPOINT:-http://otlp-collector:4317}
     ports:
@@ -104,6 +106,7 @@ services:
     environment:
       - API_URL=${API_URL:-http://localhost:5000}
       - ENVIRONMENT=development
+      - NGINX_UPSTREAM_API=${NGINX_UPSTREAM_API:-pharmago-api:80}
     networks:
       - pharmago-network
 

@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 
 ARG ASPNETCORE_ENVIRONMENT=Development
 ARG BUILD_CONFIGURATION=Release
@@ -27,12 +27,12 @@ RUN dotnet publish "PharmaGo.WebApi/PharmaGo.WebApi.csproj" \
     -o /app/publish \
     -p:EnvironmentName=${ASPNETCORE_ENVIRONMENT}
 
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS final
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 
 ARG ASPNETCORE_ENVIRONMENT=Development
 
 LABEL maintainer="PharmaGo Team"
-LABEL description="PharmaGo Backend API - .NET 6.0"
+LABEL description="PharmaGo Backend API - .NET 8.0"
 LABEL environment=${ASPNETCORE_ENVIRONMENT}
 
 WORKDIR /app
@@ -44,3 +44,6 @@ EXPOSE 80
 ENV ASPNETCORE_URLS=http://+:80
 ENV ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
 ENV DOTNET_CLI_TELEMETRY_OPTOUT=1
+
+ENTRYPOINT ["dotnet", "PharmaGo.WebApi.dll"]
+

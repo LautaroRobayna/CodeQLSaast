@@ -1,7 +1,7 @@
 describe('PharmaGo - Test de Ejemplo', () => {
   beforeEach(() => {
     // Visitar la página principal antes de cada test
-    cy.visit('/');
+    cy.visit('http://localhost:4200/');
   });
 
   it('debe cargar la página principal correctamente', () => {
@@ -22,7 +22,7 @@ describe('PharmaGo - Test de Ejemplo', () => {
 
 describe('PharmaGo - Test de Login', () => {
   beforeEach(() => {
-    cy.visit('/login');
+    cy.visit('http://localhost:4200/login');
   });
 
   it('debe mostrar el formulario de login', () => {
@@ -44,7 +44,7 @@ describe('PharmaGo - Test de Login', () => {
       cy.get('input[name="password"], input[type="password"], input[formControlName="password"]')
         .type(user.password);
       cy.get('button[type="submit"]').click();
-      
+
       // Verifica redirección o mensaje de éxito
       // cy.url().should('include', '/dashboard');
     });

@@ -18,6 +18,7 @@ namespace PharmaGo.DataAccess
         public DbSet<UnitMeasure> UnitMeasures { get; set; }
         public DbSet<Presentation> Presentations { get; set; }
         public DbSet<Session> Sessions { get; set; }
+        public DbSet<Reservation> Reservations { get; set; }
 
         public PharmacyGoDbContext(DbContextOptions<PharmacyGoDbContext> options) : base(options) { }
 
