@@ -26,6 +26,11 @@ Scenario: Creación exitosa de una reserva con medicamentos comunes
     And el stock en backend de "Paracetamol 500mg" debe actualizarse a 7 unidades
     And el stock en backend de "Ibuprofeno 400mg" debe actualizarse a 1 unidad
 
+Scenario: Intento de reserva sin medicamentos
+    Given un usuario no autenticado visita la página de reservas "/reservations/create"
+    And selecciona la farmacia "Farmacia Central" de la lista desplegable "#select-farmacia"
+    Then el botón "#btn-confirmar-reserva" debe mantenerse deshabilitado
+
 Scenario: Intento de reserva superando el límite de 5 unidades del mismo medicamento
     Given un usuario no autenticado visita la página de reservas "/reservations/create"
     And selecciona la farmacia "Farmacia Central" de la lista desplegable "#select-farmacia"
