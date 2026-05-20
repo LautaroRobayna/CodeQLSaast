@@ -2,6 +2,7 @@ using Moq;
 using PharmaGo.BusinessLogic;
 using PharmaGo.Domain.Entities;
 using PharmaGo.Domain.Enums;
+using PharmaGo.Exceptions;
 using PharmaGo.IDataAccess;
 using System.Linq.Expressions;
 
@@ -59,6 +60,60 @@ namespace PharmaGo.Test.BusinessLogic.Test
             _reservationRepository.Verify(r => r.Save(), Times.Once);
             _drugRepository.Verify(r => r.UpdateOne(It.Is<Drug>(d => d.Stock == 5)), Times.Once);
             _drugRepository.Verify(r => r.Save(), Times.Once);
+        }
+
+        [TestMethod]
+        public void CreateReservation_NullReservation_ThrowsInvalidResourceException()
+        {
+            var ex = Assert.ThrowsException<InvalidResourceException>(() => _reservationManager.Create(null));
+            Assert.AreEqual("Invalid reservation details.", ex.Message);
+
+            _reservationRepository.Verify(r => r.InsertOne(It.IsAny<Reservation>()), Times.Never);
+            _reservationRepository.Verify(r => r.Save(), Times.Never);
+            _drugRepository.Verify(r => r.UpdateOne(It.IsAny<Drug>()), Times.Never);
+            _drugRepository.Verify(r => r.Save(), Times.Never);
+        }
+
+        [TestMethod]
+        public void CreateReservation_NullDetails_ThrowsInvalidResourceException()
+        {
+            var reservation = new Reservation
+            {
+                PharmacyId = 1,
+                UserEmail = "test@user.com",
+                Details = null
+            };
+
+            var ex = Assert.ThrowsException<InvalidResourceException>(() => _reservationManager.Create(reservation));
+            Assert.AreEqual("Invalid reservation details.", ex.Message);
+
+            _reservationRepository.Verify(r => r.InsertOne(It.IsAny<Reservation>()), Times.Never);
+            _reservationRepository.Verify(r => r.Save(), Times.Never);
+            _drugRepository.Verify(r => r.UpdateOne(It.IsAny<Drug>()), Times.Never);
+            _drugRepository.Verify(r => r.Save(), Times.Never);
+        }
+        
+        [TestMethod]
+        public void CreateReservation_WithQuantityOverLimit_ThrowsInvalidResourceException()
+        {
+            var reservation = new Reservation
+            {
+                PharmacyId = 1,
+                UserEmail = "test@user.com",
+                Details = new List<ReservationDetail>
+                {
+                    new ReservationDetail { DrugCode = "D-001", Quantity = 3 },
+                    new ReservationDetail { DrugCode = "D-001", Quantity = 3 }
+                }
+            };
+
+            var ex = Assert.ThrowsException<InvalidResourceException>(() => _reservationManager.Create(reservation));
+            Assert.AreEqual("No se permiten mas de 5 unidades del mismo medicamento", ex.Message);
+
+            _reservationRepository.Verify(r => r.InsertOne(It.IsAny<Reservation>()), Times.Never);
+            _reservationRepository.Verify(r => r.Save(), Times.Never);
+            _drugRepository.Verify(r => r.UpdateOne(It.IsAny<Drug>()), Times.Never);
+            _drugRepository.Verify(r => r.Save(), Times.Never);
         }
     }
 }

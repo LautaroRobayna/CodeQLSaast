@@ -1,5 +1,6 @@
 using PharmaGo.Domain.Entities;
 using PharmaGo.Domain.Enums;
+using PharmaGo.Exceptions;
 using PharmaGo.IBusinessLogic;
 using PharmaGo.IDataAccess;
 
@@ -22,6 +23,29 @@ namespace PharmaGo.BusinessLogic
 
         public Reservation Create(Reservation reservation)
         {
+            if (reservation?.Details == null)
+            {
+                throw new InvalidResourceException("Invalid reservation details.");
+            }
+
+            var groupedDetails = reservation.Details
+                .GroupBy(d => d.DrugCode)
+                .Select(g => new ReservationDetail
+                {
+                    DrugCode = g.Key,
+                    Quantity = g.Sum(d => d.Quantity)
+                })
+                .ToList();
+
+            var exceedsLimit = groupedDetails.Any(d => d.Quantity > 5);
+
+            if (exceedsLimit)
+            {
+                throw new InvalidResourceException("No se permiten mas de 5 unidades del mismo medicamento");
+            }
+
+            reservation.Details = groupedDetails;
+
             var pharmacy = _pharmacyRepository.GetOneByExpression(p => p.Id == reservation.PharmacyId);
 
             foreach (var detail in reservation.Details)
