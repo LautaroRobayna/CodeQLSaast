@@ -17,8 +17,8 @@ services:
       - pharmago-network
     healthcheck:
       test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P ${DB_PASSWORD:-Str0ngP@ssword!} -Q \"SELECT 1\" -C"]
-      interval: 10s
-      timeout: 5s
+      interval: 30s
+      timeout: 10s
       retries: 5
 
   pharmago-api:
