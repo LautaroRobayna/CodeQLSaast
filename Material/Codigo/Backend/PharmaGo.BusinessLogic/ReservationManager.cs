@@ -12,6 +12,7 @@ namespace PharmaGo.BusinessLogic
         private readonly IRepository<Drug> _drugRepository;
         private readonly IRepository<Pharmacy> _pharmacyRepository;
         private const int MaxUnitsPerDrug = 5;
+        private const int MaxTotalUnits = 15;
 
         public ReservationManager(IRepository<Reservation> reservationRepository,
                                   IRepository<Drug> drugRepository,
@@ -46,7 +47,7 @@ namespace PharmaGo.BusinessLogic
             }
 
             var totalUnits = groupedDetails.Sum(d => d.Quantity);
-            if (totalUnits > 15)
+            if (totalUnits > MaxTotalUnits)
             {
                 throw new InvalidResourceException("La reserva no puede superar las 15 unidades totales");
             }
