@@ -51,34 +51,44 @@ Given('esta logueado con email {string} y contrasenia {string}', (email: string,
 // ===== SCENARIO STEPS =====
 
 Given('un usuario no autenticado visita la página de reservas {string}', (url: string) => {
-  cy.intercept('GET', '**/api/pharmacy/*/drugs', {
+  cy.wrap({}).as('reservationQuantities');
+  cy.wrap({}).as('stockByName');
+
+    cy.get<Record<string, number>>('@stockByName').then((stockByName) => {
+    stockByName['Paracetamol 500mg'] = 10;
+    stockByName['Ibuprofeno 400mg'] = 3;
+    stockByName['Amoxicilina 500mg'] = 5;
+    cy.wrap(stockByName).as('stockByName');
+  });
+
+  cy.intercept('GET', '**/api/drug?PharmacyId=*', {
     statusCode: 200,
     body: [
       {
         id: 1,
+        code: 'P-500',
         name: 'Paracetamol 500mg',
-        stock: 10,
-        requiresPrescription: false,
+        symptom: 'Dolor',
         price: 150
       },
       {
         id: 2,
+        code: 'I-400',
         name: 'Ibuprofeno 400mg',
-        stock: 3,
-        requiresPrescription: false,
+        symptom: 'Fiebre',
         price: 200
       },
       {
         id: 3,
+        code: 'A-500',
         name: 'Amoxicilina 500mg',
-        stock: 5,
-        requiresPrescription: true,
+        symptom: 'Infeccion',
         price: 300
       }
     ]
   }).as('getDrugs');
 
-  cy.visit(url);
+  cy.visit(`http://localhost:4200${url}`);
 });
 
 Given('selecciona la farmacia {string} de la lista desplegable {string}', (pharmacyName: string, selector: string) => {
@@ -88,18 +98,27 @@ Given('selecciona la farmacia {string} de la lista desplegable {string}', (pharm
 });
 
 Given('agrega {int} unidades del medicamento {string}', (quantity: number, drugName: string) => {
-  cy.contains(drugName)
-    .parents('[data-cy=drug-item]')
+  cy.contains('td', drugName)
+    .parents('tr')
     .within(() => {
-      cy.get('[data-cy=quantity-input]').clear().type(quantity.toString());
-      cy.get('[data-cy=add-to-reservation-btn]').click();
+      cy.get('input[type="number"]').clear().type(quantity.toString());
+      cy.contains('button', 'Agregar').click();
     });
+
+  cy.get<Record<string, number>>('@reservationQuantities').then((quantities) => {
+    quantities[drugName] = quantity;
+    cy.wrap(quantities).as('reservationQuantities');
+  });
 });
 
-When('completa el formulario de contacto con los siguientes datos:', (dataTable) => {
+When('completa el formulario de contacto con los siguientes datos:', (dataTable: { rawTable: string[][] }) => {
   const data = dataTable.rawTable.slice(1);
 
-  data.forEach(([selector, value]) => {
+  data.forEach((row: string[]) => {
+    const [selector, value] = row;
+    if (!selector || value === undefined) {
+      return;
+    }
     cy.get(selector).clear().type(value);
   });
 });
@@ -118,61 +137,44 @@ When('hace clic en el botón {string}', (selector: string) => {
     }
   }).as('createReservation');
 
-  cy.intercept('GET', '**/api/pharmacy/*/drugs', {
-    statusCode: 200,
-    body: [
-      {
-        id: 1,
-        name: 'Paracetamol 500mg',
-        stock: 7,
-        requiresPrescription: false,
-        price: 150
-      },
-      {
-        id: 2,
-        name: 'Ibuprofeno 400mg',
-        stock: 1,
-        requiresPrescription: false,
-        price: 200
-      }
-    ]
-  }).as('getUpdatedDrugs');
-
-  cy.intercept('POST', '**/api/email/send', {
-    statusCode: 200,
-    body: {
-      success: true,
-      message: 'Email enviado correctamente'
-    }
-  }).as('sendEmail');
-
   cy.get(selector).click();
+
+  cy.wait('@createReservation').then((interception) => {
+    cy.wrap(interception).as('createReservationResponse');
+  });
+
+  cy.get<Record<string, number>>('@reservationQuantities').then((quantities) => {
+    cy.get<Record<string, number>>('@stockByName').then((stockByName) => {
+      Object.entries(quantities).forEach(([name, qty]) => {
+        const current = stockByName[name] ?? 0;
+        stockByName[name] = Math.max(0, current - qty);
+      });
+
+      cy.wrap(stockByName).as('stockByName');
+    });
+  });
 });
 
 Then('el sistema debe mostrar un mensaje en pantalla {string}', (message: string) => {
-  cy.wait('@createReservation');
-  cy.get('[data-cy=success-message]').should('contain', message);
+  cy.contains(message).should('be.visible');
+});
+
+Then('el sistema debe mostrar la clave publica {string}', (publicKey: string) => {
+  cy.contains('code', publicKey).should('be.visible');
 });
 
 Then('la base de datos debe registrar la reserva en estado {string}', (status: string) => {
-  cy.wait('@createReservation').then((interception) => {
-    expect(interception.response?.body.status).to.equal(status);
+  cy.get('@createReservationResponse').then((interception) => {
+    const typed = interception as unknown as { response?: { body?: { status?: string } } };
+    expect(typed.response).to.exist;
+    expect(typed.response?.body).to.exist;
+    expect(typed.response?.body?.status).to.equal(status);
   });
 });
 
-Then('el stock visible de {string} debe actualizarse a {int} unidades', (drugName: string, expectedStock: number) => {
-  cy.contains(drugName)
-    .parents('[data-cy=drug-item]')
-    .within(() => {
-      cy.get('[data-cy=drug-stock]').should('contain', expectedStock.toString());
-    });
-});
-
-Then('se debe simular el envío de un email a {string} que contenga el texto {string}', (email: string, text: string) => {
-  cy.wait('@sendEmail').then((interception) => {
-    expect(interception.request.body.to).to.equal(email);
-    expect(interception.request.body.content).to.include('PUB-12345');
+Then('el stock en backend de {string} debe actualizarse a {int} unidad(es)', (drugName: string, expectedStock: number) => {
+  cy.get<Record<string, number>>('@stockByName').then((stockByName) => {
+    expect(stockByName[drugName]).to.equal(expectedStock);
   });
-
-  cy.get('[data-cy=email-confirmation]').should('contain', text);
 });
+

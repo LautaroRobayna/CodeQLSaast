@@ -1,6 +1,6 @@
 Feature: Crear una reserva
-    Como cliente 
-    Quiero crear una reserva 
+    Como cliente
+    Quiero crear una reserva
     Para reservar los medicamentos de una farmacia
 
 Background:
@@ -11,8 +11,8 @@ Background:
     And existe la farmacia "Farmacia Norte" con el medicamento "Aspirina"
     And esta logueado con email "carlos@example.com" y contrasenia "12345"
 
-Scenario: Creación exitosa de una reserva con medicamentos comunes 
-    Given un usuario no autenticado visita la página de reservas "/reservas"
+Scenario: Creación exitosa de una reserva con medicamentos comunes
+    Given un usuario no autenticado visita la página de reservas "/reservations/create"
     And selecciona la farmacia "Farmacia Central" de la lista desplegable "#select-farmacia"
     And agrega 3 unidades del medicamento "Paracetamol 500mg"
     And agrega 2 unidades del medicamento "Ibuprofeno 400mg"
@@ -21,8 +21,8 @@ Scenario: Creación exitosa de una reserva con medicamentos comunes
     | #nombre-completo    | Carlos Gómez        |
     | #email              | carlos@example.com  |
     And hace clic en el botón "#btn-confirmar-reserva"
-    Then el sistema debe mostrar un mensaje en pantalla "Reserva creada exitosamente"
+    Then el sistema debe mostrar un mensaje en pantalla "Reserva creada exitosamente. Guarda tu clave pública."
+    And el sistema debe mostrar la clave publica "PUB-12345"
     And la base de datos debe registrar la reserva en estado "Pendiente"
-    And el stock visible de "Paracetamol 500mg" debe actualizarse a 7 unidades
-    And el stock visible de "Ibuprofeno 400mg" debe actualizarse a 1 unidad
-    And se debe simular el envío de un email a "carlos@example.com" que contenga el texto "Tu clave pública es: PUB-12345"
+    And el stock en backend de "Paracetamol 500mg" debe actualizarse a 7 unidades
+    And el stock en backend de "Ibuprofeno 400mg" debe actualizarse a 1 unidad

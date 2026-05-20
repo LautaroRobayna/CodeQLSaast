@@ -23,7 +23,7 @@
             "name": "que el sistema tiene cargada la farmacia \"Farmacia Central\"",
             "result": {
               "status": "passed",
-              "duration": 105000000
+              "duration": 40000000
             }
           },
           {
@@ -33,7 +33,7 @@
             "name": "la \"Farmacia Central\" tiene el medicamento \"Paracetamol 500mg\" con stock de 10 unidades",
             "result": {
               "status": "passed",
-              "duration": 8000000
+              "duration": 5000000
             }
           },
           {
@@ -43,7 +43,7 @@
             "name": "la \"Farmacia Central\" tiene el medicamento \"Ibuprofeno 400mg\" con stock de 3 unidades",
             "result": {
               "status": "passed",
-              "duration": 5000000
+              "duration": 4000000
             }
           },
           {
@@ -53,7 +53,7 @@
             "name": "la \"Farmacia Central\" tiene el medicamento \"Amoxicilina 500mg\" que requiere receta con stock de 5 unidades",
             "result": {
               "status": "passed",
-              "duration": 5000000
+              "duration": 6000000
             }
           },
           {
@@ -63,7 +63,7 @@
             "name": "existe la farmacia \"Farmacia Norte\" con el medicamento \"Aspirina\"",
             "result": {
               "status": "passed",
-              "duration": 5000000
+              "duration": 4000000
             }
           },
           {
@@ -73,18 +73,17 @@
             "name": "esta logueado con email \"carlos@example.com\" y contrasenia \"12345\"",
             "result": {
               "status": "passed",
-              "duration": 27000000
+              "duration": 9000000
             }
           },
           {
             "arguments": [],
             "keyword": "Given ",
             "line": 15,
-            "name": "un usuario no autenticado visita la página de reservas \"/reservas\"",
+            "name": "un usuario no autenticado visita la página de reservas \"/reservations/create\"",
             "result": {
-              "status": "failed",
-              "duration": 49000000,
-              "error_message": "CypressError: `cy.visit()` failed trying to load:\n\n/reservas\n\nWe failed looking for this file at the path:\n\n/Xoan/ISA2/proyecto-m7b-atrio-robayna-viera/Material/Codigo/Frontend/reservas\n\nThe internal Cypress web server responded with:\n\n  > 404: Not Found\n    at <unknown> (http://localhost:57201/__cypress/runner/cypress_runner.js:135141:76)\n    at visitFailedByErr (http://localhost:57201/__cypress/runner/cypress_runner.js:134731:12)\n    at <unknown> (http://localhost:57201/__cypress/runner/cypress_runner.js:135124:13)\n    at tryCatcher (http://localhost:57201/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise._settlePromiseFromHandler (http://localhost:57201/__cypress/runner/cypress_runner.js:1489:31)\n    at Promise._settlePromise (http://localhost:57201/__cypress/runner/cypress_runner.js:1546:18)\n    at Promise._settlePromise0 (http://localhost:57201/__cypress/runner/cypress_runner.js:1591:10)\n    at Promise._settlePromises (http://localhost:57201/__cypress/runner/cypress_runner.js:1667:18)\n    at <unknown> (http://localhost:57201/__cypress/runner/cypress_runner.js:2362:25)\nFrom previous event:\n    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (http://localhost:57201/__cypress/runner/cypress_runner.js:3456:19)\n    at Promise._then (http://localhost:57201/__cypress/runner/cypress_runner.js:1209:17)\n    at Promise.then (http://localhost:57201/__cypress/runner/cypress_runner.js:1102:17)\n    at next (http://localhost:57201/__cypress/runner/cypress_runner.js:152461:64)\n    at <unknown> (http://localhost:57201/__cypress/runner/cypress_runner.js:152482:16)\n    at tryCatcher (http://localhost:57201/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise._settlePromiseFromHandler (http://localhost:57201/__cypress/runner/cypress_runner.js:1489:31)\n    at Promise._settlePromise (http://localhost:57201/__cypress/runner/cypress_runner.js:1546:18)\n    at Promise._settlePromise0 (http://localhost:57201/__cypress/runner/cypress_runner.js:1591:10)\n    at Promise._settlePromises (http://localhost:57201/__cypress/runner/cypress_runner.js:1671:18)\n    at <unknown> (http://localhost:57201/__cypress/runner/cypress_runner.js:2362:25)\nFrom Your Spec Code:\n    at Context.eval (cypress/e2e/create-reservation/create-reservation.steps.ts:81:5)\n    at Context.resolveAndRunStepDefinition (node_modules/cypress-cucumber-preprocessor/lib/resolveStepDefinition.js:193:0)\n    at Context.eval (node_modules/cypress-cucumber-preprocessor/lib/createTestFromScenario.js:27:0)\n    at getRet (http://localhost:57201/__cypress/runner/cypress_runner.js:122807:20)\n    at tryCatcher (http://localhost:57201/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise.attempt.Promise.try (http://localhost:57201/__cypress/runner/cypress_runner.js:4285:29)\n    at Context.thenFn (http://localhost:57201/__cypress/runner/cypress_runner.js:122818:66)\n    at Context.then (http://localhost:57201/__cypress/runner/cypress_runner.js:123069:21)\n    at wrapped (http://localhost:57201/__cypress/runner/cypress_runner.js:146327:19)"
+              "status": "passed",
+              "duration": 173000000
             }
           },
           {
@@ -93,7 +92,8 @@
             "line": 16,
             "name": "selecciona la farmacia \"Farmacia Central\" de la lista desplegable \"#select-farmacia\"",
             "result": {
-              "status": "skipped"
+              "status": "passed",
+              "duration": 185000000
             }
           },
           {
@@ -102,7 +102,8 @@
             "line": 17,
             "name": "agrega 3 unidades del medicamento \"Paracetamol 500mg\"",
             "result": {
-              "status": "skipped"
+              "status": "passed",
+              "duration": 388000000
             }
           },
           {
@@ -111,7 +112,8 @@
             "line": 18,
             "name": "agrega 2 unidades del medicamento \"Ibuprofeno 400mg\"",
             "result": {
-              "status": "skipped"
+              "status": "passed",
+              "duration": 363000000
             }
           },
           {
@@ -143,7 +145,8 @@
             "line": 19,
             "name": "completa el formulario de contacto con los siguientes datos:",
             "result": {
-              "status": "skipped"
+              "status": "passed",
+              "duration": 896000000
             }
           },
           {
@@ -152,52 +155,58 @@
             "line": 23,
             "name": "hace clic en el botón \"#btn-confirmar-reserva\"",
             "result": {
-              "status": "skipped"
+              "status": "passed",
+              "duration": 123000000
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
             "line": 24,
-            "name": "el sistema debe mostrar un mensaje en pantalla \"Reserva creada exitosamente\"",
+            "name": "el sistema debe mostrar un mensaje en pantalla \"Reserva creada exitosamente. Guarda tu clave pública.\"",
             "result": {
-              "status": "skipped"
+              "status": "passed",
+              "duration": 27000000
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
             "line": 25,
-            "name": "la base de datos debe registrar la reserva en estado \"Pendiente\"",
+            "name": "el sistema debe mostrar la clave publica \"PUB-12345\"",
             "result": {
-              "status": "skipped"
+              "status": "passed",
+              "duration": 24000000
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
             "line": 26,
-            "name": "el stock visible de \"Paracetamol 500mg\" debe actualizarse a 7 unidades",
+            "name": "la base de datos debe registrar la reserva en estado \"Pendiente\"",
             "result": {
-              "status": "skipped"
+              "status": "passed",
+              "duration": 10000000
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
             "line": 27,
-            "name": "el stock visible de \"Ibuprofeno 400mg\" debe actualizarse a 1 unidad",
+            "name": "el stock en backend de \"Paracetamol 500mg\" debe actualizarse a 7 unidades",
             "result": {
-              "status": "skipped"
+              "status": "passed",
+              "duration": 7000000
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
             "line": 28,
-            "name": "se debe simular el envío de un email a \"carlos@example.com\" que contenga el texto \"Tu clave pública es: PUB-12345\"",
+            "name": "el stock en backend de \"Ibuprofeno 400mg\" debe actualizarse a 1 unidad",
             "result": {
-              "status": "skipped"
+              "status": "passed",
+              "duration": 9000000
             }
           }
         ]

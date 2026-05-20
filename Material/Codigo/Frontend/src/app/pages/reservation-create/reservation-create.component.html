@@ -1,0 +1,96 @@
+<div class="container mt-4">
+  <h2>Crear Reserva</h2>
+  <hr>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card p-3 shadow-sm">
+        <div class="mb-3">
+          <label for="select-farmacia" class="form-label">Seleccionar Farmacia</label>
+          <select id="select-farmacia" class="form-select" [(ngModel)]="selectedPharmacyId" (change)="onPharmacyChange()">
+            <option [value]="0">Seleccione una farmacia...</option>
+            <option *ngFor="let p of pharmacies" [value]="p.id">{{ p.name }}</option>
+          </select>
+        </div>
+
+        <div *ngIf="selectedPharmacyId > 0">
+          <h5>Medicamentos Disponibles</h5>
+          <table class="table table-sm">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Símptoma</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let drug of availableDrugs">
+                <td>{{ drug.name }}</td>
+                <td>{{ drug.symptom }}</td>
+                <td>{{ drug.price | currency }}</td>
+                <td>
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="drugQuantities[drug.code]" min="1" style="width: 70px;">
+                </td>
+                <td>
+                  <button class="btn btn-primary btn-sm" (click)="addDrugToReservation(drug)">Agregar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card p-3 shadow-sm border-primary">
+        <h5>Detalle de la Reserva</h5>
+        <ul *ngIf="reservationDetails.length > 0; else noDetails" class="list-group mb-3">
+          <li *ngFor="let item of reservationDetails; let i = index" class="list-group-item d-flex justify-content-between align-items-center">
+            {{ item.name }} x {{ item.quantity }}
+            <button class="btn btn-danger btn-sm" (click)="removeDetail(i)">Eliminar</button>
+          </li>
+        </ul>
+        <ng-template #noDetails>
+          <p class="text-muted">No has agregado medicamentos aún.</p>
+        </ng-template>
+
+        <form *ngIf="reservationDetails.length > 0">
+          <div class="mb-3">
+            <label for="nombre-completo" class="form-label">Nombre Completo</label>
+            <input type="text" id="nombre-completo" class="form-control" [(ngModel)]="userName" name="userName">
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email de contacto</label>
+            <input type="email" id="email" class="form-control" [(ngModel)]="userEmail" name="userEmail">
+          </div>
+          <button id="btn-confirmar-reserva" class="btn btn-success w-100" (click)="createReservation()">Confirmar Reserva</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="showSuccessModal" class="modal fade show d-block" tabindex="-1" aria-modal="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Reserva creada</h5>
+          <button type="button" class="btn-close" aria-label="Close" (click)="closeSuccessModal()"></button>
+        </div>
+        <div class="modal-body">
+          <p class="mb-2">{{ successMessage }}</p>
+          <div class="d-flex align-items-center gap-2">
+            <code>{{ getPublicKeyPreview() }}</code>
+            <button type="button" class="btn btn-outline-primary btn-sm" (click)="copyPublicKey()">Copiar</button>
+          </div>
+          <small class="text-muted d-block mt-2">Guarda esta clave para retirar la reserva.</small>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeSuccessModal()">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="showSuccessModal" class="modal-backdrop fade show" (click)="closeSuccessModal()"></div>
+</div>
