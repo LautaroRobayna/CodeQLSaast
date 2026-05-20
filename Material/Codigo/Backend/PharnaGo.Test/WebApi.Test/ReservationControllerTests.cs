@@ -93,6 +93,29 @@ namespace PharmaGo.Test.WebApi.Test
 
         [TestMethod]
         [ExpectedException(typeof(InvalidResourceException))]
+        public void CreateReservation_TotalQuantityOverLimit_ReturnsBadRequest()
+        {
+            var reservationModel = new ReservationModelRequest
+            {
+                Details = new List<ReservationModelRequest.ReservationDetailModelRequest>
+                {
+                    new ReservationModelRequest.ReservationDetailModelRequest { DrugCode = "DRUG-001", Quantity = 5 },
+                    new ReservationModelRequest.ReservationDetailModelRequest { DrugCode = "DRUG-002", Quantity = 5 },
+                    new ReservationModelRequest.ReservationDetailModelRequest { DrugCode = "DRUG-003", Quantity = 5 },
+                    new ReservationModelRequest.ReservationDetailModelRequest { DrugCode = "DRUG-004", Quantity = 1 }
+                },
+                PharmacyId = 1,
+                UserEmail = "user@test.com"
+            };
+
+            _reservationManagerMock.Setup(x => x.Create(It.IsAny<Reservation>())).Throws(
+                new InvalidResourceException("La reserva no puede superar las 15 unidades totales"));
+
+            var result = _reservationController.Create(reservationModel);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidResourceException))]
         public void CreateReservation_QuantityOverLimit_ReturnsBadRequest()
         {
             var reservationModel = new ReservationModelRequest

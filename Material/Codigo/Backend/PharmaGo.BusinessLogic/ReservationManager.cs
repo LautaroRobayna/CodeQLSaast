@@ -45,6 +45,12 @@ namespace PharmaGo.BusinessLogic
                 throw new InvalidResourceException("No se permiten mas de 5 unidades del mismo medicamento");
             }
 
+            var totalUnits = groupedDetails.Sum(d => d.Quantity);
+            if (totalUnits > 15)
+            {
+                throw new InvalidResourceException("La reserva no puede superar las 15 unidades totales");
+            }
+
             reservation.Details = groupedDetails;
 
             var pharmacy = _pharmacyRepository.GetOneByExpression(p => p.Id == reservation.PharmacyId);

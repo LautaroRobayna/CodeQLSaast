@@ -113,6 +113,31 @@ namespace PharmaGo.Test.BusinessLogic.Test
         }
 
         [TestMethod]
+        public void CreateReservation_TotalQuantityOverLimit_ThrowsInvalidResourceException()
+        {
+            var reservation = new Reservation
+            {
+                PharmacyId = 1,
+                UserEmail = "test@user.com",
+                Details = new List<ReservationDetail>
+                {
+                    new ReservationDetail { DrugCode = "D-001", Quantity = 5 },
+                    new ReservationDetail { DrugCode = "D-002", Quantity = 5 },
+                    new ReservationDetail { DrugCode = "D-003", Quantity = 5 },
+                    new ReservationDetail { DrugCode = "D-004", Quantity = 1 }
+                }
+            };
+
+            var ex = Assert.ThrowsException<InvalidResourceException>(() => _reservationManager.Create(reservation));
+            Assert.AreEqual("La reserva no puede superar las 15 unidades totales", ex.Message);
+
+            _reservationRepository.Verify(r => r.InsertOne(It.IsAny<Reservation>()), Times.Never);
+            _reservationRepository.Verify(r => r.Save(), Times.Never);
+            _drugRepository.Verify(r => r.UpdateOne(It.IsAny<Drug>()), Times.Never);
+            _drugRepository.Verify(r => r.Save(), Times.Never);
+        }
+
+        [TestMethod]
         public void CreateReservation_WithQuantityOverLimit_ThrowsInvalidResourceException()
         {
             var reservation = new Reservation
