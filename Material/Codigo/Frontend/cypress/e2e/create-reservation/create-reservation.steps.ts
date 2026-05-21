@@ -219,3 +219,15 @@ Then('la selección debe revertirse automáticamente a {string}', (pharmacyName:
   cy.get('#select-farmacia option:selected').should('have.text', pharmacyName);
 });
 
+Given('el sistema detecta que el usuario ya cuenta con {int} reservas activas', (count: number) => {
+  Cypress.env('reservationErrorIntercept', `No puedes tener más de ${count} reservas activas simultáneamente`);
+});
+
+Then('el sistema debe rechazar la solicitud mostrando un modal con el ID {string}', (modalSelector: string) => {
+  cy.get(modalSelector).should('be.visible');
+});
+
+Then('el modal debe contener el texto {string}', (text: string) => {
+  cy.contains(text).should('be.visible');
+});
+

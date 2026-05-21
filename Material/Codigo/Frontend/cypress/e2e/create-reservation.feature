@@ -80,3 +80,16 @@ Scenario: Intento de reservar medicamentos de múltiples farmacias
     When intenta seleccionar la farmacia "Farmacia Norte" en el buscador
     Then el sistema debe mostrar un mensaje de error flotante con el texto "Una reserva solo puede contener medicamentos de una única farmacia"
     And la selección debe revertirse automáticamente a "Farmacia Central"
+
+Scenario: Rechazo de reserva por superar el límite de 10 reservas activas
+    Given un usuario no autenticado visita la página de reservas "/reservations/create"
+    And selecciona la farmacia "Farmacia Central" de la lista desplegable "#select-farmacia"
+    And agrega 3 unidades del medicamento "Paracetamol 500mg"
+    And completa el formulario de contacto con los siguientes datos:
+    | Input Selector      | Valor               |
+    | #nombre-completo    | Carlos Gómez        |
+    | #email              | usuario.limite@example.com |
+    And el sistema detecta que el usuario ya cuenta con 10 reservas activas
+    When hace clic en el botón "#btn-confirmar-reserva"
+    Then el sistema debe rechazar la solicitud mostrando un modal con el ID "#modal-limite"
+    And el modal debe contener el texto "No puedes tener más de 10 reservas activas simultáneamente"
