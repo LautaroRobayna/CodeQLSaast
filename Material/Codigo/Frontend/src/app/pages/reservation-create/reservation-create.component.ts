@@ -27,6 +27,8 @@ export class ReservationCreateComponent implements OnInit {
   showSuccessModal: boolean = false;
   hasQuantityError: boolean = false;
   errorMessage: string = "";
+  showLimitModal: boolean = false;
+  limitModalMessage: string = "";
 
   constructor(
     private pharmacyService: PharmacyService,
@@ -121,6 +123,11 @@ export class ReservationCreateComponent implements OnInit {
         this.commonService.updateToastData("Reserva creada exitosamente", "success", "Éxito");
         this.resetForm();
       }
+      if (this.reservationService.lastErrorMessage?.includes("No puedes tener más de 10 reservas")) {
+        this.showLimitModal = true;
+        this.limitModalMessage = this.reservationService.lastErrorMessage;
+      }
+      this.reservationService.lastErrorMessage = '';
     });
   }
 
@@ -157,6 +164,10 @@ export class ReservationCreateComponent implements OnInit {
 
   closeSuccessModal(): void {
     this.showSuccessModal = false;
+  }
+
+  closeLimitModal(): void {
+    this.showLimitModal = false;
   }
 
   resetForm(): void {

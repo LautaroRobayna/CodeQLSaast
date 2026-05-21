@@ -75,6 +75,24 @@
     </div>
   </div>
 
+  <div id="modal-limite" *ngIf="showLimitModal" class="modal fade show d-block" tabindex="-1" aria-modal="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Límite de reservas alcanzado</h5>
+          <button type="button" class="btn-close" aria-label="Close" (click)="closeLimitModal()"></button>
+        </div>
+        <div class="modal-body">
+          <p class="mb-0">{{ limitModalMessage }}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeLimitModal()">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="showLimitModal" class="modal-backdrop fade show" (click)="closeLimitModal()"></div>
+
   <div *ngIf="showSuccessModal" class="modal fade show d-block" tabindex="-1" aria-modal="true" role="dialog">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">

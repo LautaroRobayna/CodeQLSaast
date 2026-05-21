@@ -9,6 +9,7 @@ import { CommonService } from './CommonService';
 @Injectable({ providedIn: 'root' })
 export class ReservationService {
 
+  lastErrorMessage: string = '';
   private url = environment.apiUrl + '/api/reservation';
 
   httpOptions = {
@@ -29,6 +30,7 @@ export class ReservationService {
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
+      this.lastErrorMessage = error.error?.message || '';
       this.log(`${operation} failed: ${error.error.message}`);
       return of(result as T);
     };
