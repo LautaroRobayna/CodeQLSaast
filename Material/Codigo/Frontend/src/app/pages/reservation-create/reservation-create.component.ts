@@ -15,6 +15,7 @@ import { CommonService } from '../../services/CommonService';
 export class ReservationCreateComponent implements OnInit {
   pharmacies: Pharmacy[] = [];
   selectedPharmacyId: number = 0;
+  lastSelectedPharmacyId: number = 0;
   availableDrugs: Drug[] = [];
   drugQuantities: { [key: string]: number } = {};
 
@@ -41,7 +42,14 @@ export class ReservationCreateComponent implements OnInit {
   }
 
   onPharmacyChange(): void {
+    if (this.reservationDetails.length > 0) {
+      this.commonService.updateToastData("Una reserva solo puede contener medicamentos de una única farmacia", "danger", "Error");
+      setTimeout(() => { this.selectedPharmacyId = this.lastSelectedPharmacyId; });
+      return;
+    }
+
     if (this.selectedPharmacyId > 0) {
+      this.lastSelectedPharmacyId = this.selectedPharmacyId;
       this.drugService.getDrugsFilter(this.selectedPharmacyId.toString(), "").subscribe(data => {
         this.availableDrugs = data;
         this.availableDrugs.forEach(d => this.drugQuantities[d.code] = 1);
