@@ -116,6 +116,16 @@ When('completa el formulario de contacto con los siguientes datos:', (dataTable:
 });
 
 When('ingresa el valor {string} en el campo de cantidad {string}', (value: string, selector: string) => {
+  if (selector === '#input-cantidad') {
+    cy.get<string>('@selectedDrug').then((drugName) => {
+      cy.contains('td', drugName)
+        .parents('tr')
+        .within(() => {
+          cy.get('input[type="number"]').clear().type(value);
+        });
+    });
+    return;
+  }
   cy.get(selector).clear().type(value);
 });
 
@@ -195,5 +205,34 @@ Then('el botón {string} debe mantenerse deshabilitado', (selector: string) => {
       cy.get(selector).should('be.disabled');
     }
   });
+});
+
+Given('un usuario selecciona el medicamento {string} que cuenta con {int} unidades en stock', (drugName: string, stock: number) => {
+  cy.wrap(drugName).as('selectedDrug');
+  cy.contains('td', drugName).parents('tr').click();
+});
+
+Then('el elemento informativo {string} debe mostrar el texto {string}', (selector: string, message: string) => {
+  cy.get<string>('@selectedDrug').then((drugName) => {
+    cy.contains('td', drugName)
+      .parents('tr')
+      .within(() => {
+        cy.get(selector).should('be.visible').and('contain.text', message);
+      });
+  });
+});
+
+Then('el botón {string} debe estar en estado deshabilitado', (selector: string) => {
+  if (selector === '#btn-agregar-reserva') {
+    cy.get<string>('@selectedDrug').then((drugName) => {
+      cy.contains('td', drugName)
+        .parents('tr')
+        .within(() => {
+          cy.contains('button', 'Agregar').should('be.disabled');
+        });
+    });
+    return;
+  }
+  cy.get(selector).should('be.disabled');
 });
 

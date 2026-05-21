@@ -36,8 +36,8 @@ Scenario: Intento de reserva superando el límite total de 15 unidades
     And selecciona la farmacia "Farmacia Central" de la lista desplegable "#select-farmacia"
     And agrega 5 unidades del medicamento "Paracetamol 500mg"
     And agrega 5 unidades del medicamento "Amoxicilina 500mg"
-    And agrega 5 unidades del medicamento "Ibuprofeno 400mg"
-    And el usuario intenta agregar 1 unidad de "Aspirina 500mg"
+    And agrega 5 unidades del medicamento "Aspirina 500mg"
+    And el usuario intenta agregar 1 unidad de "Ibuprofeno 400mg"
     When hace clic en el botón "#btn-agregar-reserva"
     Then el sistema debe impedir la acción y mostrar la alerta "#alert-error" con el texto "La reserva no puede superar las 15 unidades totales"
 
@@ -49,3 +49,22 @@ Scenario: Intento de reserva superando el límite de 5 unidades del mismo medica
     And agrega 3 unidades del medicamento "Paracetamol 500mg"
     Then el sistema debe mostrar un mensaje de error flotante con el texto "No se permiten más de 5 unidades del mismo medicamento"
     And el botón "#btn-confirmar-reserva" debe mantenerse deshabilitado
+
+Scenario: Intento de adición que supera ambos límites simultáneamente
+    Given un usuario no autenticado visita la página de reservas "/reservations/create"
+    And selecciona la farmacia "Farmacia Central" de la lista desplegable "#select-farmacia"
+    And agrega 4 unidades del medicamento "Paracetamol 500mg"
+    And agrega 5 unidades del medicamento "Ibuprofeno 400mg"
+    And agrega 3 unidades del medicamento "Amoxicilina 500mg"
+    And el usuario intenta agregar 6 unidades de "Paracetamol 500mg"
+    When hace clic en el botón "#btn-agregar-reserva"
+    Then el sistema debe mostrar un mensaje de error flotante con el texto "No se permiten más de 5 unidades del mismo medicamento"
+    And el botón "#btn-confirmar-reserva" debe mantenerse deshabilitado
+
+Scenario: Intento de reserva que supera el stock disponible
+    Given un usuario no autenticado visita la página de reservas "/reservations/create"
+    And selecciona la farmacia "Farmacia Central" de la lista desplegable "#select-farmacia"
+    And un usuario selecciona el medicamento "Ibuprofeno 400mg" que cuenta con 3 unidades en stock
+    When ingresa el valor "4" en el campo de cantidad "#input-cantidad"
+    Then el elemento informativo "#stock-error-message" debe mostrar el texto "Cantidad supera el stock disponible (3 unidades)"
+    And el botón "#btn-agregar-reserva" debe estar en estado deshabilitado
