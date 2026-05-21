@@ -59,9 +59,16 @@ namespace PharmaGo.BusinessLogic
             foreach (var detail in reservation.Details)
             {
                 var drug = _drugRepository.GetOneByExpression(d => d.Code == detail.DrugCode);
-                if (drug != null && detail.Quantity > drug.Stock)
+                if (drug != null)
                 {
-                    throw new InvalidResourceException("La cantidad solicitada supera el stock disponible");
+                    if (drug.Pharmacy?.Id != reservation.PharmacyId)
+                    {
+                        throw new InvalidResourceException("Una reserva solo puede contener medicamentos de una unica farmacia");
+                    }
+                    if (detail.Quantity > drug.Stock)
+                    {
+                        throw new InvalidResourceException("La cantidad solicitada supera el stock disponible");
+                    }
                 }
             }
 

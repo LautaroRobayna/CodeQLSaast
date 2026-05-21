@@ -32,7 +32,7 @@ namespace PharmaGo.Test.BusinessLogic.Test
         public void CreateReservation_OK()
         {
             var pharmacy = new Pharmacy { Id = 1, Name = "Test Pharmacy" };
-            var drug = new Drug { Id = 1, Code = "D-001", Name = "Aspirina", Stock = 10 };
+            var drug = new Drug { Id = 1, Code = "D-001", Name = "Aspirina", Stock = 10, Pharmacy = pharmacy };
 
             var reservation = new Reservation
             {
@@ -164,7 +164,7 @@ namespace PharmaGo.Test.BusinessLogic.Test
         public void CreateReservation_QuantityExceedsStock_ThrowsInvalidResourceException()
         {
             var pharmacy = new Pharmacy { Id = 1, Name = "Test Pharmacy" };
-            var drug = new Drug { Id = 1, Code = "D-001", Name = "Ibuprofeno 400mg", Stock = 3 };
+            var drug = new Drug { Id = 1, Code = "D-001", Name = "Ibuprofeno 400mg", Stock = 3, Pharmacy = pharmacy };
 
             var reservation = new Reservation
             {
@@ -181,6 +181,41 @@ namespace PharmaGo.Test.BusinessLogic.Test
 
             var ex = Assert.ThrowsException<InvalidResourceException>(() => _reservationManager.Create(reservation));
             Assert.AreEqual("La cantidad solicitada supera el stock disponible", ex.Message);
+
+            _reservationRepository.Verify(r => r.InsertOne(It.IsAny<Reservation>()), Times.Never);
+            _reservationRepository.Verify(r => r.Save(), Times.Never);
+            _drugRepository.Verify(r => r.UpdateOne(It.IsAny<Drug>()), Times.Never);
+            _drugRepository.Verify(r => r.Save(), Times.Never);
+        }
+
+        [TestMethod]
+        public void CreateReservation_DrugFromDifferentPharmacy_ThrowsInvalidResourceException()
+        {
+            var pharmacy = new Pharmacy { Id = 1, Name = "Farmacia Central" };
+            var drug = new Drug
+            {
+                Id = 1,
+                Code = "D-001",
+                Name = "Paracetamol",
+                Stock = 10,
+                Pharmacy = new Pharmacy { Id = 2, Name = "Farmacia Norte" }
+            };
+
+            var reservation = new Reservation
+            {
+                PharmacyId = 1,
+                UserEmail = "test@user.com",
+                Details = new List<ReservationDetail>
+                {
+                    new ReservationDetail { DrugCode = "D-001", Quantity = 3 }
+                }
+            };
+
+            _pharmacyRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Pharmacy, bool>>>())).Returns(pharmacy);
+            _drugRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Drug, bool>>>())).Returns(drug);
+
+            var ex = Assert.ThrowsException<InvalidResourceException>(() => _reservationManager.Create(reservation));
+            Assert.AreEqual("Una reserva solo puede contener medicamentos de una unica farmacia", ex.Message);
 
             _reservationRepository.Verify(r => r.InsertOne(It.IsAny<Reservation>()), Times.Never);
             _reservationRepository.Verify(r => r.Save(), Times.Never);

@@ -153,6 +153,26 @@ namespace PharmaGo.Test.WebApi.Test
 
             var result = _reservationController.Create(reservationModel);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidResourceException))]
+        public void CreateReservation_DrugFromDifferentPharmacy_ReturnsBadRequest()
+        {
+            var reservationModel = new ReservationModelRequest
+            {
+                Details = new List<ReservationModelRequest.ReservationDetailModelRequest>
+                {
+                    new ReservationModelRequest.ReservationDetailModelRequest { DrugCode = "DRUG-001", Quantity = 3 }
+                },
+                PharmacyId = 1,
+                UserEmail = "user@test.com"
+            };
+
+            _reservationManagerMock.Setup(x => x.Create(It.IsAny<Reservation>())).Throws(
+                new InvalidResourceException("Una reserva solo puede contener medicamentos de una unica farmacia"));
+
+            var result = _reservationController.Create(reservationModel);
+        }
     }
 }
 
