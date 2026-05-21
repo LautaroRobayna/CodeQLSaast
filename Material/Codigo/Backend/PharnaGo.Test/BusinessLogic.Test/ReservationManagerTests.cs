@@ -159,5 +159,33 @@ namespace PharmaGo.Test.BusinessLogic.Test
             _drugRepository.Verify(r => r.UpdateOne(It.IsAny<Drug>()), Times.Never);
             _drugRepository.Verify(r => r.Save(), Times.Never);
         }
+
+        [TestMethod]
+        public void CreateReservation_QuantityExceedsStock_ThrowsInvalidResourceException()
+        {
+            var pharmacy = new Pharmacy { Id = 1, Name = "Test Pharmacy" };
+            var drug = new Drug { Id = 1, Code = "D-001", Name = "Ibuprofeno 400mg", Stock = 3 };
+
+            var reservation = new Reservation
+            {
+                PharmacyId = 1,
+                UserEmail = "test@user.com",
+                Details = new List<ReservationDetail>
+                {
+                    new ReservationDetail { DrugCode = "D-001", Quantity = 4 }
+                }
+            };
+
+            _pharmacyRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Pharmacy, bool>>>())).Returns(pharmacy);
+            _drugRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Drug, bool>>>())).Returns(drug);
+
+            var ex = Assert.ThrowsException<InvalidResourceException>(() => _reservationManager.Create(reservation));
+            Assert.AreEqual("La cantidad solicitada supera el stock disponible", ex.Message);
+
+            _reservationRepository.Verify(r => r.InsertOne(It.IsAny<Reservation>()), Times.Never);
+            _reservationRepository.Verify(r => r.Save(), Times.Never);
+            _drugRepository.Verify(r => r.UpdateOne(It.IsAny<Drug>()), Times.Never);
+            _drugRepository.Verify(r => r.Save(), Times.Never);
+        }
     }
 }

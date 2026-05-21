@@ -4,27 +4,31 @@
     "code": "P-500",
     "name": "Paracetamol 500mg",
     "symptom": "Dolor",
-    "price": 150
+    "price": 150,
+    "stock": 10
   },
   {
     "id": 2,
     "code": "I-400",
     "name": "Ibuprofeno 400mg",
     "symptom": "Fiebre",
-    "price": 200
+    "price": 200,
+    "stock": 3
   },
   {
     "id": 3,
     "code": "A-500",
     "name": "Amoxicilina 500mg",
     "symptom": "Infeccion",
-    "price": 300
+    "price": 300,
+    "stock": 5
   },
   {
     "id": 4,
     "code": "AS-001",
     "name": "Aspirina 500mg",
     "symptom": "Dolor",
-    "price": 100
+    "price": 100,
+    "stock": 10
   }
 ]
