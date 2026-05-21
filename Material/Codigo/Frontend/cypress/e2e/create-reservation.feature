@@ -61,10 +61,14 @@ Scenario: Intento de adición que supera ambos límites simultáneamente
     Then el sistema debe mostrar un mensaje de error flotante con el texto "No se permiten más de 5 unidades del mismo medicamento"
     And el botón "#btn-confirmar-reserva" debe mantenerse deshabilitado
 
-Scenario: Intento de reserva que supera el stock disponible
+Scenario: Intento de crear reserva que supera el stock disponible
     Given un usuario no autenticado visita la página de reservas "/reservations/create"
     And selecciona la farmacia "Farmacia Central" de la lista desplegable "#select-farmacia"
-    And un usuario selecciona el medicamento "Ibuprofeno 400mg" que cuenta con 3 unidades en stock
-    When ingresa el valor "4" en el campo de cantidad "#input-cantidad"
-    Then el elemento informativo "#stock-error-message" debe mostrar el texto "Cantidad supera el stock disponible (3 unidades)"
-    And el botón "#btn-agregar-reserva" debe estar en estado deshabilitado
+    And agrega 4 unidades del medicamento "Ibuprofeno 400mg"
+    And el sistema rechazará la creación de la reserva con el error "La cantidad solicitada supera el stock disponible"
+    When completa el formulario de contacto con los siguientes datos:
+    | Input Selector      | Valor               |
+    | #nombre-completo    | Carlos Gómez        |
+    | #email              | carlos@example.com  |
+    And hace clic en el botón "#btn-confirmar-reserva"
+    Then el sistema debe mostrar un mensaje de error flotante con el texto "La cantidad solicitada supera el stock disponible"
