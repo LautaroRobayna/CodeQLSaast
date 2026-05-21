@@ -211,3 +211,11 @@ Given('el sistema rechazará la creación de la reserva con el error {string}', 
   Cypress.env('reservationErrorIntercept', errorMessage);
 });
 
+When('intenta seleccionar la farmacia {string} en el buscador', (pharmacyName: string) => {
+  cy.get('#select-farmacia').select(pharmacyName);
+});
+
+Then('la selección debe revertirse automáticamente a {string}', (pharmacyName: string) => {
+  cy.get('#select-farmacia option:selected').should('have.text', pharmacyName);
+});
+

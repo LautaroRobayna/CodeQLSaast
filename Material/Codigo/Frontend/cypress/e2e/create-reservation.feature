@@ -72,3 +72,11 @@ Scenario: Intento de crear reserva que supera el stock disponible
     | #email              | carlos@example.com  |
     And hace clic en el botón "#btn-confirmar-reserva"
     Then el sistema debe mostrar un mensaje de error flotante con el texto "La cantidad solicitada supera el stock disponible"
+
+Scenario: Intento de reservar medicamentos de múltiples farmacias
+    Given un usuario no autenticado visita la página de reservas "/reservations/create"
+    And selecciona la farmacia "Farmacia Central" de la lista desplegable "#select-farmacia"
+    And agrega 3 unidades del medicamento "Paracetamol 500mg"
+    When intenta seleccionar la farmacia "Farmacia Norte" en el buscador
+    Then el sistema debe mostrar un mensaje de error flotante con el texto "Una reserva solo puede contener medicamentos de una única farmacia"
+    And la selección debe revertirse automáticamente a "Farmacia Central"
