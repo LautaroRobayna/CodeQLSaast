@@ -57,6 +57,9 @@
           <p class="text-muted">No has agregado medicamentos aún.</p>
         </ng-template>
 
+        <div id="alert-error" class="alert alert-danger" *ngIf="errorMessage" role="alert">
+          {{ errorMessage }}
+        </div>
         <form *ngIf="reservationDetails.length > 0">
           <div class="mb-3">
             <label for="nombre-completo" class="form-label">Nombre Completo</label>

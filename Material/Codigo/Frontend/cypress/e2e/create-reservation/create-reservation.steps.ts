@@ -38,6 +38,7 @@ Given('un usuario no autenticado visita la página de reservas {string}', (url: 
     stockByName['Paracetamol 500mg'] = 10;
     stockByName['Ibuprofeno 400mg'] = 3;
     stockByName['Amoxicilina 500mg'] = 5;
+    stockByName['Aspirina 500mg'] = 10;
     cy.wrap(stockByName).as('stockByName');
   });
 
@@ -56,17 +57,18 @@ Given('selecciona la farmacia {string} de la lista desplegable {string}', (pharm
   cy.wait('@getDrugs');
 });
 
-Given('agrega {int} unidades del medicamento {string}', (quantity: number, drugName: string) => {
+Given(/agrega (\d+) unidad(?:es)? del medicamento "([^"]+)"/, (quantity: string, drugName: string) => {
+  const qty = parseInt(quantity);
   cy.contains('td', drugName)
     .parents('tr')
     .within(() => {
-      cy.get('input[type="number"]').clear().type(quantity.toString());
+      cy.get('input[type="number"]').clear().type(quantity);
       cy.contains('button', 'Agregar').click();
     });
 
   cy.get<Record<string, number>>('@reservationQuantities').then((quantities) => {
     const current = quantities[drugName] ?? 0;
-    quantities[drugName] = current + quantity;
+    quantities[drugName] = current + qty;
     cy.wrap(quantities).as('reservationQuantities');
   });
 });
@@ -86,11 +88,11 @@ Given('un usuario ya agregó a la reserva {int} unidades de {string} y {int} uni
     });
 });
 
-Given('el usuario intenta agregar {int} unidades de {string}', (quantity: number, drugName: string) => {
+Given(/el usuario intenta agregar (\d+) unidad(?:es)? de "([^"]+)"/, (quantity: string, drugName: string) => {
   cy.contains('td', drugName)
     .parents('tr')
     .within(() => {
-      cy.get('input[type="number"]').clear().type(quantity.toString());
+      cy.get('input[type="number"]').clear().type(quantity);
     });
   cy.wrap(drugName).as('intendedDrug');
 });

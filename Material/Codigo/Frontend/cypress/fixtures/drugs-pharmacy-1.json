@@ -19,5 +19,12 @@
     "name": "Amoxicilina 500mg",
     "symptom": "Infeccion",
     "price": 300
+  },
+  {
+    "id": 4,
+    "code": "AS-001",
+    "name": "Aspirina 500mg",
+    "symptom": "Dolor",
+    "price": 100
   }
 ]

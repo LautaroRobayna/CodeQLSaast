@@ -25,6 +25,7 @@ export class ReservationCreateComponent implements OnInit {
   publicKey: string = "";
   showSuccessModal: boolean = false;
   hasQuantityError: boolean = false;
+  errorMessage: string = "";
 
   constructor(
     private pharmacyService: PharmacyService,
@@ -67,7 +68,15 @@ export class ReservationCreateComponent implements OnInit {
       return;
     }
 
+    const totalAllDrugs = this.reservationDetails.reduce((sum, d) => sum + d.quantity, 0);
+    if (totalAllDrugs + qty > 15) {
+      this.errorMessage = "La reserva no puede superar las 15 unidades totales";
+      this.hasQuantityError = true;
+      return;
+    }
+
     this.hasQuantityError = false;
+    this.errorMessage = "";
     this.reservationDetails.push({
       drugCode: drug.code,
       name: drug.name,
@@ -78,6 +87,7 @@ export class ReservationCreateComponent implements OnInit {
   removeDetail(index: number): void {
     this.reservationDetails.splice(index, 1);
     this.hasQuantityError = false;
+    this.errorMessage = "";
   }
 
   createReservation(): void {
@@ -148,5 +158,6 @@ export class ReservationCreateComponent implements OnInit {
     this.selectedPharmacyId = 0;
     this.availableDrugs = [];
     this.hasQuantityError = false;
+    this.errorMessage = "";
   }
 }
