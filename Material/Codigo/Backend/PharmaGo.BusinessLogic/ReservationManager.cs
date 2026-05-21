@@ -54,6 +54,16 @@ namespace PharmaGo.BusinessLogic
 
             reservation.Details = groupedDetails;
 
+            var activeReservationsCount = _reservationRepository
+                .GetAllByExpression(r => r.UserEmail == reservation.UserEmail &&
+                     (r.Status == ReservationStatus.Pending || r.Status == ReservationStatus.Confirmed))
+                .Count();
+
+            if (activeReservationsCount >= 10)
+            {
+                throw new InvalidResourceException("No puedes tener más de 10 reservas activas simultáneamente");
+            }
+
             var pharmacy = _pharmacyRepository.GetOneByExpression(p => p.Id == reservation.PharmacyId);
 
             foreach (var detail in reservation.Details)
