@@ -94,7 +94,7 @@ namespace PharmaGo.Test.BusinessLogic.Test
             _drugRepository.Verify(r => r.UpdateOne(It.IsAny<Drug>()), Times.Never);
             _drugRepository.Verify(r => r.Save(), Times.Never);
         }
-        
+
         [TestMethod]
         public void CreateReservation_EmptyDetails_ThrowsInvalidResourceException()
         {

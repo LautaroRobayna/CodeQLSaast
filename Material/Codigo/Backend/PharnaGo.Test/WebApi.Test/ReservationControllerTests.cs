@@ -73,7 +73,6 @@ namespace PharmaGo.Test.WebApi.Test
             Assert.AreEqual("Pending", response.Status);
         }
 
-        
         [TestMethod]
         [ExpectedException(typeof(InvalidResourceException))]
         public void CreateReservation_EmptyDetails_ReturnsBadRequest()
