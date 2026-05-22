@@ -54,6 +54,13 @@ namespace PharmaGo.BusinessLogic
 
             reservation.Details = groupedDetails;
 
+            if (string.IsNullOrWhiteSpace(reservation.UserEmail) ||
+                !reservation.UserEmail.Contains('@') ||
+                !reservation.UserEmail.Contains('.'))
+            {
+                throw new InvalidResourceException("El email ingresado no es válido");
+            }
+
             var activeReservationsCount = _reservationRepository
                 .GetAllByExpression(r => r.UserEmail == reservation.UserEmail &&
                      (r.Status == ReservationStatus.Pending || r.Status == ReservationStatus.Confirmed))

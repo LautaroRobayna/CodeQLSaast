@@ -228,6 +228,28 @@ namespace PharmaGo.Test.BusinessLogic.Test
         }
 
         [TestMethod]
+        public void CreateReservation_InvalidEmail_ThrowsInvalidResourceException()
+        {
+            var reservation = new Reservation
+            {
+                PharmacyId = 1,
+                UserEmail = "email-invalido",
+                Details = new List<ReservationDetail>
+                {
+                    new ReservationDetail { DrugCode = "D-001", Quantity = 3 }
+                }
+            };
+
+            var ex = Assert.ThrowsException<InvalidResourceException>(() => _reservationManager.Create(reservation));
+            Assert.AreEqual("El email ingresado no es válido", ex.Message);
+
+            _reservationRepository.Verify(r => r.InsertOne(It.IsAny<Reservation>()), Times.Never);
+            _reservationRepository.Verify(r => r.Save(), Times.Never);
+            _drugRepository.Verify(r => r.UpdateOne(It.IsAny<Drug>()), Times.Never);
+            _drugRepository.Verify(r => r.Save(), Times.Never);
+        }
+
+        [TestMethod]
         public void CreateReservation_DrugFromDifferentPharmacy_ThrowsInvalidResourceException()
         {
             var pharmacy = new Pharmacy { Id = 1, Name = "Farmacia Central" };

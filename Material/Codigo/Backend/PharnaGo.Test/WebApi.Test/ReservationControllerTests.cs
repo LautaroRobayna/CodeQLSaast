@@ -175,6 +175,26 @@ namespace PharmaGo.Test.WebApi.Test
 
         [TestMethod]
         [ExpectedException(typeof(InvalidResourceException))]
+        public void CreateReservation_InvalidEmail_ReturnsBadRequest()
+        {
+            var reservationModel = new ReservationModelRequest
+            {
+                Details = new List<ReservationModelRequest.ReservationDetailModelRequest>
+                {
+                    new ReservationModelRequest.ReservationDetailModelRequest { DrugCode = "DRUG-001", Quantity = 3 }
+                },
+                PharmacyId = 1,
+                UserEmail = "email-invalido"
+            };
+
+            _reservationManagerMock.Setup(x => x.Create(It.IsAny<Reservation>())).Throws(
+                new InvalidResourceException("El email ingresado no es válido"));
+
+            var result = _reservationController.Create(reservationModel);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidResourceException))]
         public void CreateReservation_DrugFromDifferentPharmacy_ReturnsBadRequest()
         {
             var reservationModel = new ReservationModelRequest
