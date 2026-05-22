@@ -219,6 +219,11 @@ Then('la selección debe revertirse automáticamente a {string}', (pharmacyName:
   cy.get('#select-farmacia option:selected').should('have.text', pharmacyName);
 });
 
+Then('el campo email debe mostrar un error de validación visual', () => {
+  cy.get('#email').should('have.class', 'is-invalid');
+  cy.get('.invalid-feedback').should('be.visible').and('contain.text', 'El email ingresado no es válido');
+});
+
 Given('el sistema detecta que el usuario ya cuenta con {int} reservas activas', (count: number) => {
   Cypress.env('reservationErrorIntercept', `No puedes tener más de ${count} reservas activas simultáneamente`);
 });

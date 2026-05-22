@@ -81,6 +81,18 @@ Scenario: Intento de reservar medicamentos de múltiples farmacias
     Then el sistema debe mostrar un mensaje de error flotante con el texto "Una reserva solo puede contener medicamentos de una única farmacia"
     And la selección debe revertirse automáticamente a "Farmacia Central"
 
+Scenario: Intento de reserva con email inválido
+    Given un usuario no autenticado visita la página de reservas "/reservations/create"
+    And selecciona la farmacia "Farmacia Central" de la lista desplegable "#select-farmacia"
+    And agrega 3 unidades del medicamento "Paracetamol 500mg"
+    When completa el formulario de contacto con los siguientes datos:
+    | Input Selector      | Valor               |
+    | #nombre-completo    | Carlos Gómez        |
+    | #email              | email-invalido      |
+    And hace clic en el botón "#btn-confirmar-reserva"
+    Then el sistema debe mostrar un mensaje de error flotante con el texto "El email ingresado no es válido"
+    And el campo email debe mostrar un error de validación visual
+
 Scenario: Rechazo de reserva por superar el límite de 10 reservas activas
     Given un usuario no autenticado visita la página de reservas "/reservations/create"
     And selecciona la farmacia "Farmacia Central" de la lista desplegable "#select-farmacia"
