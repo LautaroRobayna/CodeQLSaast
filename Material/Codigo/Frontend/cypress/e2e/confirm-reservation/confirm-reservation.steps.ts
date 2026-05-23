@@ -122,3 +122,22 @@ Then('la reserva {string} no debe aparecer en la lista de pendientes', (codigoRe
     cy.contains(codigoReserva).should('not.exist');
   });
 });
+
+Given('que el sistema tiene reservas en distintos estados', () => {
+  cy.intercept('GET', '**/api/reservation/pending', {
+    statusCode: 200,
+    fixture: 'reservations-multi-state.json'
+  }).as('listaReservasPendientes');
+});
+
+Then('la lista de pendientes solo contiene {int} reserva', (cantidad: number) => {
+  cy.get('.list-group-item').should('have.length', cantidad);
+});
+
+Then('la reserva {string} aparece en la lista', (codigo: string) => {
+  cy.contains('.list-group-item', codigo).should('be.visible');
+});
+
+Then('la reserva {string} no aparece en la lista', (codigo: string) => {
+  cy.contains('.list-group-item', codigo).should('not.exist');
+});
