@@ -1,3 +1,4 @@
+<app-custom-toast></app-custom-toast>
 <div class="container mt-4">
   <h2>Crear Reserva</h2>
   <hr>
@@ -31,7 +32,7 @@
                 <td>{{ drug.symptom }}</td>
                 <td>{{ drug.price | currency }}</td>
                 <td>
-                  <input type="number" class="form-control form-control-sm" [(ngModel)]="drugQuantities[drug.code]" min="1" style="width: 70px;">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="drugQuantities[drug.code]" min="1" max="5" style="width: 70px;">
                 </td>
                 <td>
                   <button class="btn btn-primary btn-sm" (click)="addDrugToReservation(drug)">Agregar</button>
@@ -56,6 +57,9 @@
           <p class="text-muted">No has agregado medicamentos aún.</p>
         </ng-template>
 
+        <div id="alert-error" class="alert alert-danger" *ngIf="errorMessage" role="alert">
+          {{ errorMessage }}
+        </div>
         <form *ngIf="reservationDetails.length > 0">
           <div class="mb-3">
             <label for="nombre-completo" class="form-label">Nombre Completo</label>
@@ -63,13 +67,32 @@
           </div>
           <div class="mb-3">
             <label for="email" class="form-label">Email de contacto</label>
-            <input type="email" id="email" class="form-control" [(ngModel)]="userEmail" name="userEmail">
+            <input type="email" id="email" class="form-control" [class.is-invalid]="emailError" [(ngModel)]="userEmail" name="userEmail">
+            <div *ngIf="emailError" class="invalid-feedback">El email ingresado no es válido</div>
           </div>
-          <button id="btn-confirmar-reserva" class="btn btn-success w-100" (click)="createReservation()">Confirmar Reserva</button>
+          <button id="btn-confirmar-reserva" class="btn btn-success w-100" [disabled]="hasQuantityError" (click)="createReservation()">Confirmar Reserva</button>
         </form>
       </div>
     </div>
   </div>
+
+  <div id="modal-limite" *ngIf="showLimitModal" class="modal fade show d-block" tabindex="-1" aria-modal="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Límite de reservas alcanzado</h5>
+          <button type="button" class="btn-close" aria-label="Close" (click)="closeLimitModal()"></button>
+        </div>
+        <div class="modal-body">
+          <p class="mb-0">{{ limitModalMessage }}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeLimitModal()">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="showLimitModal" class="modal-backdrop fade show" (click)="closeLimitModal()"></div>
 
   <div *ngIf="showSuccessModal" class="modal fade show d-block" tabindex="-1" aria-modal="true" role="dialog">
     <div class="modal-dialog modal-dialog-centered">

@@ -15,6 +15,7 @@ import { CommonService } from '../../services/CommonService';
 export class ReservationCreateComponent implements OnInit {
   pharmacies: Pharmacy[] = [];
   selectedPharmacyId: number = 0;
+  lastSelectedPharmacyId: number = 0;
   availableDrugs: Drug[] = [];
   drugQuantities: { [key: string]: number } = {};
 
@@ -24,6 +25,11 @@ export class ReservationCreateComponent implements OnInit {
   successMessage: string = "";
   publicKey: string = "";
   showSuccessModal: boolean = false;
+  hasQuantityError: boolean = false;
+  errorMessage: string = "";
+  showLimitModal: boolean = false;
+  limitModalMessage: string = "";
+  emailError: boolean = false;
 
   constructor(
     private pharmacyService: PharmacyService,
@@ -39,7 +45,14 @@ export class ReservationCreateComponent implements OnInit {
   }
 
   onPharmacyChange(): void {
+    if (this.reservationDetails.length > 0) {
+      this.commonService.updateToastData("Una reserva solo puede contener medicamentos de una única farmacia", "danger", "Error");
+      setTimeout(() => { this.selectedPharmacyId = this.lastSelectedPharmacyId; });
+      return;
+    }
+
     if (this.selectedPharmacyId > 0) {
+      this.lastSelectedPharmacyId = this.selectedPharmacyId;
       this.drugService.getDrugsFilter(this.selectedPharmacyId.toString(), "").subscribe(data => {
         this.availableDrugs = data;
         this.availableDrugs.forEach(d => this.drugQuantities[d.code] = 1);
@@ -51,19 +64,41 @@ export class ReservationCreateComponent implements OnInit {
 
   addDrugToReservation(drug: Drug): void {
     const qty = this.drugQuantities[drug.code];
-    if (qty > 0) {
-      this.reservationDetails.push({
-        drugCode: drug.code,
-        name: drug.name,
-        quantity: qty
-      });
-    } else {
+    if (qty <= 0) {
       this.commonService.updateToastData("Cantidad inválida", "warning", "Atención");
+      return;
     }
+
+    const existingTotal = this.reservationDetails
+      .filter(d => d.drugCode === drug.code)
+      .reduce((sum, d) => sum + d.quantity, 0);
+
+    if (existingTotal + qty > 5) {
+      this.commonService.updateToastData("No se permiten más de 5 unidades del mismo medicamento", "danger", "Error");
+      this.hasQuantityError = true;
+      return;
+    }
+
+    const totalAllDrugs = this.reservationDetails.reduce((sum, d) => sum + d.quantity, 0);
+    if (totalAllDrugs + qty > 15) {
+      this.errorMessage = "La reserva no puede superar las 15 unidades totales";
+      this.hasQuantityError = true;
+      return;
+    }
+
+    this.hasQuantityError = false;
+    this.errorMessage = "";
+    this.reservationDetails.push({
+      drugCode: drug.code,
+      name: drug.name,
+      quantity: qty
+    });
   }
 
   removeDetail(index: number): void {
     this.reservationDetails.splice(index, 1);
+    this.hasQuantityError = false;
+    this.errorMessage = "";
   }
 
   createReservation(): void {
@@ -71,6 +106,14 @@ export class ReservationCreateComponent implements OnInit {
       this.commonService.updateToastData("Faltan datos obligatorios", "danger", "Error");
       return;
     }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(this.userEmail)) {
+      this.emailError = true;
+      this.commonService.updateToastData("El email ingresado no es válido", "danger", "Error");
+      return;
+    }
+    this.emailError = false;
 
     const request: ReservationRequest = {
       pharmacyId: Number(this.selectedPharmacyId),
@@ -89,6 +132,11 @@ export class ReservationCreateComponent implements OnInit {
         this.commonService.updateToastData("Reserva creada exitosamente", "success", "Éxito");
         this.resetForm();
       }
+      if (this.reservationService.lastErrorMessage?.includes("No puedes tener más de 10 reservas")) {
+        this.showLimitModal = true;
+        this.limitModalMessage = this.reservationService.lastErrorMessage;
+      }
+      this.reservationService.lastErrorMessage = '';
     });
   }
 
@@ -127,11 +175,18 @@ export class ReservationCreateComponent implements OnInit {
     this.showSuccessModal = false;
   }
 
+  closeLimitModal(): void {
+    this.showLimitModal = false;
+  }
+
   resetForm(): void {
     this.reservationDetails = [];
     this.userName = "";
     this.userEmail = "";
     this.selectedPharmacyId = 0;
     this.availableDrugs = [];
+    this.hasQuantityError = false;
+    this.errorMessage = "";
+    this.emailError = false;
   }
 }

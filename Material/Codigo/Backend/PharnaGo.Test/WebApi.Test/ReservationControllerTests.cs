@@ -72,6 +72,146 @@ namespace PharmaGo.Test.WebApi.Test
             Assert.AreEqual(1, response.Details.Count);
             Assert.AreEqual("Pending", response.Status);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidResourceException))]
+        public void CreateReservation_EmptyDetails_ReturnsBadRequest()
+        {
+            var reservationModel = new ReservationModelRequest
+            {
+                Details = new List<ReservationModelRequest.ReservationDetailModelRequest>(),
+                PharmacyId = 1,
+                UserEmail = "user@test.com"
+            };
+
+            _reservationManagerMock.Setup(x => x.Create(It.IsAny<Reservation>())).Throws(
+                new InvalidResourceException("Invalid reservation details."));
+
+            var result = _reservationController.Create(reservationModel);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidResourceException))]
+        public void CreateReservation_TotalQuantityOverLimit_ReturnsBadRequest()
+        {
+            var reservationModel = new ReservationModelRequest
+            {
+                Details = new List<ReservationModelRequest.ReservationDetailModelRequest>
+                {
+                    new ReservationModelRequest.ReservationDetailModelRequest { DrugCode = "DRUG-001", Quantity = 5 },
+                    new ReservationModelRequest.ReservationDetailModelRequest { DrugCode = "DRUG-002", Quantity = 5 },
+                    new ReservationModelRequest.ReservationDetailModelRequest { DrugCode = "DRUG-003", Quantity = 5 },
+                    new ReservationModelRequest.ReservationDetailModelRequest { DrugCode = "DRUG-004", Quantity = 1 }
+                },
+                PharmacyId = 1,
+                UserEmail = "user@test.com"
+            };
+
+            _reservationManagerMock.Setup(x => x.Create(It.IsAny<Reservation>())).Throws(
+                new InvalidResourceException("La reserva no puede superar las 15 unidades totales"));
+
+            var result = _reservationController.Create(reservationModel);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidResourceException))]
+        public void CreateReservation_QuantityOverLimit_ReturnsBadRequest()
+        {
+            var reservationModel = new ReservationModelRequest
+            {
+                Details = new List<ReservationModelRequest.ReservationDetailModelRequest>
+                {
+                    new ReservationModelRequest.ReservationDetailModelRequest { DrugCode = "DRUG-001", Quantity = 6 }
+                },
+                PharmacyId = 1,
+                UserEmail = "user@test.com"
+            };
+
+            _reservationManagerMock.Setup(x => x.Create(It.IsAny<Reservation>())).Throws(
+                new InvalidResourceException("No se permiten mas de 5 unidades del mismo medicamento"));
+
+            var result = _reservationController.Create(reservationModel);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidResourceException))]
+        public void CreateReservation_QuantityExceedsStock_ReturnsBadRequest()
+        {
+            var reservationModel = new ReservationModelRequest
+            {
+                Details = new List<ReservationModelRequest.ReservationDetailModelRequest>
+                {
+                    new ReservationModelRequest.ReservationDetailModelRequest { DrugCode = "DRUG-001", Quantity = 4 }
+                },
+                PharmacyId = 1,
+                UserEmail = "user@test.com"
+            };
+
+            _reservationManagerMock.Setup(x => x.Create(It.IsAny<Reservation>())).Throws(
+                new InvalidResourceException("La cantidad solicitada supera el stock disponible"));
+
+            var result = _reservationController.Create(reservationModel);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidResourceException))]
+        public void CreateReservation_ActiveReservationLimitExceeded_ReturnsBadRequest()
+        {
+            var reservationModel = new ReservationModelRequest
+            {
+                Details = new List<ReservationModelRequest.ReservationDetailModelRequest>
+                {
+                    new ReservationModelRequest.ReservationDetailModelRequest { DrugCode = "DRUG-001", Quantity = 3 }
+                },
+                PharmacyId = 1,
+                UserEmail = "user@test.com"
+            };
+
+            _reservationManagerMock.Setup(x => x.Create(It.IsAny<Reservation>())).Throws(
+                new InvalidResourceException("No puedes tener más de 10 reservas activas simultáneamente"));
+
+            var result = _reservationController.Create(reservationModel);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidResourceException))]
+        public void CreateReservation_InvalidEmail_ReturnsBadRequest()
+        {
+            var reservationModel = new ReservationModelRequest
+            {
+                Details = new List<ReservationModelRequest.ReservationDetailModelRequest>
+                {
+                    new ReservationModelRequest.ReservationDetailModelRequest { DrugCode = "DRUG-001", Quantity = 3 }
+                },
+                PharmacyId = 1,
+                UserEmail = "email-invalido"
+            };
+
+            _reservationManagerMock.Setup(x => x.Create(It.IsAny<Reservation>())).Throws(
+                new InvalidResourceException("El email ingresado no es válido"));
+
+            var result = _reservationController.Create(reservationModel);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidResourceException))]
+        public void CreateReservation_DrugFromDifferentPharmacy_ReturnsBadRequest()
+        {
+            var reservationModel = new ReservationModelRequest
+            {
+                Details = new List<ReservationModelRequest.ReservationDetailModelRequest>
+                {
+                    new ReservationModelRequest.ReservationDetailModelRequest { DrugCode = "DRUG-001", Quantity = 3 }
+                },
+                PharmacyId = 1,
+                UserEmail = "user@test.com"
+            };
+
+            _reservationManagerMock.Setup(x => x.Create(It.IsAny<Reservation>())).Throws(
+                new InvalidResourceException("Una reserva solo puede contener medicamentos de una unica farmacia"));
+
+            var result = _reservationController.Create(reservationModel);
+        }
     }
 }
 
