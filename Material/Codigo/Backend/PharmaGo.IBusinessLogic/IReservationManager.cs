@@ -6,6 +6,7 @@ namespace PharmaGo.IBusinessLogic
     {
         Reservation Create(Reservation reservation);
         Reservation ConfirmReservation(string code);
+        Reservation RejectReservation(string code);
         IEnumerable<Reservation> GetAllPending();
     }
 }

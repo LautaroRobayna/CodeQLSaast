@@ -349,6 +349,32 @@ namespace PharmaGo.Test.WebApi.Test
             Assert.AreEqual("RES-777", response.Code);
             Assert.AreEqual("Confirmed", response.Status);
         }
+
+        [TestMethod]
+        public void PutRejectReservation_Ok()
+        {
+            var reservation = new Reservation
+            {
+                Id = 1,
+                Code = "RES-999",
+                Status = ReservationStatus.Cancelled,
+                PharmacyId = 1,
+                UserEmail = "cliente@example.com",
+                ReservationDate = DateTime.Now,
+                Details = new List<ReservationDetail>()
+            };
+
+            _reservationManagerMock.Setup(x => x.RejectReservation("RES-999")).Returns(reservation);
+
+            var result = _reservationController.RejectReservation("RES-999");
+            var objectResult = result as ObjectResult;
+
+            _reservationManagerMock.VerifyAll();
+            Assert.AreEqual(200, objectResult.StatusCode);
+            var response = objectResult.Value as ReservationModelResponse;
+            Assert.AreEqual("RES-999", response.Code);
+            Assert.AreEqual("Cancelled", response.Status);
+        }
     }
 }
 

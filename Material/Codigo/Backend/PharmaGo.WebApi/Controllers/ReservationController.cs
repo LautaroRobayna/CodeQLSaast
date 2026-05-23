@@ -71,5 +71,13 @@ namespace PharmaGo.WebApi.Controllers
             var confirmed = _reservationManager.ConfirmReservation(code);
             return Ok(new ReservationModelResponse(confirmed));
         }
+
+        [HttpPut("{code}/reject")]
+        [AuthorizationFilter(new[] { nameof(RoleType.Employee) })]
+        public IActionResult RejectReservation(string code)
+        {
+            var rejected = _reservationManager.RejectReservation(code);
+            return Ok(new ReservationModelResponse(rejected));
+        }
     }
 }
