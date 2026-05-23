@@ -51,5 +51,21 @@ namespace PharmaGo.BusinessLogic
 
             return reservation;
         }
+
+        public Reservation GetByPublicKey(string publicKey)
+        {
+            var reservation = _reservationRepository.GetOneByExpression(r => r.PublicKey == publicKey);
+
+            foreach (var detail in reservation.Details)
+            {
+                var drug = _drugRepository.GetOneByExpression(d => d.Code == detail.DrugCode);
+                if (drug != null)
+                {
+                    detail.RequiresPrescription = drug.Prescription;
+                }
+            }
+
+            return reservation;
+        }
     }
 }
