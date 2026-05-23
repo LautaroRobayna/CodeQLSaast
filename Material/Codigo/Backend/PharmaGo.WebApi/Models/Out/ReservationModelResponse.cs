@@ -14,6 +14,7 @@ namespace PharmaGo.WebApi.Models.Out
         public string UserEmail { get; set; }
         public DateTime ReservationDate { get; set; }
         public string Status { get; set; }
+        public DateTime ExpirationDate { get; set; }
 
         public ReservationModelResponse(Reservation reservation)
         {
@@ -31,6 +32,7 @@ namespace PharmaGo.WebApi.Models.Out
             UserEmail = reservation.UserEmail;
             ReservationDate = reservation.ReservationDate;
             Status = reservation.Status.ToString();
+            ExpirationDate = reservation.ReservationDate.AddDays(30);
         }
 
         public class ReservationDetailModelResponse
