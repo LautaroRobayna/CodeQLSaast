@@ -1,0 +1,113 @@
+[
+  {
+    "description": "    Como cliente\n    Quiero consultar el estado de mi reserva ingresando mi clave pública\n    Para ver los detalles y saber si necesito presentar alguna receta",
+    "keyword": "Feature",
+    "name": "Gestionar reserva",
+    "line": 1,
+    "id": "gestionar-reserva",
+    "tags": [],
+    "uri": "manage-reservation.feature",
+    "elements": [
+      {
+        "id": "gestionar-reserva;visualización-de-una-reserva-en-estado-\"pendiente\"-con-receta-faltante",
+        "keyword": "Scenario",
+        "line": 13,
+        "name": "Visualización de una reserva en estado \"Pendiente\" con receta faltante",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "que el sistema tiene cargada la farmacia \"Farmacia Central\"",
+            "result": {
+              "status": "undefined",
+              "duration": 109000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "la \"Farmacia Central\" tiene el medicamento \"Amoxicilina 500mg\" que requiere receta con stock de 3 unidades",
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "Medicamento",
+                      "Cantidad"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Amoxicilina 500mg",
+                      "2"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 9,
+            "name": "existe una reserva en estado \"Pendiente\" para el email \"carlos@example.com\" en \"Farmacia Central\" con los siguientes medicamentos:",
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 14,
+            "name": "el cliente visita la página \"/reservations\"",
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 15,
+            "name": "ingresa la clave pública \"CLAVE-PUBLICA-TEST\" en el campo \"#public-key-input\"",
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 16,
+            "name": "hace clic en \"#btn-buscar-reserva\"",
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 17,
+            "name": "el sistema debe mostrar la reserva en estado \"Pendiente\"",
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 18,
+            "name": "debe mostrar el aviso \"Receta faltante\" para el medicamento \"Amoxicilina 500mg\"",
+            "result": {
+              "status": "skipped"
+            }
+          }
+        ]
+      }
+    ]
+  }
+]
