@@ -117,6 +117,11 @@ namespace PharmaGo.BusinessLogic
             return reservation;
         }
 
+        public IEnumerable<Reservation> GetAllPending()
+        {
+            return _reservationRepository.GetAllByExpression(r => r.Status == ReservationStatus.Pending);
+        }
+
         public Reservation ConfirmReservation(string code)
         {
             var reservation = _reservationRepository.GetOneByExpression(r => r.Code == code);

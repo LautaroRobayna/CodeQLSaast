@@ -285,6 +285,36 @@ namespace PharmaGo.Test.BusinessLogic.Test
         }
 
         [TestMethod]
+        public void GetAllPending_Ok()
+        {
+            var pendingReservations = new List<Reservation>
+            {
+                new Reservation { Id = 1, Code = "RES-001", Status = ReservationStatus.Pending, PharmacyId = 1, UserEmail = "a@b.com", Details = new List<ReservationDetail>() },
+                new Reservation { Id = 2, Code = "RES-002", Status = ReservationStatus.Pending, PharmacyId = 1, UserEmail = "c@d.com", Details = new List<ReservationDetail>() }
+            };
+
+            _reservationRepository.Setup(r => r.GetAllByExpression(It.IsAny<Expression<Func<Reservation, bool>>>()))
+                .Returns(pendingReservations);
+
+            var result = _reservationManager.GetAllPending();
+
+            Assert.AreEqual(2, result.Count());
+            _reservationRepository.Verify(r => r.GetAllByExpression(It.IsAny<Expression<Func<Reservation, bool>>>()), Times.Once);
+        }
+
+        [TestMethod]
+        public void GetAllPending_NoPending_ReturnsEmpty()
+        {
+            _reservationRepository.Setup(r => r.GetAllByExpression(It.IsAny<Expression<Func<Reservation, bool>>>()))
+                .Returns(new List<Reservation>());
+
+            var result = _reservationManager.GetAllPending();
+
+            Assert.AreEqual(0, result.Count());
+            _reservationRepository.Verify(r => r.GetAllByExpression(It.IsAny<Expression<Func<Reservation, bool>>>()), Times.Once);
+        }
+
+        [TestMethod]
         public void ConfirmReservation_Ok()
         {
             var reservation = new Reservation

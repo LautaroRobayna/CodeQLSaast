@@ -5,6 +5,9 @@ using PharmaGo.WebApi.Enums;
 using PharmaGo.WebApi.Filters;
 using PharmaGo.WebApi.Models.In;
 using PharmaGo.WebApi.Models.Out;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace PharmaGo.WebApi.Controllers
 {
@@ -13,10 +16,40 @@ namespace PharmaGo.WebApi.Controllers
     public class ReservationController : ControllerBase
     {
         private readonly IReservationManager _reservationManager;
+        private readonly string _recipeBasePath;
 
         public ReservationController(IReservationManager reservationManager)
+            : this(reservationManager, Path.Combine(Directory.GetCurrentDirectory(), "ReservationRecipes"))
+        {
+        }
+
+        public ReservationController(IReservationManager reservationManager, string recipeBasePath)
         {
             _reservationManager = reservationManager;
+            _recipeBasePath = recipeBasePath;
+        }
+
+        [HttpGet("pending")]
+        [AuthorizationFilter(new[] { nameof(RoleType.Employee) })]
+        public IActionResult GetAllPending()
+        {
+            var reservations = _reservationManager.GetAllPending();
+            var response = reservations.Select(r =>
+            {
+                var model = new ReservationModelResponse(r);
+                var recipeDir = Path.Combine(_recipeBasePath, r.Id.ToString());
+                if (Directory.Exists(recipeDir))
+                {
+                    var recipeFiles = Directory.GetFiles(recipeDir, "*.pdf").ToList();
+                    if (recipeFiles.Any())
+                    {
+                        model.HasRecipe = true;
+                        model.RecipeFiles = recipeFiles.Select(f => Convert.ToBase64String(System.IO.File.ReadAllBytes(f))).ToList();
+                    }
+                }
+                return model;
+            }).ToList();
+            return Ok(response);
         }
 
         [HttpPost]
