@@ -1,0 +1,9 @@
+{
+  "id": 1,
+  "code": "RES-777",
+  "status": "Cancelled",
+  "pharmacyId": 1,
+  "userEmail": "cliente@example.com",
+  "reservationDate": "2026-05-23T10:00:00",
+  "details": []
+}

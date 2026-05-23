@@ -65,6 +65,26 @@ Given('visualiza la receta de {string} en el visor {string}', (nombreMedicamento
   cy.get(selectorVisor).should('be.visible');
 });
 
+When('hace clic en {string}', (selector: string) => {
+  if (selector === '#btn-rechazar-receta') {
+    cy.get('@reservaSeleccionada').then((reserva: any) => {
+      const codigo = reserva.codigo;
+      cy.intercept('PUT', `**/api/reservation/${codigo}/reject`, {
+        statusCode: 200,
+        fixture: 'reject-response.json'
+      }).as('rechazoExitoso');
+    });
+
+    cy.intercept('GET', '**/api/reservation/pending', {
+      statusCode: 200,
+      body: []
+    }).as('pendientesTrasConfirmar');
+
+    cy.get(selector).click();
+    cy.wait('@rechazoExitoso');
+  }
+});
+
 When('confirma la reserva haciendo clic en {string}', (selectorBoton: string) => {
   cy.get('@reservaSeleccionada').then((reserva: any) => {
     const codigo = reserva.codigo;
@@ -90,13 +110,15 @@ Then('el sistema debe mostrar un mensaje modal con el texto {string}', (mensajeE
 });
 
 Then('el sistema debe cambiar el estado de la reserva a {string}', (estadoEsperado: string) => {
-  cy.get('@confirmacionExitosa').then((intercepcion: any) => {
+  const alias = estadoEsperado === 'Cancelled' ? '@rechazoExitoso' : '@confirmacionExitosa';
+  cy.get(alias).then((intercepcion: any) => {
     expect(intercepcion.response).to.exist;
     expect(intercepcion.response.body.status).to.equal(estadoEsperado);
   });
 });
 
 Then('la reserva {string} no debe aparecer en la lista de pendientes', (codigoReserva: string) => {
-  cy.wait('@pendientesTrasConfirmar');
-  cy.contains(codigoReserva).should('not.exist');
+  cy.wait('@pendientesTrasConfirmar').then(() => {
+    cy.contains(codigoReserva).should('not.exist');
+  });
 });

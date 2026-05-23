@@ -21,3 +21,16 @@ Scenario: Confirmación exitosa de una reserva pendiente por un empleado de farm
     Then el sistema debe mostrar un mensaje modal con el texto "Reserva confirmada exitosamente"
     And el sistema debe cambiar el estado de la reserva a "Confirmed"
     And la reserva "RES-777" no debe aparecer en la lista de pendientes
+
+  Scenario: Rechazo de reserva por receta inválida
+    Given el empleado "Carlos" con rol "Empleado Farmacia" inicia sesión en el sistema
+    And accede al panel de empleado en "/employee"
+    And hace clic en "#btn-validar-reservas" para ir a la gestión de reservas
+    And se encuentra en la página de validación "/employee/validate-reservations"
+    And selecciona la reserva "RES-777" de la lista de pendientes
+    And hace clic en el archivo "receta-amoxicilina.pdf" de la lista de recetas adjuntas
+    And visualiza la receta de "Amoxicilina 500mg" en el visor "#visor-receta-archivo"
+    When hace clic en "#btn-rechazar-receta"
+    Then el sistema debe mostrar un mensaje modal con el texto "Reserva rechazada por receta inválida"
+    And el sistema debe cambiar el estado de la reserva a "Cancelled"
+    And la reserva "RES-777" no debe aparecer en la lista de pendientes
