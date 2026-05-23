@@ -123,6 +123,14 @@ Then('la reserva {string} no debe aparecer en la lista de pendientes', (codigoRe
   });
 });
 
+Given('una reserva pendiente sin receta médica', () => {
+  cy.wrap({ codigo: 'RES-NO-RECIPE', estado: 'Pending' }).as('reservaSeleccionada');
+  cy.intercept('GET', '**/api/reservation/pending', {
+    statusCode: 200,
+    fixture: 'reservations-no-recipe.json'
+  }).as('listaReservasPendientes');
+});
+
 Given('una reserva en estado {string} y otra en estado {string} en el sistema', (_estado1: string, _estado2: string) => {
   cy.intercept('GET', '**/api/reservation/pending', {
     statusCode: 200,

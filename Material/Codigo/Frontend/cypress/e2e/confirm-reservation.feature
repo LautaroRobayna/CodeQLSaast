@@ -22,6 +22,30 @@ Scenario: Confirmación exitosa de una reserva pendiente por un empleado de farm
     And el sistema debe cambiar el estado de la reserva a "Confirmed"
     And la reserva "RES-777" no debe aparecer en la lista de pendientes
 
+  Scenario: Confirmación exitosa de una reserva sin receta médica
+    Given una reserva pendiente sin receta médica
+    And el empleado "Carlos" con rol "Empleado Farmacia" inicia sesión en el sistema
+    And accede al panel de empleado en "/employee"
+    And hace clic en "#btn-validar-reservas" para ir a la gestión de reservas
+    And se encuentra en la página de validación "/employee/validate-reservations"
+    And selecciona la reserva "RES-NO-RECIPE" de la lista de pendientes
+    When confirma la reserva haciendo clic en "#btn-confirmar-reserva-sistema"
+    Then el sistema debe mostrar un mensaje modal con el texto "Reserva confirmada exitosamente"
+    And el sistema debe cambiar el estado de la reserva a "Confirmed"
+    And la reserva "RES-NO-RECIPE" no debe aparecer en la lista de pendientes
+
+  Scenario: Cancelación de reserva sin receta médica
+    Given una reserva pendiente sin receta médica
+    And el empleado "Carlos" con rol "Empleado Farmacia" inicia sesión en el sistema
+    And accede al panel de empleado en "/employee"
+    And hace clic en "#btn-validar-reservas" para ir a la gestión de reservas
+    And se encuentra en la página de validación "/employee/validate-reservations"
+    And selecciona la reserva "RES-NO-RECIPE" de la lista de pendientes
+    When hace clic en "#btn-rechazar-receta"
+    Then el sistema debe mostrar un mensaje modal con el texto "Reserva rechazada"
+    And el sistema debe cambiar el estado de la reserva a "Cancelled"
+    And la reserva "RES-NO-RECIPE" no debe aparecer en la lista de pendientes
+
   Scenario: Rechazo de reserva por receta inválida
     Given el empleado "Carlos" con rol "Empleado Farmacia" inicia sesión en el sistema
     And accede al panel de empleado en "/employee"
