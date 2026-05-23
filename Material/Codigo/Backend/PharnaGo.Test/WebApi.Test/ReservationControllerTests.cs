@@ -375,6 +375,16 @@ namespace PharmaGo.Test.WebApi.Test
             Assert.AreEqual("RES-999", response.Code);
             Assert.AreEqual("Cancelled", response.Status);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidResourceException))]
+        public void PutConfirmReservation_AlreadyConfirmed_Throws()
+        {
+            _reservationManagerMock.Setup(x => x.ConfirmReservation("RES-777"))
+                .Throws(new InvalidResourceException("Solo se pueden confirmar reservas en estado pendiente"));
+
+            _reservationController.ConfirmReservation("RES-777");
+        }        
     }
 }
 

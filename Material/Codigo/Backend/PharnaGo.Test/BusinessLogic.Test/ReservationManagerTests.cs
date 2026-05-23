@@ -369,5 +369,36 @@ namespace PharmaGo.Test.BusinessLogic.Test
             Assert.ThrowsException<ResourceNotFoundException>(() =>
                 _reservationManager.RejectReservation("NONEXISTENT"));
         }
+
+        [TestMethod]
+        public void ConfirmReservation_AlreadyConfirmed_Throws()
+        {
+            var reservation = new Reservation
+            {
+                Id = 1, Code = "RES-777", Status = ReservationStatus.Confirmed,
+                PharmacyId = 1, UserEmail = "a@b.com", Details = new List<ReservationDetail>()
+            };
+            _reservationRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Reservation, bool>>>()))
+                .Returns(reservation);
+
+            var ex = Assert.ThrowsException<InvalidResourceException>(() =>
+                _reservationManager.ConfirmReservation("RES-777"));
+            Assert.AreEqual("Solo se pueden confirmar reservas en estado pendiente", ex.Message);
+        }
+
+        [TestMethod]
+        public void ConfirmReservation_Cancelled_Throws()
+        {
+            var reservation = new Reservation
+            {
+                Id = 1, Code = "RES-777", Status = ReservationStatus.Cancelled,
+                PharmacyId = 1, UserEmail = "a@b.com", Details = new List<ReservationDetail>()
+            };
+            _reservationRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Reservation, bool>>>()))
+                .Returns(reservation);
+
+            Assert.ThrowsException<InvalidResourceException>(() =>
+                _reservationManager.ConfirmReservation("RES-777"));
+        }        
     }
 }
