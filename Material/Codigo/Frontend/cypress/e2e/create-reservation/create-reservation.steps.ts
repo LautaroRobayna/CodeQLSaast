@@ -224,6 +224,10 @@ Then('el campo email debe mostrar un error de validación visual', () => {
   cy.get('.invalid-feedback').should('be.visible').and('contain.text', 'El email ingresado no es válido');
 });
 
+When('hace clic en el botón {string} con mail invalido', (selector: string) => {
+  cy.get(selector).click();
+});
+
 Given('el sistema detecta que el usuario ya cuenta con {int} reservas activas', (count: number) => {
   Cypress.env('reservationErrorIntercept', `No puedes tener más de ${count} reservas activas simultáneamente`);
 });

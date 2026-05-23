@@ -29,6 +29,7 @@ export class ReservationCreateComponent implements OnInit {
   errorMessage: string = "";
   showLimitModal: boolean = false;
   limitModalMessage: string = "";
+  emailError: boolean = false;
 
   constructor(
     private pharmacyService: PharmacyService,
@@ -106,6 +107,14 @@ export class ReservationCreateComponent implements OnInit {
       return;
     }
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(this.userEmail)) {
+      this.emailError = true;
+      this.commonService.updateToastData("El email ingresado no es válido", "danger", "Error");
+      return;
+    }
+    this.emailError = false;
+
     const request: ReservationRequest = {
       pharmacyId: Number(this.selectedPharmacyId),
       userEmail: this.userEmail,
@@ -178,5 +187,6 @@ export class ReservationCreateComponent implements OnInit {
     this.availableDrugs = [];
     this.hasQuantityError = false;
     this.errorMessage = "";
+    this.emailError = false;
   }
 }
