@@ -24,7 +24,8 @@ namespace PharmaGo.WebApi.Models.Out
             {
                 Id = d.Id,
                 DrugCode = d.DrugCode,
-                Quantity = d.Quantity
+                Quantity = d.Quantity,
+                RequiresPrescription = d.RequiresPrescription
             }).ToList();
             PharmacyId = reservation.PharmacyId;
             UserEmail = reservation.UserEmail;
@@ -37,6 +38,7 @@ namespace PharmaGo.WebApi.Models.Out
             public int Id { get; set; }
             public string DrugCode { get; set; }
             public int Quantity { get; set; }
+            public bool RequiresPrescription { get; set; }
         }
     }
 }

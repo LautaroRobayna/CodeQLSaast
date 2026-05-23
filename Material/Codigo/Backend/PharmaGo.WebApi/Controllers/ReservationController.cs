@@ -17,6 +17,13 @@ namespace PharmaGo.WebApi.Controllers
             _reservationManager = reservationManager;
         }
 
+        [HttpGet]
+        public IActionResult GetByPublicKey([FromQuery] string publicKey)
+        {
+            var reservation = _reservationManager.GetByPublicKey(publicKey);
+            return Ok(new ReservationModelResponse(reservation));
+        }
+
         [HttpPost]
         public IActionResult Create([FromBody] ReservationModelRequest reservationModel)
         {
