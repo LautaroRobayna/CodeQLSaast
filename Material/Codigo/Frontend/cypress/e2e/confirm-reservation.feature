@@ -19,5 +19,5 @@ Scenario: Confirmación exitosa de una reserva pendiente por un empleado de farm
     And visualiza la receta de "Amoxicilina 500mg" en el visor ".visor-receta"
     When confirma la reserva haciendo clic en "#btn-confirmar-reserva-sistema"
     Then el sistema debe mostrar un mensaje modal con el texto "Reserva confirmada exitosamente"
-    And el sistema debe cambiar el estado de la reserva a "Confirmada"
+    And el sistema debe cambiar el estado de la reserva a "Confirmed"
     And la reserva "RES-777" no debe aparecer en la lista de pendientes

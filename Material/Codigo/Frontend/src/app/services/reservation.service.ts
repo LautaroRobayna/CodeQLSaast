@@ -5,6 +5,7 @@ import { catchError, tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { ReservationRequest, ReservationResponse } from '../interfaces/reservation';
 import { CommonService } from './CommonService';
+import { StorageManager } from '../utils/storage-manager';
 
 @Injectable({ providedIn: 'root' })
 export class ReservationService {
@@ -12,19 +13,40 @@ export class ReservationService {
   lastErrorMessage: string = '';
   private url = environment.apiUrl + '/api/reservation';
 
-  httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-
   constructor(
     private http: HttpClient,
-    private commonService: CommonService) { }
+    private commonService: CommonService,
+    private storageManager: StorageManager) { }
+
+  private getHttpHeaders(): HttpHeaders {
+    let login = JSON.parse(this.storageManager.getLogin());
+    let token = login ? login.token : '';
+    return new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization', token);
+  }
 
   createReservation(reservation: ReservationRequest): Observable<ReservationResponse> {
-    return this.http.post<ReservationResponse>(this.url, reservation, this.httpOptions)
+    return this.http.post<ReservationResponse>(this.url, reservation, {headers: this.getHttpHeaders()})
       .pipe(
         tap((newReservation: ReservationResponse) => console.log(`Created reservation w/ code=${newReservation.code}`)),
         catchError(this.handleError<ReservationResponse>('Create Reservation'))
+      );
+  }
+
+  getAllPending(): Observable<ReservationResponse[]> {
+    return this.http.get<ReservationResponse[]>(`${this.url}/pending`, {headers: this.getHttpHeaders()})
+      .pipe(
+        tap(() => console.log('Fetched pending reservations')),
+        catchError(this.handleError<ReservationResponse[]>('Get All Pending'))
+      );
+  }
+
+  confirmReservation(code: string): Observable<ReservationResponse> {
+    return this.http.put<ReservationResponse>(`${this.url}/${code}/confirm`, null, {headers: this.getHttpHeaders()})
+      .pipe(
+        tap((confirmed: ReservationResponse) => console.log(`Confirmed reservation code=${confirmed.code}`)),
+        catchError(this.handleError<ReservationResponse>('Confirm Reservation'))
       );
   }
 

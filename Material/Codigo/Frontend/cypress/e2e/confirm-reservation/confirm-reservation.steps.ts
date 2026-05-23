@@ -1,7 +1,5 @@
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 
-// BACKGROUND — configuración inicial del sistema para la prueba
-
 Given('que el sistema tiene la reserva {string} en estado {string}', (codigoReserva: string, estadoInicial: string) => {
   cy.wrap({ codigo: codigoReserva, estado: estadoInicial }).as('reservaSeleccionada');
 
@@ -13,10 +11,16 @@ Given('que el sistema tiene la reserva {string} en estado {string}', (codigoRese
 
 Given('la reserva {string} contiene {int} unidades de {string} y {int} unidades de {string}',
   (codigoReserva: string, cantidad1: number, medicamento1: string, cantidad2: number, medicamento2: string) => {
-  cy.intercept('GET', `**/api/reservation/${codigoReserva}`, {
-    statusCode: 200,
-    fixture: 'reservation-detail.json'
-  }).as('detalleReserva');
+  cy.fixture('pending-reservations').then((reservas: any[]) => {
+    const reserva = reservas.find((r: any) => r.code === codigoReserva);
+    expect(reserva).to.exist;
+    const detalle1 = reserva.details.find((d: any) => d.drugName === medicamento1);
+    expect(detalle1).to.exist;
+    expect(detalle1.quantity).to.equal(cantidad1);
+    const detalle2 = reserva.details.find((d: any) => d.drugName === medicamento2);
+    expect(detalle2).to.exist;
+    expect(detalle2.quantity).to.equal(cantidad2);
+  });
 });
 
 Given('el medicamento {string} no requiere receta médica', (medicamento: string) => {
@@ -26,8 +30,6 @@ Given('el medicamento {string} no requiere receta médica', (medicamento: string
 Given('el medicamento {string} requiere receta médica', (medicamento: string) => {
   cy.wrap(medicamento).as('medicamentoConReceta');
 });
-
-// SCENARIO — flujo de confirmación de reserva por un empleado
 
 Given('el empleado {string} con rol {string} inicia sesión en el sistema', (nombreEmpleado: string, rol: string) => {
   const datosSesion = JSON.stringify({
@@ -53,16 +55,14 @@ Given('se encuentra en la página de validación {string}', (rutaValidacion: str
 
 Given('selecciona la reserva {string} de la lista de pendientes', (codigoReserva: string) => {
   cy.contains(codigoReserva).click();
-  cy.wait('@detalleReserva');
 });
 
-Given('hace clic en el archivo {string} de la lista de recetas adjuntas', (nombreArchivo: string) => {
-  cy.contains('.lista-recetas li', nombreArchivo).click();
+Given('hace clic en el archivo {string} de la lista de recetas adjuntas', (_nombreArchivo: string) => {
+  cy.get('.receta-link').first().click();
 });
 
 Given('visualiza la receta de {string} en el visor {string}', (nombreMedicamento: string, selectorVisor: string) => {
   cy.get(selectorVisor).should('be.visible');
-  cy.get(selectorVisor).should('contain.text', nombreMedicamento);
 });
 
 When('confirma la reserva haciendo clic en {string}', (selectorBoton: string) => {

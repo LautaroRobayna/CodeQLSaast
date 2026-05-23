@@ -269,7 +269,8 @@ namespace PharmaGo.Test.WebApi.Test
                 };
                 _reservationManagerMock.Setup(x => x.GetAllPending()).Returns(pending);
 
-                var controller = new ReservationController(_reservationManagerMock.Object, tempDir);
+                var controller = new ReservationController(_reservationManagerMock.Object);
+                controller.RecipeBasePath = tempDir;
                 controller.ControllerContext = new ControllerContext { HttpContext = new DefaultHttpContext() };
 
                 var result = controller.GetAllPending();
@@ -304,7 +305,8 @@ namespace PharmaGo.Test.WebApi.Test
                 };
                 _reservationManagerMock.Setup(x => x.GetAllPending()).Returns(pending);
 
-                var controller = new ReservationController(_reservationManagerMock.Object, tempDir);
+                var controller = new ReservationController(_reservationManagerMock.Object);
+                controller.RecipeBasePath = tempDir;
                 controller.ControllerContext = new ControllerContext { HttpContext = new DefaultHttpContext() };
 
                 var result = controller.GetAllPending();

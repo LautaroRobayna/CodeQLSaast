@@ -1,0 +1,3 @@
+.lista-recetas li { padding: 4px 0; }
+.receta-link { cursor: pointer; color: #0d6efd; text-decoration: underline; }
+.visor-receta { min-height: 200px; }

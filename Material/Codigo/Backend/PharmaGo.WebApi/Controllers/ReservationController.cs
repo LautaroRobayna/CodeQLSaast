@@ -16,17 +16,12 @@ namespace PharmaGo.WebApi.Controllers
     public class ReservationController : ControllerBase
     {
         private readonly IReservationManager _reservationManager;
-        private readonly string _recipeBasePath;
+        public string RecipeBasePath { get; set; }
 
         public ReservationController(IReservationManager reservationManager)
-            : this(reservationManager, Path.Combine(Directory.GetCurrentDirectory(), "ReservationRecipes"))
-        {
-        }
-
-        public ReservationController(IReservationManager reservationManager, string recipeBasePath)
         {
             _reservationManager = reservationManager;
-            _recipeBasePath = recipeBasePath;
+            RecipeBasePath = Path.Combine(Directory.GetCurrentDirectory(), "ReservationRecipes");
         }
 
         [HttpGet("pending")]
@@ -37,7 +32,7 @@ namespace PharmaGo.WebApi.Controllers
             var response = reservations.Select(r =>
             {
                 var model = new ReservationModelResponse(r);
-                var recipeDir = Path.Combine(_recipeBasePath, r.Id.ToString());
+                var recipeDir = Path.Combine(RecipeBasePath, r.Id.ToString());
                 if (Directory.Exists(recipeDir))
                 {
                     var recipeFiles = Directory.GetFiles(recipeDir, "*.pdf").ToList();
