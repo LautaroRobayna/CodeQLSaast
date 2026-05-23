@@ -1,5 +1,16 @@
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 
+// === BACKGROUND ===
+
+Given('que el sistema tiene cargada la farmacia {string}', (pharmacyName: string) => {
+  cy.log(`Farmacia ${pharmacyName} registrada en sistema`);
+});
+
+Given('la {string} tiene el medicamento {string} que requiere receta con stock de {int} unidades',
+  (pharmacyName: string, drugName: string, stock: number) => {
+    cy.log(`${pharmacyName} tiene ${drugName} con stock ${stock} (requiere receta)`);
+  }
+);
 
 Given('existe una reserva en estado {string} para el email {string} en {string} con los siguientes medicamentos:',
   (status: string, email: string, pharmacyName: string, dataTable: { rawTable: string[][] }) => {

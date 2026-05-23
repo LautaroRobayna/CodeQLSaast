@@ -23,5 +23,7 @@ export interface ReservationResponse {
 export interface ReservationDetailResponse {
     id: number;
     drugCode: string;
+    drugName?: string;
     quantity: number;
+    requiresPrescription: boolean;
 }

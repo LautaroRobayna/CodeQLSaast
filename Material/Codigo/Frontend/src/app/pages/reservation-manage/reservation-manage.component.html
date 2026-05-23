@@ -1,0 +1,51 @@
+<div class="container mt-4">
+  <h2>Consultar Reserva</h2>
+  <hr>
+
+  <div class="row mb-3">
+    <div class="col-md-8">
+      <label class="form-label">Clave Pública</label>
+      <input
+        type="text"
+        id="public-key-input"
+        class="form-control"
+        [(ngModel)]="publicKey"
+        placeholder="Ingresá tu clave pública..."
+      >
+    </div>
+    <div class="col-md-4 d-flex align-items-end">
+      <button id="btn-buscar-reserva" class="btn btn-primary w-100" (click)="searchReservation()">
+        Buscar Reserva
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="reservation">
+    <div class="card p-3 shadow-sm">
+      <h5>Detalle de la Reserva</h5>
+      <p><strong>Código:</strong> {{ reservation.code }}</p>
+      <p><strong>Email:</strong> {{ reservation.userEmail }}</p>
+      <p><strong>Fecha:</strong> {{ reservation.reservationDate | date }}</p>
+      <p>
+        <strong>Estado:</strong>
+        <span data-cy="reservation-status">{{ reservation.status }}</span>
+      </p>
+
+      <h6 class="mt-3">Medicamentos:</h6>
+      <ul class="list-group">
+        <li *ngFor="let detail of reservation.details" class="list-group-item">
+          <div class="d-flex justify-content-between align-items-center">
+            <span>{{ detail.drugName || detail.drugCode }} — Cantidad: {{ detail.quantity }}</span>
+            <span
+              *ngIf="detail.requiresPrescription"
+              data-cy="prescription-warning"
+              class="badge bg-warning text-dark"
+            >
+              ⚠️ Receta faltante — {{ detail.drugName || detail.drugCode }}
+            </span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

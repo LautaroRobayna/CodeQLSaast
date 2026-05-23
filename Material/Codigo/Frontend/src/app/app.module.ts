@@ -43,6 +43,7 @@ import { DetailComponent } from './pages/home/detail/detail.component';
 import { TrackingComponent } from './pages/home/tracking/tracking.component';
 import { Page404Component } from './pages/home/page404/page404.component';
 import { ReservationCreateComponent } from './pages/reservation-create/reservation-create.component';
+import { ReservationManageComponent } from './pages/reservation-manage/reservation-manage.component';
 
 // Admin
 import { AdminComponent } from './pages/admin/admin/admin.component';
@@ -89,6 +90,7 @@ import { StockRequestOwnerComponent } from './pages/owner/stock-request-owner/st
     DetailComponent,
     TrackingComponent,
     ReservationCreateComponent,
+    ReservationManageComponent,
     // Custom components
     CustomFooterComponent,
     CustomHeaderComponent,

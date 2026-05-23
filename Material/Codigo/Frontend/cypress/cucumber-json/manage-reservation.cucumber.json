@@ -22,8 +22,8 @@
             "line": 7,
             "name": "que el sistema tiene cargada la farmacia \"Farmacia Central\"",
             "result": {
-              "status": "undefined",
-              "duration": 109000000
+              "status": "passed",
+              "duration": 72000000
             }
           },
           {
@@ -32,7 +32,8 @@
             "line": 8,
             "name": "la \"Farmacia Central\" tiene el medicamento \"Amoxicilina 500mg\" que requiere receta con stock de 3 unidades",
             "result": {
-              "status": "skipped"
+              "status": "passed",
+              "duration": 5000000
             }
           },
           {
@@ -58,7 +59,8 @@
             "line": 9,
             "name": "existe una reserva en estado \"Pendiente\" para el email \"carlos@example.com\" en \"Farmacia Central\" con los siguientes medicamentos:",
             "result": {
-              "status": "skipped"
+              "status": "passed",
+              "duration": 19000000
             }
           },
           {
@@ -67,7 +69,8 @@
             "line": 14,
             "name": "el cliente visita la página \"/reservations\"",
             "result": {
-              "status": "skipped"
+              "status": "passed",
+              "duration": 709000000
             }
           },
           {
@@ -76,7 +79,8 @@
             "line": 15,
             "name": "ingresa la clave pública \"CLAVE-PUBLICA-TEST\" en el campo \"#public-key-input\"",
             "result": {
-              "status": "skipped"
+              "status": "passed",
+              "duration": 442000000
             }
           },
           {
@@ -85,7 +89,8 @@
             "line": 16,
             "name": "hace clic en \"#btn-buscar-reserva\"",
             "result": {
-              "status": "skipped"
+              "status": "passed",
+              "duration": 107000000
             }
           },
           {
@@ -94,7 +99,8 @@
             "line": 17,
             "name": "el sistema debe mostrar la reserva en estado \"Pendiente\"",
             "result": {
-              "status": "skipped"
+              "status": "passed",
+              "duration": 377000000
             }
           },
           {
@@ -103,7 +109,8 @@
             "line": 18,
             "name": "debe mostrar el aviso \"Receta faltante\" para el medicamento \"Amoxicilina 500mg\"",
             "result": {
-              "status": "skipped"
+              "status": "passed",
+              "duration": 29000000
             }
           }
         ]

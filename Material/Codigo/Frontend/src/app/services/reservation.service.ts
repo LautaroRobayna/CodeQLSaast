@@ -19,6 +19,14 @@ export class ReservationService {
     private http: HttpClient,
     private commonService: CommonService) { }
 
+  getByPublicKey(publicKey: string): Observable<ReservationResponse> {
+    return this.http.get<ReservationResponse>(`${this.url}?publicKey=${encodeURIComponent(publicKey)}`, this.httpOptions)
+      .pipe(
+        tap((res: ReservationResponse) => console.log(`Got reservation w/ code=${res.code}`)),
+        catchError(this.handleError<ReservationResponse>('Get Reservation By Public Key'))
+      );
+  }
+
   createReservation(reservation: ReservationRequest): Observable<ReservationResponse> {
     return this.http.post<ReservationResponse>(this.url, reservation, this.httpOptions)
       .pipe(
