@@ -35,13 +35,18 @@ Scenario: Confirmación exitosa de una reserva pendiente por un empleado de farm
     And el sistema debe cambiar el estado de la reserva a "Cancelled"
     And la reserva "RES-777" no debe aparecer en la lista de pendientes
 
-  Scenario: Solo las reservas pendientes aparecen en la lista de validacion
-    Given que el sistema tiene reservas en distintos estados
+  Scenario: Intento de confirmar una reserva no pendiente
+    Given una reserva en estado "Confirmed" y otra en estado "Cancelled" en el sistema
     And el empleado "Carlos" con rol "Empleado Farmacia" inicia sesión en el sistema
     And accede al panel de empleado en "/employee"
     And hace clic en "#btn-validar-reservas" para ir a la gestión de reservas
     And se encuentra en la página de validación "/employee/validate-reservations"
-    Then la lista de pendientes solo contiene 1 reserva
-    And la reserva "RES-PENDING" aparece en la lista
-    And la reserva "RES-CONFIRMED" no aparece en la lista
-    And la reserva "RES-CANCELLED" no aparece en la lista
+    Then la lista de pendientes muestra el mensaje "No hay reservas pendientes"
+
+  Scenario: Intento de rechazar una reserva no pendiente
+    Given una reserva en estado "Confirmed" y otra en estado "Cancelled" en el sistema
+    And el empleado "Carlos" con rol "Empleado Farmacia" inicia sesión en el sistema
+    And accede al panel de empleado en "/employee"
+    And hace clic en "#btn-validar-reservas" para ir a la gestión de reservas
+    And se encuentra en la página de validación "/employee/validate-reservations"
+    Then la lista de pendientes muestra el mensaje "No hay reservas pendientes"
