@@ -111,6 +111,45 @@ namespace PharmaGo.Test.WebApi.Test
             Assert.AreEqual(1, response.Details.Count);
             Assert.IsTrue(response.Details.First().RequiresPrescription);
         }
+
+        [TestMethod]
+        public void GetByPublicKey_ReturnsConfirmedReservationWithExpirationDate()
+        {
+            // Arrange
+            var publicKey = "CLAVE-CONFIRMADA-TEST";
+            var reservationDate = new DateTime(2026, 5, 15);
+            var reservation = new Reservation
+            {
+                Id = 2,
+                Code = "RES-TEST-002",
+                PublicKey = publicKey,
+                Status = ReservationStatus.Confirmed,
+                UserEmail = "carlos@example.com",
+                PharmacyId = 1,
+                ReservationDate = reservationDate,
+                Details = new List<ReservationDetail>
+                {
+                    new ReservationDetail { Id = 1, DrugCode = "P-500", Quantity = 2, RequiresPrescription = false }
+                }
+            };
+
+            _reservationManagerMock
+                .Setup(m => m.GetByPublicKey(publicKey))
+                .Returns(reservation);
+
+            // Act
+            var result = _reservationController.GetByPublicKey(publicKey);
+
+            // Assert
+            _reservationManagerMock.VerifyAll();
+            var okResult = result as OkObjectResult;
+            Assert.IsNotNull(okResult);
+            Assert.AreEqual(200, okResult.StatusCode);
+            var response = okResult.Value as ReservationModelResponse;
+            Assert.IsNotNull(response);
+            Assert.AreEqual("Confirmed", response.Status);
+            Assert.AreEqual(reservationDate.AddDays(30), response.ExpirationDate);
+        }
     }
 }
 
