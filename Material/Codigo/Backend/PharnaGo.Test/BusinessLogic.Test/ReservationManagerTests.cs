@@ -60,5 +60,50 @@ namespace PharmaGo.Test.BusinessLogic.Test
             _drugRepository.Verify(r => r.UpdateOne(It.Is<Drug>(d => d.Stock == 5)), Times.Once);
             _drugRepository.Verify(r => r.Save(), Times.Once);
         }
+
+        [TestMethod]
+        public void GetByPublicKey_ReturnsReservationWithPrescriptionInfo()
+        {
+            // Arrange
+            var publicKey = "CLAVE-PUBLICA-TEST";
+            var drug = new Drug
+            {
+                Id = 1,
+                Code = "AMX-500",
+                Name = "Amoxicilina 500mg",
+                Prescription = true
+            };
+            var reservation = new Reservation
+            {
+                Id = 1,
+                Code = "RES-TEST-001",
+                PublicKey = publicKey,
+                Status = ReservationStatus.Pending,
+                UserEmail = "carlos@example.com",
+                PharmacyId = 1,
+                ReservationDate = DateTime.Now,
+                Details = new List<ReservationDetail>
+                {
+                    new ReservationDetail { Id = 1, DrugCode = "AMX-500", Quantity = 2 }
+                }
+            };
+
+            _reservationRepository
+                .Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Reservation, bool>>>()))
+                .Returns(reservation);
+            _drugRepository
+                .Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Drug, bool>>>()))
+                .Returns(drug);
+
+            // Act
+            var result = _reservationManager.GetByPublicKey(publicKey);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(ReservationStatus.Pending, result.Status);
+            Assert.AreEqual(publicKey, result.PublicKey);
+            Assert.AreEqual(1, result.Details.Count);
+            Assert.IsTrue(result.Details.First().RequiresPrescription);
+        }
     }
 }
