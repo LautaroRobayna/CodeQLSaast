@@ -72,6 +72,45 @@ namespace PharmaGo.Test.WebApi.Test
             Assert.AreEqual(1, response.Details.Count);
             Assert.AreEqual("Pending", response.Status);
         }
+        
+        [TestMethod]
+        public void GetByPublicKey_ReturnsPendingReservationWithPrescriptionWarning()
+        {
+            // Arrange
+            var publicKey = "CLAVE-PUBLICA-TEST";
+            var reservation = new Reservation
+            {
+                Id = 1,
+                Code = "RES-TEST-001",
+                PublicKey = publicKey,
+                Status = ReservationStatus.Pending,
+                UserEmail = "carlos@example.com",
+                PharmacyId = 1,
+                ReservationDate = DateTime.Now,
+                Details = new List<ReservationDetail>
+                {
+                    new ReservationDetail { Id = 1, DrugCode = "AMX-500", Quantity = 2, RequiresPrescription = true }
+                }
+            };
+
+            _reservationManagerMock
+                .Setup(m => m.GetByPublicKey(publicKey))
+                .Returns(reservation);
+
+            // Act
+            var result = _reservationController.GetByPublicKey(publicKey);
+
+            // Assert
+            _reservationManagerMock.VerifyAll();
+            var okResult = result as OkObjectResult;
+            Assert.IsNotNull(okResult);
+            Assert.AreEqual(200, okResult.StatusCode);
+            var response = okResult.Value as ReservationModelResponse;
+            Assert.IsNotNull(response);
+            Assert.AreEqual("Pending", response.Status);
+            Assert.AreEqual(1, response.Details.Count);
+            Assert.IsTrue(response.Details.First().RequiresPrescription);
+        }
     }
 }
 
