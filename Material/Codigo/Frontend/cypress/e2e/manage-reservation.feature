@@ -16,3 +16,12 @@ Scenario: Visualización de una reserva en estado "Pendiente" con receta faltant
     And hace clic en "#btn-buscar-reserva"
     Then el sistema debe mostrar la reserva en estado "Pendiente"
     And debe mostrar el aviso "Receta faltante" para el medicamento "Amoxicilina 500mg"
+
+Scenario: Visualización de una reserva en estado "Confirmada" lista para retiro
+    Given existe una reserva en estado "Confirmada" con clave pública "CLAVE-CONFIRMADA-TEST" y fecha de expiración "2026-06-15"
+    And el cliente visita la página "/reservations"
+    When ingresa la clave pública "CLAVE-CONFIRMADA-TEST" en el campo "#public-key-input"
+    And hace clic en "#btn-buscar-reserva"
+    Then el sistema debe mostrar la reserva en estado "Confirmada"
+    And debe mostrar el mensaje "Lista para retiro en mostrador"
+    And debe mostrar la fecha de expiración "2026-06-15"

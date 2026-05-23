@@ -62,3 +62,35 @@ Then('debe mostrar el aviso {string} para el medicamento {string}', (warning: st
   cy.get('[data-cy=prescription-warning]').should('contain', warning);
   cy.get('[data-cy=prescription-warning]').should('contain', drugName);
 });
+
+// === ESCENARIO 2 ===
+
+Given('existe una reserva en estado {string} con clave pública {string} y fecha de expiración {string}',
+  (status: string, publicKey: string, expirationDate: string) => {
+    cy.intercept('GET', '**/api/reservation*', {
+      statusCode: 200,
+      body: {
+        id: 2,
+        code: 'RES-TEST-002',
+        publicKey: publicKey,
+        status: status,
+        userEmail: 'carlos@example.com',
+        pharmacyId: 1,
+        pharmacyName: 'Farmacia Central',
+        reservationDate: '2026-05-15T10:00:00',
+        expirationDate: expirationDate,
+        details: [
+          { id: 1, drugCode: 'P-500', drugName: 'Paracetamol 500mg', quantity: 2, requiresPrescription: false }
+        ]
+      }
+    }).as('getReservationConfirmada');
+  }
+);
+
+Then('debe mostrar el mensaje {string}', (message: string) => {
+  cy.get('[data-cy=reservation-message]').should('contain', message);
+});
+
+Then('debe mostrar la fecha de expiración {string}', (date: string) => {
+  cy.get('[data-cy=expiration-date]').should('contain', date);
+});

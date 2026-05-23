@@ -23,7 +23,7 @@
             "name": "que el sistema tiene cargada la farmacia \"Farmacia Central\"",
             "result": {
               "status": "passed",
-              "duration": 72000000
+              "duration": 230000000
             }
           },
           {
@@ -33,7 +33,7 @@
             "name": "la \"Farmacia Central\" tiene el medicamento \"Amoxicilina 500mg\" que requiere receta con stock de 3 unidades",
             "result": {
               "status": "passed",
-              "duration": 5000000
+              "duration": 3000000
             }
           },
           {
@@ -60,7 +60,7 @@
             "name": "existe una reserva en estado \"Pendiente\" para el email \"carlos@example.com\" en \"Farmacia Central\" con los siguientes medicamentos:",
             "result": {
               "status": "passed",
-              "duration": 19000000
+              "duration": 10000000
             }
           },
           {
@@ -70,7 +70,7 @@
             "name": "el cliente visita la página \"/reservations\"",
             "result": {
               "status": "passed",
-              "duration": 709000000
+              "duration": 1319000000
             }
           },
           {
@@ -80,7 +80,7 @@
             "name": "ingresa la clave pública \"CLAVE-PUBLICA-TEST\" en el campo \"#public-key-input\"",
             "result": {
               "status": "passed",
-              "duration": 442000000
+              "duration": 488000000
             }
           },
           {
@@ -90,7 +90,7 @@
             "name": "hace clic en \"#btn-buscar-reserva\"",
             "result": {
               "status": "passed",
-              "duration": 107000000
+              "duration": 142000000
             }
           },
           {
@@ -100,7 +100,7 @@
             "name": "el sistema debe mostrar la reserva en estado \"Pendiente\"",
             "result": {
               "status": "passed",
-              "duration": 377000000
+              "duration": 483000000
             }
           },
           {
@@ -110,7 +110,132 @@
             "name": "debe mostrar el aviso \"Receta faltante\" para el medicamento \"Amoxicilina 500mg\"",
             "result": {
               "status": "passed",
-              "duration": 29000000
+              "duration": 25000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "gestionar-reserva;visualización-de-una-reserva-en-estado-\"confirmada\"-lista-para-retiro",
+        "keyword": "Scenario",
+        "line": 20,
+        "name": "Visualización de una reserva en estado \"Confirmada\" lista para retiro",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "que el sistema tiene cargada la farmacia \"Farmacia Central\"",
+            "result": {
+              "status": "passed",
+              "duration": 64000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "la \"Farmacia Central\" tiene el medicamento \"Amoxicilina 500mg\" que requiere receta con stock de 3 unidades",
+            "result": {
+              "status": "passed",
+              "duration": 3000000
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "Medicamento",
+                      "Cantidad"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Amoxicilina 500mg",
+                      "2"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 9,
+            "name": "existe una reserva en estado \"Pendiente\" para el email \"carlos@example.com\" en \"Farmacia Central\" con los siguientes medicamentos:",
+            "result": {
+              "status": "passed",
+              "duration": 5000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 21,
+            "name": "existe una reserva en estado \"Confirmada\" con clave pública \"CLAVE-CONFIRMADA-TEST\" y fecha de expiración \"2026-06-15\"",
+            "result": {
+              "status": "passed",
+              "duration": 6000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 22,
+            "name": "el cliente visita la página \"/reservations\"",
+            "result": {
+              "status": "passed",
+              "duration": 115000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 23,
+            "name": "ingresa la clave pública \"CLAVE-CONFIRMADA-TEST\" en el campo \"#public-key-input\"",
+            "result": {
+              "status": "passed",
+              "duration": 384000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 24,
+            "name": "hace clic en \"#btn-buscar-reserva\"",
+            "result": {
+              "status": "passed",
+              "duration": 82000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 25,
+            "name": "el sistema debe mostrar la reserva en estado \"Confirmada\"",
+            "result": {
+              "status": "failed",
+              "error_message": "CypressError: Timed out retrying after 5000ms: `cy.wait()` timed out waiting `5000ms` for the 1st request to the route: `getReservation`. No request ever occurred.\n    at cypressErr (http://localhost:4200/__cypress/runner/cypress_runner.js:78300:18)\n    at Object.errByPath (http://localhost:4200/__cypress/runner/cypress_runner.js:78368:10)\n    at checkForXhr (http://localhost:4200/__cypress/runner/cypress_runner.js:138931:84)\n    at <unknown> (http://localhost:4200/__cypress/runner/cypress_runner.js:138956:28)\n    at tryCatcher (http://localhost:4200/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise.attempt.Promise.try (http://localhost:4200/__cypress/runner/cypress_runner.js:4285:29)\nFrom previous event:\n    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (http://localhost:4200/__cypress/runner/cypress_runner.js:3456:19)\n    at doThenable (http://localhost:4200/__cypress/runner/cypress_runner.js:2743:13)\n    at tryConvertToPromise (http://localhost:4200/__cypress/runner/cypress_runner.js:2711:20)\n    at Promise._resolveCallback (http://localhost:4200/__cypress/runner/cypress_runner.js:1408:24)\n    at Promise._resolveFromSyncValue (http://localhost:4200/__cypress/runner/cypress_runner.js:4298:14)\n    at Promise.attempt.Promise.try (http://localhost:4200/__cypress/runner/cypress_runner.js:4290:9)\n    at whenStable (http://localhost:4200/__cypress/runner/cypress_runner.js:152023:68)\n    at <unknown> (http://localhost:4200/__cypress/runner/cypress_runner.js:151964:14)\n    at tryCatcher (http://localhost:4200/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise._settlePromiseFromHandler (http://localhost:4200/__cypress/runner/cypress_runner.js:1489:31)\n    at Promise._settlePromise (http://localhost:4200/__cypress/runner/cypress_runner.js:1546:18)\n    at Promise._settlePromise0 (http://localhost:4200/__cypress/runner/cypress_runner.js:1591:10)\n    at Promise._settlePromises (http://localhost:4200/__cypress/runner/cypress_runner.js:1671:18)\n    at Promise._fulfill (http://localhost:4200/__cypress/runner/cypress_runner.js:1615:18)\n    at <unknown> (http://localhost:4200/__cypress/runner/cypress_runner.js:5420:46)\nFrom Your Spec Code:\n    at Context.eval (cypress/e2e/manage-reservation/manage-reservation.steps.ts:57:5)\n    at Context.resolveAndRunStepDefinition (node_modules/cypress-cucumber-preprocessor/lib/resolveStepDefinition.js:193:0)\n    at Context.eval (node_modules/cypress-cucumber-preprocessor/lib/createTestFromScenario.js:27:0)\n    at getRet (http://localhost:4200/__cypress/runner/cypress_runner.js:122807:20)\n    at tryCatcher (http://localhost:4200/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise.attempt.Promise.try (http://localhost:4200/__cypress/runner/cypress_runner.js:4285:29)\n    at Context.thenFn (http://localhost:4200/__cypress/runner/cypress_runner.js:122818:66)\n    at Context.then (http://localhost:4200/__cypress/runner/cypress_runner.js:123069:21)\n    at wrapped (http://localhost:4200/__cypress/runner/cypress_runner.js:146327:19)"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 26,
+            "name": "debe mostrar el mensaje \"Lista para retiro en mostrador\"",
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 27,
+            "name": "debe mostrar la fecha de expiración \"2026-06-15\"",
+            "result": {
+              "status": "skipped"
             }
           }
         ]
