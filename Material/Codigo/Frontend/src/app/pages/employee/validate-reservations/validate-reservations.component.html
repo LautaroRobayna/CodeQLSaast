@@ -50,16 +50,24 @@
           </div>
 
           <hr>
-          <button
-            id="btn-confirmar-reserva-sistema"
-            class="btn btn-success"
-            (click)="confirmReservation()">
-            Confirmar Reserva
-          </button>
+          <div class="d-flex gap-2">
+            <button
+              id="btn-confirmar-reserva-sistema"
+              class="btn btn-success"
+              (click)="confirmReservation()">
+              Confirmar Reserva
+            </button>
+            <button
+              id="btn-rechazar-receta"
+              class="btn btn-danger"
+              (click)="rejectReservation()">
+              Rechazar Reserva
+            </button>
+          </div>
         </c-card-body>
       </c-card>
 
-      <c-card *ngIf="recipePdfSrc" class="mt-3">
+      <c-card *ngIf="recipePdfSrc" class="mt-3" id="visor-receta-archivo">
         <c-card-header><strong>Visor de Receta</strong></c-card-header>
         <c-card-body class="visor-receta">
           <iframe

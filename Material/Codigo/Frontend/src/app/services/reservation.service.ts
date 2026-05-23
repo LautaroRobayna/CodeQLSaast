@@ -50,6 +50,14 @@ export class ReservationService {
       );
   }
 
+  rejectReservation(code: string): Observable<ReservationResponse> {
+    return this.http.put<ReservationResponse>(`${this.url}/${code}/reject`, null, {headers: this.getHttpHeaders()})
+      .pipe(
+        tap((rejected: ReservationResponse) => console.log(`Rejected reservation code=${rejected.code}`)),
+        catchError(this.handleError<ReservationResponse>('Reject Reservation'))
+      );
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       this.lastErrorMessage = error.error?.message || '';

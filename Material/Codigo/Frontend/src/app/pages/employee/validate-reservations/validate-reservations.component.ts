@@ -68,6 +68,24 @@ export class ValidateReservationsComponent implements OnInit {
     });
   }
 
+  rejectReservation(): void {
+    if (!this.selectedReservation) return;
+    this.reservationService.rejectReservation(this.selectedReservation.code).subscribe({
+      next: () => {
+        this.modalMessage = 'Reserva rechazada';
+        this.visible = true;
+        this.selectedReservation = null;
+        this.recipePdfSrc = null;
+        this.recipeFileNames = [];
+        this.loadPending();
+      },
+      error: () => {
+        this.modalMessage = 'Error al rechazar la reserva';
+        this.visible = true;
+      },
+    });
+  }
+
   closeModal(): void {
     this.visible = false;
   }

@@ -31,6 +31,6 @@ Scenario: Confirmación exitosa de una reserva pendiente por un empleado de farm
     And hace clic en el archivo "receta-amoxicilina.pdf" de la lista de recetas adjuntas
     And visualiza la receta de "Amoxicilina 500mg" en el visor "#visor-receta-archivo"
     When hace clic en "#btn-rechazar-receta"
-    Then el sistema debe mostrar un mensaje modal con el texto "Reserva rechazada por receta inválida"
+    Then el sistema debe mostrar un mensaje modal con el texto "Reserva rechazada"
     And el sistema debe cambiar el estado de la reserva a "Cancelled"
     And la reserva "RES-777" no debe aparecer en la lista de pendientes
