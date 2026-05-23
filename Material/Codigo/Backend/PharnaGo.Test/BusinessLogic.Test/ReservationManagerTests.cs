@@ -399,6 +399,37 @@ namespace PharmaGo.Test.BusinessLogic.Test
 
             Assert.ThrowsException<InvalidResourceException>(() =>
                 _reservationManager.ConfirmReservation("RES-777"));
-        }        
+        }
+
+        [TestMethod]
+        public void RejectReservation_AlreadyCancelled_Throws()
+        {
+            var reservation = new Reservation
+            {
+                Id = 1, Code = "RES-777", Status = ReservationStatus.Cancelled,
+                PharmacyId = 1, UserEmail = "a@b.com", Details = new List<ReservationDetail>()
+            };
+            _reservationRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Reservation, bool>>>()))
+                .Returns(reservation);
+
+            var ex = Assert.ThrowsException<InvalidResourceException>(() =>
+                _reservationManager.RejectReservation("RES-777"));
+            Assert.AreEqual("Solo se pueden rechazar reservas en estado pendiente", ex.Message);
+        }
+
+        [TestMethod]
+        public void RejectReservation_Confirmed_Throws()
+        {
+            var reservation = new Reservation
+            {
+                Id = 1, Code = "RES-777", Status = ReservationStatus.Confirmed,
+                PharmacyId = 1, UserEmail = "a@b.com", Details = new List<ReservationDetail>()
+            };
+            _reservationRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Reservation, bool>>>()))
+                .Returns(reservation);
+
+            Assert.ThrowsException<InvalidResourceException>(() =>
+                _reservationManager.RejectReservation("RES-777"));
+        }
     }
 }

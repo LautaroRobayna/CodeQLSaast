@@ -384,7 +384,17 @@ namespace PharmaGo.Test.WebApi.Test
                 .Throws(new InvalidResourceException("Solo se pueden confirmar reservas en estado pendiente"));
 
             _reservationController.ConfirmReservation("RES-777");
-        }        
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidResourceException))]
+        public void PutRejectReservation_AlreadyCancelled_Throws()
+        {
+            _reservationManagerMock.Setup(x => x.RejectReservation("RES-999"))
+                .Throws(new InvalidResourceException("Solo se pueden rechazar reservas en estado pendiente"));
+
+            _reservationController.RejectReservation("RES-999");
+        }
     }
 }
 

@@ -142,6 +142,8 @@ namespace PharmaGo.BusinessLogic
             var reservation = _reservationRepository.GetOneByExpression(r => r.Code == code);
             if (reservation == null)
                 throw new ResourceNotFoundException("Reservation not found");
+            if (reservation.Status != ReservationStatus.Pending)
+                throw new InvalidResourceException("Solo se pueden rechazar reservas en estado pendiente");
 
             reservation.Status = ReservationStatus.Cancelled;
             _reservationRepository.UpdateOne(reservation);
