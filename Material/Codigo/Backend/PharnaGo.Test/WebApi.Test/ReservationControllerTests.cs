@@ -3,13 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using PharmaGo.Domain.Entities;
 using PharmaGo.Domain.Enums;
-using PharmaGo.Domain.SearchCriterias;
 using PharmaGo.Exceptions;
 using PharmaGo.IBusinessLogic;
 using PharmaGo.WebApi.Controllers;
 using PharmaGo.WebApi.Models.In;
 using PharmaGo.WebApi.Models.Out;
-using System.Collections.Generic;
 
 namespace PharmaGo.Test.WebApi.Test
 {
@@ -211,6 +209,32 @@ namespace PharmaGo.Test.WebApi.Test
                 new InvalidResourceException("Una reserva solo puede contener medicamentos de una unica farmacia"));
 
             var result = _reservationController.Create(reservationModel);
+        }
+
+        [TestMethod]
+        public void PutConfirmReservation_Ok()
+        {
+            var reservation = new Reservation
+            {
+                Id = 1,
+                Code = "RES-777",
+                Status = ReservationStatus.Confirmed,
+                PharmacyId = 1,
+                UserEmail = "cliente@example.com",
+                ReservationDate = DateTime.Now,
+                Details = new List<ReservationDetail>()
+            };
+
+            _reservationManagerMock.Setup(x => x.ConfirmReservation("RES-777")).Returns(reservation);
+
+            var result = _reservationController.ConfirmReservation("RES-777");
+            var objectResult = result as ObjectResult;
+
+            _reservationManagerMock.VerifyAll();
+            Assert.AreEqual(200, objectResult.StatusCode);
+            var response = objectResult.Value as ReservationModelResponse;
+            Assert.AreEqual("RES-777", response.Code);
+            Assert.AreEqual("Confirmed", response.Status);
         }
     }
 }

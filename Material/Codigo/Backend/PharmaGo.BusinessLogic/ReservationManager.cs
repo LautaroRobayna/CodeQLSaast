@@ -116,5 +116,18 @@ namespace PharmaGo.BusinessLogic
 
             return reservation;
         }
+
+        public Reservation ConfirmReservation(string code)
+        {
+            var reservation = _reservationRepository.GetOneByExpression(r => r.Code == code);
+            if (reservation == null)
+                throw new ResourceNotFoundException("Reservation not found");
+
+            reservation.Status = ReservationStatus.Confirmed;
+            _reservationRepository.UpdateOne(reservation);
+            _reservationRepository.Save();
+
+            return reservation;
+        }
     }
 }

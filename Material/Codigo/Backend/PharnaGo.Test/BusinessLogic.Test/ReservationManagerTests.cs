@@ -283,5 +283,28 @@ namespace PharmaGo.Test.BusinessLogic.Test
             _drugRepository.Verify(r => r.UpdateOne(It.IsAny<Drug>()), Times.Never);
             _drugRepository.Verify(r => r.Save(), Times.Never);
         }
+
+        [TestMethod]
+        public void ConfirmReservation_Ok()
+        {
+            var reservation = new Reservation
+            {
+                Id = 1,
+                Code = "RES-777",
+                Status = ReservationStatus.Pending,
+                PharmacyId = 1,
+                UserEmail = "cliente@example.com",
+                Details = new List<ReservationDetail>()
+            };
+
+            _reservationRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Reservation, bool>>>()))
+                .Returns(reservation);
+
+            var result = _reservationManager.ConfirmReservation("RES-777");
+
+            Assert.AreEqual(ReservationStatus.Confirmed, result.Status);
+            _reservationRepository.Verify(r => r.UpdateOne(It.Is<Reservation>(res => res.Status == ReservationStatus.Confirmed)), Times.Once);
+            _reservationRepository.Verify(r => r.Save(), Times.Once);
+        }
     }
 }

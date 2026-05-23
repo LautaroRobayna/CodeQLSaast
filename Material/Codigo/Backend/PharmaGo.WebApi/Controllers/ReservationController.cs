@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using PharmaGo.Domain.Entities;
 using PharmaGo.IBusinessLogic;
+using PharmaGo.WebApi.Enums;
+using PharmaGo.WebApi.Filters;
 using PharmaGo.WebApi.Models.In;
 using PharmaGo.WebApi.Models.Out;
 
@@ -32,6 +34,14 @@ namespace PharmaGo.WebApi.Controllers
             };
             var createdReservation = _reservationManager.Create(reservation);
             return Ok(new ReservationModelResponse(createdReservation));
+        }
+
+        [HttpPut("{code}/confirm")]
+        [AuthorizationFilter(new[] { nameof(RoleType.Employee) })]
+        public IActionResult ConfirmReservation(string code)
+        {
+            var confirmed = _reservationManager.ConfirmReservation(code);
+            return Ok(new ReservationModelResponse(confirmed));
         }
     }
 }
