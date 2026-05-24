@@ -14,6 +14,16 @@ Scenario: Identificación visual de medicamento que requiere receta médica
     Then la fila del medicamento debe mostrar la etiqueta ".tag-receta-requerida" con el texto "Requiere Receta"
     And debe mostrarse el contenedor de carga de archivos "#upload-zone-receta"
 
+Scenario: Subida de receta en formato inválido
+    Given un usuario no autenticado visita la página de reservas "/reservations/create"
+    And selecciona la farmacia "Farmacia Central" de la lista desplegable "#select-farmacia"
+    And agrega 1 unidad del medicamento "Amoxicilina 500mg"
+    And completa el formulario con nombre "Carlos Gómez" y email "carlos@example.com"
+    When arrastra el archivo "receta_medica_2026.txt" al elemento input "#file-receta"
+    And intenta confirmar la reserva haciendo clic en "#btn-confirmar-reserva"
+    Then el sistema debe mostrar un mensaje de error flotante con el texto "Solo se permiten archivos PDF"
+    And no debe enviarse la receta al servidor
+
 Scenario: Subida de receta y cambio a revisión por la farmacia
     Given un usuario no autenticado visita la página de reservas "/reservations/create"
     And selecciona la farmacia "Farmacia Central" de la lista desplegable "#select-farmacia"

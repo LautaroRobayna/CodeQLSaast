@@ -56,10 +56,11 @@ Given('completa el formulario con nombre {string} y email {string}', (nombre: st
 });
 
 When('arrastra el archivo {string} al elemento input {string}', (fileName: string, selector: string) => {
+  const mimeType = fileName.endsWith('.pdf') ? 'application/pdf' : 'text/plain';
   cy.get(selector).selectFile({
-    contents: Cypress.Buffer.from('fake pdf content'),
+    contents: Cypress.Buffer.from('fake content'),
     fileName: fileName,
-    mimeType: 'application/pdf'
+    mimeType: mimeType
   }, { action: 'drag-drop' });
 });
 
@@ -87,4 +88,16 @@ Then('la reserva debe crearse con la etiqueta de estado {string} conteniendo el 
 
 Then('el indicador de receta debe decir {string}', (text: string) => {
   cy.get('[data-cy=prescription-status]').should('contain', text);
+});
+
+When('intenta confirmar la reserva haciendo clic en {string}', (selector: string) => {
+  cy.get(selector).click();
+});
+
+Then('el sistema debe mostrar un mensaje de error flotante con el texto {string}', (text: string) => {
+  cy.contains('.customToastBody', text).should('be.visible');
+});
+
+Then('no debe enviarse la receta al servidor', () => {
+  cy.get('.modal.show').should('not.exist');
 });

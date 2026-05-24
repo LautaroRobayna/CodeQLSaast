@@ -23,87 +23,7 @@
             "name": "que el sistema tiene cargada la farmacia \"Farmacia Central\"",
             "result": {
               "status": "passed",
-              "duration": 75000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 8,
-            "name": "la \"Farmacia Central\" tiene el medicamento \"Amoxicilina 500mg\" que requiere receta con stock de 5 unidades",
-            "result": {
-              "status": "passed",
-              "duration": 3000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Given ",
-            "line": 11,
-            "name": "un usuario no autenticado visita la página de reservas \"/reservations/create\"",
-            "result": {
-              "status": "passed",
-              "duration": 870000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 12,
-            "name": "selecciona la farmacia \"Farmacia Central\" de la lista desplegable \"#select-farmacia\"",
-            "result": {
-              "status": "passed",
-              "duration": 379000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 13,
-            "name": "agrega 1 unidad del medicamento \"Amoxicilina 500mg\"",
-            "result": {
-              "status": "passed",
-              "duration": 344000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Then ",
-            "line": 14,
-            "name": "la fila del medicamento debe mostrar la etiqueta \".tag-receta-requerida\" con el texto \"Requiere Receta\"",
-            "result": {
-              "status": "passed",
-              "duration": 10000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 15,
-            "name": "debe mostrarse el contenedor de carga de archivos \"#upload-zone-receta\"",
-            "result": {
-              "status": "passed",
-              "duration": 7000000
-            }
-          }
-        ]
-      },
-      {
-        "id": "subir-receta-médica-a-una-reserva;subida-de-receta-y-cambio-a-revisión-por-la-farmacia",
-        "keyword": "Scenario",
-        "line": 17,
-        "name": "Subida de receta y cambio a revisión por la farmacia",
-        "tags": [],
-        "type": "scenario",
-        "steps": [
-          {
-            "arguments": [],
-            "keyword": "Given ",
-            "line": 7,
-            "name": "que el sistema tiene cargada la farmacia \"Farmacia Central\"",
-            "result": {
-              "status": "passed",
-              "duration": 49000000
+              "duration": 34000000
             }
           },
           {
@@ -119,11 +39,91 @@
           {
             "arguments": [],
             "keyword": "Given ",
+            "line": 11,
+            "name": "un usuario no autenticado visita la página de reservas \"/reservations/create\"",
+            "result": {
+              "status": "passed",
+              "duration": 168000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 12,
+            "name": "selecciona la farmacia \"Farmacia Central\" de la lista desplegable \"#select-farmacia\"",
+            "result": {
+              "status": "passed",
+              "duration": 178000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 13,
+            "name": "agrega 1 unidad del medicamento \"Amoxicilina 500mg\"",
+            "result": {
+              "status": "passed",
+              "duration": 326000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 14,
+            "name": "la fila del medicamento debe mostrar la etiqueta \".tag-receta-requerida\" con el texto \"Requiere Receta\"",
+            "result": {
+              "status": "passed",
+              "duration": 7000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 15,
+            "name": "debe mostrarse el contenedor de carga de archivos \"#upload-zone-receta\"",
+            "result": {
+              "status": "passed",
+              "duration": 6000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "subir-receta-médica-a-una-reserva;subida-de-receta-en-formato-inválido",
+        "keyword": "Scenario",
+        "line": 17,
+        "name": "Subida de receta en formato inválido",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "que el sistema tiene cargada la farmacia \"Farmacia Central\"",
+            "result": {
+              "status": "passed",
+              "duration": 41000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "la \"Farmacia Central\" tiene el medicamento \"Amoxicilina 500mg\" que requiere receta con stock de 5 unidades",
+            "result": {
+              "status": "passed",
+              "duration": 3000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
             "line": 18,
             "name": "un usuario no autenticado visita la página de reservas \"/reservations/create\"",
             "result": {
               "status": "passed",
-              "duration": 110000000
+              "duration": 84000000
             }
           },
           {
@@ -133,7 +133,7 @@
             "name": "selecciona la farmacia \"Farmacia Central\" de la lista desplegable \"#select-farmacia\"",
             "result": {
               "status": "passed",
-              "duration": 169000000
+              "duration": 211000000
             }
           },
           {
@@ -143,7 +143,7 @@
             "name": "agrega 1 unidad del medicamento \"Amoxicilina 500mg\"",
             "result": {
               "status": "passed",
-              "duration": 331000000
+              "duration": 365000000
             }
           },
           {
@@ -153,47 +153,156 @@
             "name": "completa el formulario con nombre \"Carlos Gómez\" y email \"carlos@example.com\"",
             "result": {
               "status": "passed",
-              "duration": 816000000
+              "duration": 833000000
             }
           },
           {
             "arguments": [],
             "keyword": "When ",
             "line": 22,
-            "name": "arrastra el archivo \"receta_medica_2026.pdf\" al elemento input \"#file-receta\"",
+            "name": "arrastra el archivo \"receta_medica_2026.txt\" al elemento input \"#file-receta\"",
             "result": {
               "status": "passed",
-              "duration": 33000000
+              "duration": 30000000
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
             "line": 23,
-            "name": "hace clic en el botón \"#btn-confirmar-reserva\"",
+            "name": "intenta confirmar la reserva haciendo clic en \"#btn-confirmar-reserva\"",
             "result": {
               "status": "passed",
-              "duration": 96000000
+              "duration": 84000000
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
             "line": 24,
-            "name": "la reserva debe crearse con la etiqueta de estado \".estado-badge\" conteniendo el texto \"Pendiente\"",
+            "name": "el sistema debe mostrar un mensaje de error flotante con el texto \"Solo se permiten archivos PDF\"",
             "result": {
-              "status": "passed",
-              "duration": 8000000
+              "status": "failed",
+              "error_message": "AssertionError: Timed out retrying after 4000ms: Expected to find content: 'Solo se permiten archivos PDF' within the selector: '.customToastBody' but never did.\n    at Context.eval (cypress/e2e/upload-prescription/upload-prescription.steps.ts:98:40)\n    at Context.resolveAndRunStepDefinition (node_modules/cypress-cucumber-preprocessor/lib/resolveStepDefinition.js:193:0)\n    at Context.eval (node_modules/cypress-cucumber-preprocessor/lib/createTestFromScenario.js:27:0)\n    at getRet (http://localhost:4200/__cypress/runner/cypress_runner.js:122807:20)\n    at tryCatcher (http://localhost:4200/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise.attempt.Promise.try (http://localhost:4200/__cypress/runner/cypress_runner.js:4285:29)\n    at Context.thenFn (http://localhost:4200/__cypress/runner/cypress_runner.js:122818:66)\n    at Context.then (http://localhost:4200/__cypress/runner/cypress_runner.js:123069:21)\n    at wrapped (http://localhost:4200/__cypress/runner/cypress_runner.js:146327:19)"
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
             "line": 25,
+            "name": "no debe enviarse la receta al servidor",
+            "result": {
+              "status": "skipped"
+            }
+          }
+        ]
+      },
+      {
+        "id": "subir-receta-médica-a-una-reserva;subida-de-receta-y-cambio-a-revisión-por-la-farmacia",
+        "keyword": "Scenario",
+        "line": 27,
+        "name": "Subida de receta y cambio a revisión por la farmacia",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "que el sistema tiene cargada la farmacia \"Farmacia Central\"",
+            "result": {
+              "status": "passed",
+              "duration": 73000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "la \"Farmacia Central\" tiene el medicamento \"Amoxicilina 500mg\" que requiere receta con stock de 5 unidades",
+            "result": {
+              "status": "passed",
+              "duration": 2000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 28,
+            "name": "un usuario no autenticado visita la página de reservas \"/reservations/create\"",
+            "result": {
+              "status": "passed",
+              "duration": 85000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 29,
+            "name": "selecciona la farmacia \"Farmacia Central\" de la lista desplegable \"#select-farmacia\"",
+            "result": {
+              "status": "passed",
+              "duration": 195000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 30,
+            "name": "agrega 1 unidad del medicamento \"Amoxicilina 500mg\"",
+            "result": {
+              "status": "passed",
+              "duration": 327000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 31,
+            "name": "completa el formulario con nombre \"Carlos Gómez\" y email \"carlos@example.com\"",
+            "result": {
+              "status": "passed",
+              "duration": 801000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 32,
+            "name": "arrastra el archivo \"receta_medica_2026.pdf\" al elemento input \"#file-receta\"",
+            "result": {
+              "status": "passed",
+              "duration": 29000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 33,
+            "name": "hace clic en el botón \"#btn-confirmar-reserva\"",
+            "result": {
+              "status": "passed",
+              "duration": 87000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 34,
+            "name": "la reserva debe crearse con la etiqueta de estado \".estado-badge\" conteniendo el texto \"Pendiente\"",
+            "result": {
+              "status": "passed",
+              "duration": 5000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 35,
             "name": "el indicador de receta debe decir \"Receta: Presentada - Pendiente de Validación\"",
             "result": {
               "status": "passed",
-              "duration": 7000000
+              "duration": 4000000
             }
           }
         ]
