@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "code": "RES-CONFIRMED",
+    "status": "Confirmed",
+    "pharmacyId": 1,
+    "userEmail": "confirmado@example.com",
+    "reservationDate": "2026-05-23T10:00:00",
+    "hasRecipe": false,
+    "requiresPrescription": false,
+    "recipeFiles": [],
+    "details": [
+      { "id": 1, "drugCode": "PAR-500", "drugName": "Paracetamol 500mg", "quantity": 2 }
+    ]
+  },
+  {
+    "id": 2,
+    "code": "RES-CANCELLED",
+    "status": "Cancelled",
+    "pharmacyId": 1,
+    "userEmail": "cancelado@example.com",
+    "reservationDate": "2026-05-23T11:00:00",
+    "hasRecipe": false,
+    "requiresPrescription": false,
+    "recipeFiles": [],
+    "details": [
+      { "id": 2, "drugCode": "AMO-500", "drugName": "Amoxicilina 500mg", "quantity": 1 }
+    ]
+  }
+]

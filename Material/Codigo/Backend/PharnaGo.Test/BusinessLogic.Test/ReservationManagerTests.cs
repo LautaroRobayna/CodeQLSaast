@@ -65,6 +65,62 @@ namespace PharmaGo.Test.BusinessLogic.Test
         }
 
         [TestMethod]
+        public void CreateReservation_WithPrescriptionDrug_SetsRequiresPrescription()
+        {
+            var pharmacy = new Pharmacy { Id = 1, Name = "Test Pharmacy" };
+            var drug = new Drug { Id = 1, Code = "AMO-500", Name = "Amoxicilina 500mg", Stock = 10, Prescription = true, Pharmacy = pharmacy };
+
+            var reservation = new Reservation
+            {
+                PharmacyId = 1,
+                UserEmail = "test@user.com",
+                Details = new List<ReservationDetail>
+                {
+                    new ReservationDetail { DrugCode = "AMO-500", Quantity = 2 }
+                }
+            };
+
+            _pharmacyRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Pharmacy, bool>>>())).Returns(pharmacy);
+            _drugRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Drug, bool>>>())).Returns(drug);
+            _reservationRepository.Setup(r => r.InsertOne(It.IsAny<Reservation>()));
+            _drugRepository.Setup(r => r.UpdateOne(It.IsAny<Drug>()));
+
+            var result = _reservationManager.Create(reservation);
+
+            Assert.IsTrue(result.RequiresPrescription);
+            _reservationRepository.Verify(r => r.InsertOne(It.IsAny<Reservation>()), Times.Once);
+            _reservationRepository.Verify(r => r.Save(), Times.Once);
+        }
+
+        [TestMethod]
+        public void CreateReservation_WithoutPrescriptionDrug_DoesNotSetRequiresPrescription()
+        {
+            var pharmacy = new Pharmacy { Id = 1, Name = "Test Pharmacy" };
+            var drug = new Drug { Id = 1, Code = "PAR-500", Name = "Paracetamol 500mg", Stock = 10, Prescription = false, Pharmacy = pharmacy };
+
+            var reservation = new Reservation
+            {
+                PharmacyId = 1,
+                UserEmail = "test@user.com",
+                Details = new List<ReservationDetail>
+                {
+                    new ReservationDetail { DrugCode = "PAR-500", Quantity = 3 }
+                }
+            };
+
+            _pharmacyRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Pharmacy, bool>>>())).Returns(pharmacy);
+            _drugRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Drug, bool>>>())).Returns(drug);
+            _reservationRepository.Setup(r => r.InsertOne(It.IsAny<Reservation>()));
+            _drugRepository.Setup(r => r.UpdateOne(It.IsAny<Drug>()));
+
+            var result = _reservationManager.Create(reservation);
+
+            Assert.IsFalse(result.RequiresPrescription);
+            _reservationRepository.Verify(r => r.InsertOne(It.IsAny<Reservation>()), Times.Once);
+            _reservationRepository.Verify(r => r.Save(), Times.Once);
+        }
+
+        [TestMethod]
         public void CreateReservation_NullReservation_ThrowsInvalidResourceException()
         {
             var ex = Assert.ThrowsException<InvalidResourceException>(() => _reservationManager.Create(null));
@@ -282,6 +338,257 @@ namespace PharmaGo.Test.BusinessLogic.Test
             _reservationRepository.Verify(r => r.Save(), Times.Never);
             _drugRepository.Verify(r => r.UpdateOne(It.IsAny<Drug>()), Times.Never);
             _drugRepository.Verify(r => r.Save(), Times.Never);
+        }
+
+        [TestMethod]
+        public void GetAllPending_Ok()
+        {
+            var pendingReservations = new List<Reservation>
+            {
+                new Reservation { Id = 1, Code = "RES-001", Status = ReservationStatus.Pending, PharmacyId = 1, UserEmail = "a@b.com", Details = new List<ReservationDetail>() },
+                new Reservation { Id = 2, Code = "RES-002", Status = ReservationStatus.Pending, PharmacyId = 1, UserEmail = "c@d.com", Details = new List<ReservationDetail>() }
+            };
+
+            _reservationRepository.Setup(r => r.GetAllByExpression(It.IsAny<Expression<Func<Reservation, bool>>>()))
+                .Returns(pendingReservations);
+
+            var result = _reservationManager.GetAllPending();
+
+            Assert.AreEqual(2, result.Count());
+            _reservationRepository.Verify(r => r.GetAllByExpression(It.IsAny<Expression<Func<Reservation, bool>>>()), Times.Once);
+        }
+
+        [TestMethod]
+        public void GetAllPending_NoPending_ReturnsEmpty()
+        {
+            _reservationRepository.Setup(r => r.GetAllByExpression(It.IsAny<Expression<Func<Reservation, bool>>>()))
+                .Returns(new List<Reservation>());
+
+            var result = _reservationManager.GetAllPending();
+
+            Assert.AreEqual(0, result.Count());
+            _reservationRepository.Verify(r => r.GetAllByExpression(It.IsAny<Expression<Func<Reservation, bool>>>()), Times.Once);
+        }
+
+        [TestMethod]
+        public void ConfirmReservation_Ok()
+        {
+            var reservation = new Reservation
+            {
+                Id = 1,
+                Code = "RES-777",
+                Status = ReservationStatus.Pending,
+                PharmacyId = 1,
+                UserEmail = "cliente@example.com",
+                Details = new List<ReservationDetail>()
+            };
+
+            _reservationRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Reservation, bool>>>()))
+                .Returns(reservation);
+
+            var result = _reservationManager.ConfirmReservation("RES-777");
+
+            Assert.AreEqual(ReservationStatus.Confirmed, result.Status);
+            _reservationRepository.Verify(r => r.UpdateOne(It.Is<Reservation>(res => res.Status == ReservationStatus.Confirmed)), Times.Once);
+            _reservationRepository.Verify(r => r.Save(), Times.Once);
+        }
+
+        [TestMethod]
+        public void RejectReservation_Ok()
+        {
+            var reservation = new Reservation
+            {
+                Id = 1,
+                Code = "RES-777",
+                Status = ReservationStatus.Pending,
+                PharmacyId = 1,
+                UserEmail = "cliente@example.com",
+                Details = new List<ReservationDetail>()
+            };
+
+            _reservationRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Reservation, bool>>>()))
+                .Returns(reservation);
+
+            var result = _reservationManager.RejectReservation("RES-777");
+
+            Assert.AreEqual(ReservationStatus.Cancelled, result.Status);
+            _reservationRepository.Verify(r => r.UpdateOne(It.Is<Reservation>(res => res.Status == ReservationStatus.Cancelled)), Times.Once);
+            _reservationRepository.Verify(r => r.Save(), Times.Once);
+        }
+
+        [TestMethod]
+        public void RejectReservation_NotFound_Throws()
+        {
+            _reservationRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Reservation, bool>>>()))
+                .Returns((Reservation)null);
+
+            Assert.ThrowsException<ResourceNotFoundException>(() =>
+                _reservationManager.RejectReservation("NONEXISTENT"));
+        }
+
+        [TestMethod]
+        public void ConfirmReservation_RequiresPrescriptionNoRecipe_Throws()
+        {
+            var drug = new Drug { Id = 1, Code = "AMO-500", Name = "Amoxicilina 500mg", Prescription = true };
+            var reservation = new Reservation
+            {
+                Id = 1,
+                Code = "RES-777",
+                Status = ReservationStatus.Pending,
+                PharmacyId = 1,
+                UserEmail = "cliente@example.com",
+                HasRecipe = false,
+                Details = new List<ReservationDetail>
+                {
+                    new ReservationDetail { DrugCode = "AMO-500", Quantity = 2 }
+                }
+            };
+
+            _reservationRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Reservation, bool>>>()))
+                .Returns(reservation);
+            _drugRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Drug, bool>>>()))
+                .Returns(drug);
+
+            var ex = Assert.ThrowsException<InvalidResourceException>(() =>
+                _reservationManager.ConfirmReservation("RES-777"));
+            Assert.AreEqual("La reserva requiere receta médica", ex.Message);
+        }
+
+        [TestMethod]
+        public void ConfirmReservation_RequiresPrescriptionWithRecipe_Ok()
+        {
+            var drug = new Drug { Id = 1, Code = "AMO-500", Name = "Amoxicilina 500mg", Prescription = true };
+            var reservation = new Reservation
+            {
+                Id = 1,
+                Code = "RES-777",
+                Status = ReservationStatus.Pending,
+                PharmacyId = 1,
+                UserEmail = "cliente@example.com",
+                HasRecipe = true,
+                Details = new List<ReservationDetail>
+                {
+                    new ReservationDetail { DrugCode = "AMO-500", Quantity = 2 }
+                }
+            };
+
+            _reservationRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Reservation, bool>>>()))
+                .Returns(reservation);
+
+            var result = _reservationManager.ConfirmReservation("RES-777");
+
+            Assert.AreEqual(ReservationStatus.Confirmed, result.Status);
+            _reservationRepository.Verify(r => r.UpdateOne(It.Is<Reservation>(res => res.Status == ReservationStatus.Confirmed)), Times.Once);
+            _reservationRepository.Verify(r => r.Save(), Times.Once);
+        }
+
+        [TestMethod]
+        public void ConfirmReservation_RequiresPrescriptionNoRecipeNoDetails_Throws()
+        {
+            var prescriptionDrug = new Drug { Id = 1, Code = "AMO-500", Name = "Amoxicilina 500mg", Prescription = true };
+            var noPrescriptionDrug = new Drug { Id = 2, Code = "PAR-500", Name = "Paracetamol 500mg", Prescription = false };
+            var reservation = new Reservation
+            {
+                Id = 1,
+                Code = "RES-777",
+                Status = ReservationStatus.Pending,
+                PharmacyId = 1,
+                UserEmail = "cliente@example.com",
+                HasRecipe = false,
+                Details = new List<ReservationDetail>
+                {
+                    new ReservationDetail { DrugCode = "PAR-500", Quantity = 3 },
+                    new ReservationDetail { DrugCode = "AMO-500", Quantity = 2 }
+                }
+            };
+
+            _reservationRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Reservation, bool>>>()))
+                .Returns(reservation);
+            _drugRepository.SetupSequence(r => r.GetOneByExpression(It.IsAny<Expression<Func<Drug, bool>>>()))
+                .Returns(noPrescriptionDrug)
+                .Returns(prescriptionDrug);
+
+            var ex = Assert.ThrowsException<InvalidResourceException>(() =>
+                _reservationManager.ConfirmReservation("RES-777"));
+            Assert.AreEqual("La reserva requiere receta médica", ex.Message);
+        }
+
+        [TestMethod]
+        public void ConfirmReservation_AlreadyConfirmed_Throws()
+        {
+            var reservation = new Reservation
+            {
+                Id = 1,
+                Code = "RES-777",
+                Status = ReservationStatus.Confirmed,
+                PharmacyId = 1,
+                UserEmail = "a@b.com",
+                Details = new List<ReservationDetail>()
+            };
+            _reservationRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Reservation, bool>>>()))
+                .Returns(reservation);
+
+            var ex = Assert.ThrowsException<InvalidResourceException>(() =>
+                _reservationManager.ConfirmReservation("RES-777"));
+            Assert.AreEqual("Solo se pueden confirmar reservas en estado pendiente", ex.Message);
+        }
+
+        [TestMethod]
+        public void ConfirmReservation_Cancelled_Throws()
+        {
+            var reservation = new Reservation
+            {
+                Id = 1,
+                Code = "RES-777",
+                Status = ReservationStatus.Cancelled,
+                PharmacyId = 1,
+                UserEmail = "a@b.com",
+                Details = new List<ReservationDetail>()
+            };
+            _reservationRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Reservation, bool>>>()))
+                .Returns(reservation);
+
+            Assert.ThrowsException<InvalidResourceException>(() =>
+                _reservationManager.ConfirmReservation("RES-777"));
+        }
+
+        [TestMethod]
+        public void RejectReservation_AlreadyCancelled_Throws()
+        {
+            var reservation = new Reservation
+            {
+                Id = 1,
+                Code = "RES-777",
+                Status = ReservationStatus.Cancelled,
+                PharmacyId = 1,
+                UserEmail = "a@b.com",
+                Details = new List<ReservationDetail>()
+            };
+            _reservationRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Reservation, bool>>>()))
+                .Returns(reservation);
+
+            var ex = Assert.ThrowsException<InvalidResourceException>(() =>
+                _reservationManager.RejectReservation("RES-777"));
+            Assert.AreEqual("Solo se pueden rechazar reservas en estado pendiente", ex.Message);
+        }
+
+        [TestMethod]
+        public void RejectReservation_Confirmed_Throws()
+        {
+            var reservation = new Reservation
+            {
+                Id = 1,
+                Code = "RES-777",
+                Status = ReservationStatus.Confirmed,
+                PharmacyId = 1,
+                UserEmail = "a@b.com",
+                Details = new List<ReservationDetail>()
+            };
+            _reservationRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Reservation, bool>>>()))
+                .Returns(reservation);
+
+            Assert.ThrowsException<InvalidResourceException>(() =>
+                _reservationManager.RejectReservation("RES-777"));
         }
     }
 }

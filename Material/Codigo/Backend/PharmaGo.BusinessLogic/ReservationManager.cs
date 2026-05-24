@@ -78,6 +78,9 @@ namespace PharmaGo.BusinessLogic
                 var drug = _drugRepository.GetOneByExpression(d => d.Code == detail.DrugCode);
                 if (drug != null)
                 {
+                    if (drug.Prescription)
+                        reservation.RequiresPrescription = true;
+
                     if (drug.Pharmacy?.Id != reservation.PharmacyId)
                     {
                         throw new InvalidResourceException("Una reserva solo puede contener medicamentos de una unica farmacia");
@@ -112,6 +115,53 @@ namespace PharmaGo.BusinessLogic
             reservation.ReservationDate = DateTime.Now;
 
             _reservationRepository.InsertOne(reservation);
+            _reservationRepository.Save();
+
+            return reservation;
+        }
+
+        public IEnumerable<Reservation> GetAllPending()
+        {
+            return _reservationRepository.GetAllByExpression(r => r.Status == ReservationStatus.Pending);
+        }
+
+        public Reservation ConfirmReservation(string code)
+        {
+            var reservation = _reservationRepository.GetOneByExpression(r => r.Code == code);
+            if (reservation == null)
+                throw new ResourceNotFoundException("Reservation not found");
+            if (reservation.Status != ReservationStatus.Pending)
+                throw new InvalidResourceException("Solo se pueden confirmar reservas en estado pendiente");
+
+            if (!reservation.HasRecipe)
+            {
+                var requiresPrescription = reservation.Details?.Any(d =>
+                {
+                    var drug = _drugRepository.GetOneByExpression(drg => drg.Code == d.DrugCode);
+                    return drug?.Prescription == true;
+                }) == true;
+
+                if (requiresPrescription)
+                    throw new InvalidResourceException("La reserva requiere receta médica");
+            }
+
+            reservation.Status = ReservationStatus.Confirmed;
+            _reservationRepository.UpdateOne(reservation);
+            _reservationRepository.Save();
+
+            return reservation;
+        }
+
+        public Reservation RejectReservation(string code)
+        {
+            var reservation = _reservationRepository.GetOneByExpression(r => r.Code == code);
+            if (reservation == null)
+                throw new ResourceNotFoundException("Reservation not found");
+            if (reservation.Status != ReservationStatus.Pending)
+                throw new InvalidResourceException("Solo se pueden rechazar reservas en estado pendiente");
+
+            reservation.Status = ReservationStatus.Cancelled;
+            _reservationRepository.UpdateOne(reservation);
             _reservationRepository.Save();
 
             return reservation;

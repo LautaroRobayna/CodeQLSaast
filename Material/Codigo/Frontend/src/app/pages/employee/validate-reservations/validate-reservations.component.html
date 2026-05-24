@@ -1,0 +1,97 @@
+<app-user-header title="Validar Reservas" link="employee"></app-user-header>
+<c-container class="mt-3">
+  <c-row>
+    <c-col [md]="6">
+      <c-card>
+        <c-card-header><strong>Reservas Pendientes</strong></c-card-header>
+        <c-card-body>
+          <ul class="list-group" *ngIf="pendingReservations.length > 0; else noPending">
+            <li
+              class="list-group-item"
+              [class.active]="selectedReservation?.id === r.id"
+              (click)="selectReservation(r)"
+              style="cursor: pointer"
+              *ngFor="let r of pendingReservations">
+              <div><strong>{{ r.code }}</strong></div>
+              <small class="text-muted">{{ r.userEmail }} — {{ r.reservationDate | date:'dd/MM/yyyy HH:mm' }}</small>
+            </li>
+          </ul>
+          <ng-template #noPending>
+            <p class="text-muted mb-0">No hay reservas pendientes.</p>
+          </ng-template>
+        </c-card-body>
+      </c-card>
+    </c-col>
+
+    <c-col [md]="6" *ngIf="selectedReservation">
+      <c-card>
+        <c-card-header><strong>Detalle de {{ selectedReservation.code }}</strong></c-card-header>
+        <c-card-body>
+          <p><b>Email:</b> {{ selectedReservation.userEmail }}</p>
+          <p><b>Fecha:</b> {{ selectedReservation.reservationDate | date:'dd/MM/yyyy HH:mm' }}</p>
+          <p><b>Estado:</b> {{ selectedReservation.status }}</p>
+          <p *ngIf="selectedReservation.requiresPrescription" class="text-warning"><b>Receta:</b> Requiere receta médica</p>
+          <p *ngIf="!selectedReservation.requiresPrescription" class="text-success"><b>Receta:</b> No requiere receta médica</p>
+          <table cTable hover responsive>
+            <thead><tr><th>Medicamento</th><th>Cantidad</th></tr></thead>
+            <tbody>
+              <tr *ngFor="let d of selectedReservation.details">
+                <td>{{ d.drugName || d.drugCode }}</td><td>{{ d.quantity }}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div *ngIf="recipeFileNames.length > 0">
+            <hr>
+            <strong>Recetas adjuntas</strong>
+            <ul class="list-unstyled lista-recetas mt-2">
+              <li *ngFor="let name of recipeFileNames; let i = index">
+                <a href="javascript:void(0)" (click)="showRecipe(i)" class="receta-link">{{ name }}</a>
+              </li>
+            </ul>
+          </div>
+
+          <hr>
+          <div class="d-flex gap-2">
+            <button
+              id="btn-confirmar-reserva-sistema"
+              class="btn btn-success"
+              [disabled]="selectedReservation && !selectedReservation.hasRecipe && selectedReservation.requiresPrescription"
+              (click)="confirmReservation()">
+              Confirmar Reserva
+            </button>
+            <button
+              id="btn-rechazar-receta"
+              class="btn btn-danger"
+              (click)="rejectReservation()">
+              Rechazar Reserva
+            </button>
+          </div>
+        </c-card-body>
+      </c-card>
+
+      <c-card *ngIf="recipePdfSrc" class="mt-3" id="visor-receta-archivo">
+        <c-card-header><strong>Visor de Receta</strong></c-card-header>
+        <c-card-body class="visor-receta">
+          <iframe
+            [src]="recipePdfSrc"
+            width="100%"
+            height="400px"
+            style="border: none">
+          </iframe>
+        </c-card-body>
+      </c-card>
+    </c-col>
+  </c-row>
+</c-container>
+
+<c-modal [visible]="visible">
+  <c-modal-header>
+    <h5 cModalTitle>Confirmación</h5>
+    <button (click)="closeModal()" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>{{ modalMessage }}</c-modal-body>
+  <c-modal-footer>
+    <button (click)="closeModal()" cButton color="primary">Cerrar</button>
+  </c-modal-footer>
+</c-modal>

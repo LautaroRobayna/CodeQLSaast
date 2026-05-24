@@ -14,6 +14,9 @@ namespace PharmaGo.WebApi.Models.Out
         public string UserEmail { get; set; }
         public DateTime ReservationDate { get; set; }
         public string Status { get; set; }
+        public bool HasRecipe { get; set; }
+        public bool RequiresPrescription { get; set; }
+        public List<string> RecipeFiles { get; set; }
 
         public ReservationModelResponse(Reservation reservation)
         {
@@ -30,6 +33,8 @@ namespace PharmaGo.WebApi.Models.Out
             UserEmail = reservation.UserEmail;
             ReservationDate = reservation.ReservationDate;
             Status = reservation.Status.ToString();
+            HasRecipe = reservation.HasRecipe;
+            RequiresPrescription = reservation.RequiresPrescription;
         }
 
         public class ReservationDetailModelResponse

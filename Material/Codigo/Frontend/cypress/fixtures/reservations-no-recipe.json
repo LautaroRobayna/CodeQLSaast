@@ -1,0 +1,16 @@
+[
+  {
+    "id": 2,
+    "code": "RES-NO-RECIPE",
+    "status": "Pending",
+    "pharmacyId": 1,
+    "userEmail": "sinreceta@example.com",
+    "reservationDate": "2026-05-23T12:00:00",
+    "hasRecipe": false,
+    "requiresPrescription": false,
+    "recipeFiles": [],
+    "details": [
+      { "id": 3, "drugCode": "PAR-500", "drugName": "Paracetamol 500mg", "quantity": 3 }
+    ]
+  }
+]

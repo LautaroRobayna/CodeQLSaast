@@ -18,10 +18,14 @@ export interface ReservationResponse {
     reservationDate: string;
     status: string;
     details: ReservationDetailResponse[];
+    hasRecipe: boolean;
+    requiresPrescription: boolean;
+    recipeFiles: string[];
 }
 
 export interface ReservationDetailResponse {
     id: number;
     drugCode: string;
+    drugName?: string;
     quantity: number;
 }
