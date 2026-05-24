@@ -49,3 +49,42 @@ Then('la fila del medicamento debe mostrar la etiqueta {string} con el texto {st
 Then('debe mostrarse el contenedor de carga de archivos {string}', (selector: string) => {
   cy.get(selector).should('be.visible');
 });
+
+Given('completa el formulario con nombre {string} y email {string}', (nombre: string, email: string) => {
+  cy.get('#nombre-completo').clear().type(nombre);
+  cy.get('#email').clear().type(email);
+});
+
+When('arrastra el archivo {string} al elemento input {string}', (fileName: string, selector: string) => {
+  cy.get(selector).selectFile({
+    contents: Cypress.Buffer.from('fake pdf content'),
+    fileName: fileName,
+    mimeType: 'application/pdf'
+  }, { action: 'drag-drop' });
+});
+
+When('hace clic en el botón {string}', (selector: string) => {
+  cy.intercept('POST', '**/api/reservation', {
+    statusCode: 201,
+    body: {
+      id: 1,
+      code: 'RES-001',
+      publicKey: 'PUB-12345',
+      status: 'Pendiente',
+      prescriptionUploaded: true
+    }
+  }).as('createReservation');
+
+  cy.get(selector).click();
+  cy.wait('@createReservation');
+});
+
+Then('la reserva debe crearse con la etiqueta de estado {string} conteniendo el texto {string}',
+  (cssClass: string, text: string) => {
+    cy.get(cssClass).should('contain', text);
+  }
+);
+
+Then('el indicador de receta debe decir {string}', (text: string) => {
+  cy.get('[data-cy=prescription-status]').should('contain', text);
+});
