@@ -1,0 +1,15 @@
+[
+  {
+    "id": 3,
+    "code": "RES-NO-UPLOAD",
+    "status": "Pending",
+    "pharmacyId": 1,
+    "userEmail": "nosubio@example.com",
+    "reservationDate": "2026-05-23T13:00:00",
+    "hasRecipe": false,
+    "recipeFiles": [],
+    "details": [
+      { "id": 4, "drugCode": "AMO-500", "drugName": "Amoxicilina 500mg", "quantity": 2 }
+    ]
+  }
+]

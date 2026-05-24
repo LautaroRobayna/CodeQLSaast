@@ -141,3 +141,36 @@ Given('una reserva en estado {string} y otra en estado {string} en el sistema', 
 Then('la lista de pendientes muestra el mensaje {string}', (mensaje: string) => {
   cy.contains(mensaje).should('be.visible');
 });
+
+Given('una reserva pendiente que requiere receta médica pero no tiene receta adjunta', () => {
+  cy.wrap({ codigo: 'RES-NO-UPLOAD', estado: 'Pending' }).as('reservaSeleccionada');
+  cy.intercept('GET', '**/api/reservation/pending', {
+    statusCode: 200,
+    fixture: 'reservations-requires-recipe-no-upload.json'
+  }).as('listaReservasPendientes');
+});
+
+When('confirma la reserva y la operacion falla', () => {
+  cy.get('@reservaSeleccionada').then((reserva: any) => {
+    cy.intercept('PUT', `**/api/reservation/${reserva.codigo}/confirm`, {
+      statusCode: 400,
+      body: { Message: "La reserva requiere receta médica" }
+    }).as('confirmacionFallida');
+  });
+
+  cy.get('@reservaSeleccionada').then((reserva: any) => {
+    cy.intercept('GET', '**/api/reservation/pending', {
+      statusCode: 200,
+      fixture: 'reservations-requires-recipe-no-upload.json'
+    }).as('pendientesTrasFallar');
+  });
+
+  cy.get('#btn-confirmar-reserva-sistema').click();
+  cy.wait('@confirmacionFallida');
+});
+
+Then('la reserva {string} debe permanecer en la lista de pendientes', (codigoReserva: string) => {
+  cy.wait('@pendientesTrasFallar').then(() => {
+    cy.contains(codigoReserva).should('be.visible');
+  });
+});

@@ -34,6 +34,17 @@ Scenario: Confirmación exitosa de una reserva pendiente por un empleado de farm
     And el sistema debe cambiar el estado de la reserva a "Confirmed"
     And la reserva "RES-NO-RECIPE" no debe aparecer en la lista de pendientes
 
+  Scenario: Intento de confirmar una reserva que requiere receta médica sin archivo adjunto
+    Given una reserva pendiente que requiere receta médica pero no tiene receta adjunta
+    And el empleado "Carlos" con rol "Empleado Farmacia" inicia sesión en el sistema
+    And accede al panel de empleado en "/employee"
+    And hace clic en "#btn-validar-reservas" para ir a la gestión de reservas
+    And se encuentra en la página de validación "/employee/validate-reservations"
+    And selecciona la reserva "RES-NO-UPLOAD" de la lista de pendientes
+    When confirma la reserva y la operacion falla
+    Then el sistema debe mostrar un mensaje modal con el texto "Error al confirmar la reserva"
+    And la reserva "RES-NO-UPLOAD" debe permanecer en la lista de pendientes
+
   Scenario: Cancelación de reserva sin receta médica
     Given una reserva pendiente sin receta médica
     And el empleado "Carlos" con rol "Empleado Farmacia" inicia sesión en el sistema
