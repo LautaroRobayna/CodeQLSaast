@@ -48,3 +48,8 @@ Scenario: Búsqueda con clave pública inválida
     When ingresa la clave pública "CLAVE-INVALIDA-TEST" en el campo "#public-key-input"
     And hace clic en "#btn-buscar-reserva"
     Then debe mostrar el mensaje de error "Reserva no encontrada."
+
+Scenario: Búsqueda con campo de clave pública vacío
+    Given el cliente visita la página "/reservations"
+    When hace clic en "#btn-buscar-reserva"
+    Then debe mostrar el mensaje de error "Por favor ingresá una clave pública."
