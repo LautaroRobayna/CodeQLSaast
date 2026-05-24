@@ -128,6 +128,7 @@ namespace PharmaGo.BusinessLogic
 
             reservation.PrescriptionBase64 = prescriptionBase64;
             reservation.PrescriptionFileName = prescriptionFileName;
+            reservation.HasRecipe = true;
             _reservationRepository.UpdateOne(reservation);
             _reservationRepository.Save();
             return true;
@@ -165,7 +166,8 @@ namespace PharmaGo.BusinessLogic
             if (reservation.Status != ReservationStatus.Pending)
                 throw new InvalidResourceException("Solo se pueden confirmar reservas en estado pendiente");
 
-            if (!reservation.HasRecipe)
+            var prescriptionPresent = reservation.HasRecipe || !string.IsNullOrEmpty(reservation.PrescriptionBase64);
+            if (!prescriptionPresent)
             {
                 var requiresPrescription = reservation.Details?.Any(d =>
                 {

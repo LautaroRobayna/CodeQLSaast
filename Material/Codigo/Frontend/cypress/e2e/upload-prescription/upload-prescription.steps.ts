@@ -32,12 +32,25 @@ Given('selecciona la farmacia {string} de la lista desplegable {string}', (pharm
 });
 
 When(/^agrega (\d+) unidad(?:es)? del medicamento "([^"]+)"$/, (quantity: number, drugName: string) => {
+  const drugDetailMap: { [key: string]: { id: number; prescription: boolean } } = {
+    'Amoxicilina 500mg': { id: 3, prescription: true },
+    'Paracetamol 500mg': { id: 1, prescription: false }
+  };
+  const drugInfo = drugDetailMap[drugName] ?? { id: 1, prescription: false };
+
+  cy.intercept('GET', `**/api/drug/${drugInfo.id}`, {
+    statusCode: 200,
+    body: { id: drugInfo.id, code: drugInfo.id === 3 ? 'A-500' : 'P-500', name: drugName, prescription: drugInfo.prescription }
+  }).as(`getDrugDetail${drugInfo.id}`);
+
   cy.contains('td', drugName)
     .parents('tr')
     .within(() => {
       cy.get('input[type="number"]').clear().type(quantity.toString());
       cy.contains('button', 'Agregar').click();
     });
+
+  cy.wait(`@getDrugDetail${drugInfo.id}`);
 });
 
 Then('la fila del medicamento debe mostrar la etiqueta {string} con el texto {string}',

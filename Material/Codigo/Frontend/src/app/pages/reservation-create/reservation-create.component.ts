@@ -93,11 +93,15 @@ export class ReservationCreateComponent implements OnInit {
 
     this.hasQuantityError = false;
     this.errorMessage = "";
-    this.reservationDetails.push({
-      drugCode: drug.code,
-      name: drug.name,
-      quantity: qty,
-      requiresPrescription: drug.prescription
+
+    this.drugService.getDrug(drug.id).subscribe(detail => {
+      this.reservationDetails.push({
+        drugCode: drug.code,
+        name: drug.name,
+        quantity: qty,
+        requiresPrescription: detail?.prescription ?? false
+      });
+      this.cdr.detectChanges();
     });
   }
 

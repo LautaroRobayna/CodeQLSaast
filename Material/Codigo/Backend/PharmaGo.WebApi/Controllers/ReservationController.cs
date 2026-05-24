@@ -42,6 +42,11 @@ namespace PharmaGo.WebApi.Controllers
                         model.RecipeFiles = recipeFiles.Select(f => Convert.ToBase64String(System.IO.File.ReadAllBytes(f))).ToList();
                     }
                 }
+                if (!model.HasRecipe && !string.IsNullOrEmpty(r.PrescriptionBase64))
+                {
+                    model.HasRecipe = true;
+                    model.RecipeFiles = new List<string> { r.PrescriptionBase64 };
+                }
                 return model;
             }).ToList();
             return Ok(response);
