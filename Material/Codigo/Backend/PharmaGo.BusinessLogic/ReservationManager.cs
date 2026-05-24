@@ -52,7 +52,7 @@ namespace PharmaGo.BusinessLogic
             return reservation;
         }
 
-        public Reservation GetByPublicKey(string publicKey)
+        public Reservation? GetByPublicKey(string publicKey)
         {
             var reservation = _reservationRepository.GetOneByExpression(r => r.PublicKey == publicKey);
 

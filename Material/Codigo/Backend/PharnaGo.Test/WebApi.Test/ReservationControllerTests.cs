@@ -150,6 +150,23 @@ namespace PharmaGo.Test.WebApi.Test
             Assert.AreEqual("Confirmed", response.Status);
             Assert.AreEqual(reservationDate.AddDays(30), response.ExpirationDate);
         }
+
+        [TestMethod]
+        public void GetByPublicKey_ReturnsNotFound_WhenPublicKeyDoesNotExist()
+        {
+            var publicKey = "CLAVE-INVALIDA-TEST";
+
+            _reservationManagerMock
+                .Setup(m => m.GetByPublicKey(publicKey))
+                .Returns(default(Reservation));
+
+            var result = _reservationController.GetByPublicKey(publicKey);
+
+            _reservationManagerMock.VerifyAll();
+            var notFoundResult = result as NotFoundObjectResult;
+            Assert.IsNotNull(notFoundResult);
+            Assert.AreEqual(404, notFoundResult.StatusCode);
+        }
     }
 }
 

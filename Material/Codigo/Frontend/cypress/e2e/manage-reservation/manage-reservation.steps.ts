@@ -1,6 +1,5 @@
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 
-
 Given('que el sistema tiene cargada la farmacia {string}', (pharmacyName: string) => {
   cy.log(`Farmacia ${pharmacyName} registrada en sistema`);
 });
@@ -39,29 +38,9 @@ Given('existe una reserva en estado {string} para el email {string} en {string} 
   }
 );
 
-
 Given('el cliente visita la página {string}', (url: string) => {
   cy.visit(`http://localhost:4200${url}`);
 });
-
-When('ingresa la clave pública {string} en el campo {string}', (publicKey: string, selector: string) => {
-  cy.get(selector).type(publicKey);
-});
-
-When('hace clic en {string}', (selector: string) => {
-  cy.get(selector).click();
-});
-
-Then('el sistema debe mostrar la reserva en estado {string}', (status: string) => {
-  cy.wait('@getReservation');
-  cy.get('[data-cy=reservation-status]').should('contain', status);
-});
-
-Then('debe mostrar el aviso {string} para el medicamento {string}', (warning: string, drugName: string) => {
-  cy.get('[data-cy=prescription-warning]').should('contain', warning);
-  cy.get('[data-cy=prescription-warning]').should('contain', drugName);
-});
-
 
 Given('existe una reserva en estado {string} con clave pública {string} y fecha de expiración {string}',
   (status: string, publicKey: string, expirationDate: string) => {
@@ -85,21 +64,37 @@ Given('existe una reserva en estado {string} con clave pública {string} y fecha
   }
 );
 
+Given('no existe ninguna reserva con la clave pública {string}', (_publicKey: string) => {
+  cy.intercept('GET', '**/api/reservation*', {
+    statusCode: 404,
+    body: { message: 'Reserva no encontrada.' }
+  }).as('getReservation');
+});
+
+When('ingresa la clave pública {string} en el campo {string}', (publicKey: string, selector: string) => {
+  cy.get(selector).type(publicKey);
+});
+
+When('hace clic en {string}', (selector: string) => {
+  cy.get(selector).click();
+});
+
+Then('el sistema debe mostrar la reserva en estado {string}', (status: string) => {
+  cy.wait('@getReservation');
+  cy.get('[data-cy=reservation-status]').should('contain', status);
+});
+
+Then('debe mostrar el aviso {string} para el medicamento {string}', (warning: string, drugName: string) => {
+  cy.get('[data-cy=prescription-warning]').should('contain', warning);
+  cy.get('[data-cy=prescription-warning]').should('contain', drugName);
+});
+
 Then('debe mostrar el mensaje {string}', (message: string) => {
   cy.get('[data-cy=reservation-message]').should('contain', message);
 });
 
 Then('debe mostrar la fecha de expiración {string}', (date: string) => {
   cy.get('[data-cy=expiration-date]').should('contain', date);
-});
-
-// === ESCENARIO 5 ===
-
-Given('no existe ninguna reserva con la clave pública {string}', (_publicKey: string) => {
-  cy.intercept('GET', '**/api/reservation*', {
-    statusCode: 404,
-    body: { message: 'Reserva no encontrada.' }
-  }).as('getReservation');
 });
 
 Then('debe mostrar el mensaje de error {string}', (message: string) => {
