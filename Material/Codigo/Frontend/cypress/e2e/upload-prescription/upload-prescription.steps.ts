@@ -105,3 +105,9 @@ Then('no debe enviarse la receta al servidor', () => {
 Then('el contenedor {string} no debe ser visible', (selector: string) => {
   cy.get(selector).should('not.exist');
 });
+
+When('completa el formulario de contacto con los siguientes datos:', (dataTable: any) => {
+  dataTable.rows().forEach(([selector, value]: [string, string]) => {
+    cy.get(selector).clear().type(value);
+  });
+});

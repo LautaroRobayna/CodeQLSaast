@@ -101,7 +101,7 @@ export class ReservationCreateComponent implements OnInit {
     }
 
     if (this.anyRequiresPrescription && !this.prescriptionBase64) {
-      this.prescriptionError = "Solo se permiten archivos PDF";
+      this.prescriptionError = "Debes subir la receta para los medicamentos que la requieren";
       this.cdr.detectChanges();
       return;
     }
