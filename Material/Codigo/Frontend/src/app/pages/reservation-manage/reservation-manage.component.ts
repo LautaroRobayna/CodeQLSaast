@@ -10,14 +10,19 @@ import { ReservationService } from '../../services/reservation.service';
 export class ReservationManageComponent {
   publicKey: string = '';
   reservation: ReservationResponse | null = null;
+  errorMessage: string = '';
 
   constructor(private reservationService: ReservationService) {}
 
   searchReservation(): void {
     if (!this.publicKey.trim()) return;
+    this.reservation = null;
+    this.errorMessage = '';
     this.reservationService.getByPublicKey(this.publicKey).subscribe(res => {
       if (res) {
         this.reservation = res;
+      } else {
+        this.errorMessage = 'Reserva no encontrada.';
       }
     });
   }

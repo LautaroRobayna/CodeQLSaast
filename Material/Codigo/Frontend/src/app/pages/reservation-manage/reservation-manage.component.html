@@ -20,6 +20,10 @@
     </div>
   </div>
 
+  <div *ngIf="errorMessage" data-cy="error-message" class="alert alert-danger mt-3">
+    {{ errorMessage }}
+  </div>
+
   <div *ngIf="reservation">
     <div class="card p-3 shadow-sm">
       <h5>Detalle de la Reserva</h5>
