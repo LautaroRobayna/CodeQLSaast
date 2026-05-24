@@ -35,6 +35,15 @@ export class ReservationService {
       );
   }
 
+  uploadPrescription(publicKey: string, prescriptionBase64: string, prescriptionFileName: string): Observable<any> {
+    return this.http.patch<any>(`${this.url}?publicKey=${encodeURIComponent(publicKey)}`,
+      { prescriptionBase64, prescriptionFileName }, this.httpOptions)
+      .pipe(
+        tap(() => console.log('Prescription uploaded')),
+        catchError(this.handleError<any>('Upload Prescription'))
+      );
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       this.log(`${operation} failed: ${error.error.message}`);

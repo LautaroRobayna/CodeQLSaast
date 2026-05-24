@@ -48,6 +48,16 @@
         Stock liberado.
       </div>
 
+      <div *ngIf="prescriptionUploaded" data-cy="prescription-status" class="alert alert-info py-1 px-2 mb-2">
+        Receta: Presentada - Pendiente de Validación
+      </div>
+
+      <div *ngIf="showPrescriptionUpload" class="mt-3">
+        <label class="form-label">Subir Receta (PDF)</label>
+        <input type="file" id="file-receta-post" accept=".pdf" class="form-control form-control-sm" (change)="onFileChange($event)">
+        <button id="btn-subir-receta" class="btn btn-warning mt-2" (click)="uploadPrescription()">Subir Receta</button>
+      </div>
+
       <h6 class="mt-3">Medicamentos:</h6>
       <ul class="list-group">
         <li *ngFor="let detail of reservation.details" class="list-group-item">
