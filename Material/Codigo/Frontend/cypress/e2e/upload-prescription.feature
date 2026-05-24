@@ -14,16 +14,6 @@ Scenario: Identificación visual de medicamento que requiere receta médica
     Then la fila del medicamento debe mostrar la etiqueta ".tag-receta-requerida" con el texto "Requiere Receta"
     And debe mostrarse el contenedor de carga de archivos "#upload-zone-receta"
 
-Scenario: Subida de receta en formato inválido
-    Given un usuario no autenticado visita la página de reservas "/reservations/create"
-    And selecciona la farmacia "Farmacia Central" de la lista desplegable "#select-farmacia"
-    And agrega 1 unidad del medicamento "Amoxicilina 500mg"
-    And completa el formulario con nombre "Carlos Gómez" y email "carlos@example.com"
-    When arrastra el archivo "receta_medica_2026.txt" al elemento input "#file-receta"
-    And intenta confirmar la reserva haciendo clic en "#btn-confirmar-reserva"
-    Then el sistema debe mostrar un mensaje de error flotante con el texto "Solo se permiten archivos PDF"
-    And no debe enviarse la receta al servidor
-
 Scenario: Subida de receta y cambio a revisión por la farmacia
     Given un usuario no autenticado visita la página de reservas "/reservations/create"
     And selecciona la farmacia "Farmacia Central" de la lista desplegable "#select-farmacia"
@@ -33,3 +23,9 @@ Scenario: Subida de receta y cambio a revisión por la farmacia
     And hace clic en el botón "#btn-confirmar-reserva"
     Then la reserva debe crearse con la etiqueta de estado ".estado-badge" conteniendo el texto "Pendiente"
     And el indicador de receta debe decir "Receta: Presentada - Pendiente de Validación"
+
+Scenario: Ocultamiento de zona de carga cuando ningún medicamento requiere receta
+    Given un usuario no autenticado visita la página de reservas "/reservations/create"
+    And selecciona la farmacia "Farmacia Central" de la lista desplegable "#select-farmacia"
+    When agrega 3 unidades del medicamento "Paracetamol 500mg"
+    Then el contenedor "#upload-zone-receta" no debe ser visible

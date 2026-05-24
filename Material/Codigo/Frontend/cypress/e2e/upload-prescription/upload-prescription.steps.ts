@@ -31,7 +31,7 @@ Given('selecciona la farmacia {string} de la lista desplegable {string}', (pharm
   cy.wait('@getDrugs');
 });
 
-When('agrega {int} unidad del medicamento {string}', (quantity: number, drugName: string) => {
+When(/^agrega (\d+) unidades? del medicamento "([^"]+)"$/, (quantity: number, drugName: string) => {
   cy.contains('td', drugName)
     .parents('tr')
     .within(() => {
@@ -61,7 +61,7 @@ When('arrastra el archivo {string} al elemento input {string}', (fileName: strin
     contents: Cypress.Buffer.from('fake content'),
     fileName: fileName,
     mimeType: mimeType
-  }, { action: 'drag-drop' });
+  });
 });
 
 When('hace clic en el botón {string}', (selector: string) => {
@@ -95,9 +95,13 @@ When('intenta confirmar la reserva haciendo clic en {string}', (selector: string
 });
 
 Then('el sistema debe mostrar un mensaje de error flotante con el texto {string}', (text: string) => {
-  cy.contains('.customToastBody', text).should('be.visible');
+  cy.contains('#prescription-format-error', text).should('be.visible');
 });
 
 Then('no debe enviarse la receta al servidor', () => {
   cy.get('.modal.show').should('not.exist');
+});
+
+Then('el contenedor {string} no debe ser visible', (selector: string) => {
+  cy.get(selector).should('not.exist');
 });

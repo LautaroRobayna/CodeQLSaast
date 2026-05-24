@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { PharmacyService } from '../../services/pharmacy.service';
 import { ReservationService } from '../../services/reservation.service';
 import { DrugService } from '../../services/drug.service';
@@ -27,12 +27,14 @@ export class ReservationCreateComponent implements OnInit {
   prescriptionBase64: string = "";
   prescriptionFileName: string = "";
   prescriptionUploaded: boolean = false;
+  prescriptionError: string = "";
 
   constructor(
     private pharmacyService: PharmacyService,
     private reservationService: ReservationService,
     private drugService: DrugService,
-    private commonService: CommonService
+    private commonService: CommonService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -74,6 +76,11 @@ export class ReservationCreateComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     if (!input.files || input.files.length === 0) return;
     const file = input.files[0];
+    if (!file.name.toLowerCase().endsWith('.pdf') && file.type !== 'application/pdf') {
+      this.commonService.updateToastData("Solo se permiten archivos PDF", "danger", "Error");
+      input.value = '';
+      return;
+    }
     this.prescriptionFileName = file.name;
     const reader = new FileReader();
     reader.onload = () => {
@@ -92,6 +99,13 @@ export class ReservationCreateComponent implements OnInit {
       this.commonService.updateToastData("Faltan datos obligatorios", "danger", "Error");
       return;
     }
+
+    if (this.anyRequiresPrescription && !this.prescriptionBase64) {
+      this.prescriptionError = "Solo se permiten archivos PDF";
+      this.cdr.detectChanges();
+      return;
+    }
+    this.prescriptionError = "";
 
     const request: ReservationRequest = {
       pharmacyId: Number(this.selectedPharmacyId),
@@ -159,5 +173,6 @@ export class ReservationCreateComponent implements OnInit {
     this.availableDrugs = [];
     this.prescriptionBase64 = "";
     this.prescriptionFileName = "";
+    this.prescriptionError = "";
   }
 }

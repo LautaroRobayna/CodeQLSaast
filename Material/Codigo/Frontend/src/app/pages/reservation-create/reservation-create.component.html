@@ -1,3 +1,4 @@
+<app-custom-toast></app-custom-toast>
 <div class="container mt-4">
   <h2>Crear Reserva</h2>
   <hr>
@@ -68,6 +69,9 @@
           </strong>
           <p class="mb-2">Uno o más medicamentos requieren receta médica. Subí el PDF antes de confirmar.</p>
           <input type="file" id="file-receta" accept=".pdf" class="form-control form-control-sm" (change)="onFileChange($event)">
+          <div *ngIf="prescriptionError" id="prescription-format-error" class="alert alert-danger mt-2 py-1" role="alert">
+            {{ prescriptionError }}
+          </div>
         </div>
 
         <form *ngIf="reservationDetails.length > 0">
