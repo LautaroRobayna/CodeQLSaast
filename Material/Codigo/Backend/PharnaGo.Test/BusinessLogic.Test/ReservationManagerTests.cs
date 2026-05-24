@@ -371,6 +371,62 @@ namespace PharmaGo.Test.BusinessLogic.Test
         }
 
         [TestMethod]
+        public void ConfirmReservation_RequiresPrescriptionNoRecipe_Throws()
+        {
+            var drug = new Drug { Id = 1, Code = "AMO-500", Name = "Amoxicilina 500mg", Prescription = true };
+            var reservation = new Reservation
+            {
+                Id = 1,
+                Code = "RES-777",
+                Status = ReservationStatus.Pending,
+                PharmacyId = 1,
+                UserEmail = "cliente@example.com",
+                HasRecipe = false,
+                Details = new List<ReservationDetail>
+                {
+                    new ReservationDetail { DrugCode = "AMO-500", Quantity = 2 }
+                }
+            };
+
+            _reservationRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Reservation, bool>>>()))
+                .Returns(reservation);
+            _drugRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Drug, bool>>>()))
+                .Returns(drug);
+
+            var ex = Assert.ThrowsException<InvalidResourceException>(() =>
+                _reservationManager.ConfirmReservation("RES-777"));
+            Assert.AreEqual("La reserva requiere receta médica", ex.Message);
+        }
+
+        [TestMethod]
+        public void ConfirmReservation_RequiresPrescriptionWithRecipe_Ok()
+        {
+            var drug = new Drug { Id = 1, Code = "AMO-500", Name = "Amoxicilina 500mg", Prescription = true };
+            var reservation = new Reservation
+            {
+                Id = 1,
+                Code = "RES-777",
+                Status = ReservationStatus.Pending,
+                PharmacyId = 1,
+                UserEmail = "cliente@example.com",
+                HasRecipe = true,
+                Details = new List<ReservationDetail>
+                {
+                    new ReservationDetail { DrugCode = "AMO-500", Quantity = 2 }
+                }
+            };
+
+            _reservationRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Reservation, bool>>>()))
+                .Returns(reservation);
+
+            var result = _reservationManager.ConfirmReservation("RES-777");
+
+            Assert.AreEqual(ReservationStatus.Confirmed, result.Status);
+            _reservationRepository.Verify(r => r.UpdateOne(It.Is<Reservation>(res => res.Status == ReservationStatus.Confirmed)), Times.Once);
+            _reservationRepository.Verify(r => r.Save(), Times.Once);
+        }   
+
+        [TestMethod]
         public void ConfirmReservation_AlreadyConfirmed_Throws()
         {
             var reservation = new Reservation

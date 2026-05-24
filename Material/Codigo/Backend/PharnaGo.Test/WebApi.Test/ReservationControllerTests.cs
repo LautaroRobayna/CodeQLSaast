@@ -378,6 +378,16 @@ namespace PharmaGo.Test.WebApi.Test
 
         [TestMethod]
         [ExpectedException(typeof(InvalidResourceException))]
+        public void PutConfirmReservation_RequiresRecipeNoUpload_Throws()
+        {
+            _reservationManagerMock.Setup(x => x.ConfirmReservation("RES-NO-UPLOAD"))
+                .Throws(new InvalidResourceException("La reserva requiere receta médica"));
+
+            _reservationController.ConfirmReservation("RES-NO-UPLOAD");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidResourceException))]
         public void PutConfirmReservation_AlreadyConfirmed_Throws()
         {
             _reservationManagerMock.Setup(x => x.ConfirmReservation("RES-777"))

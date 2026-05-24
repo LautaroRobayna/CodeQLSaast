@@ -32,6 +32,7 @@ namespace PharmaGo.WebApi.Models.Out
             UserEmail = reservation.UserEmail;
             ReservationDate = reservation.ReservationDate;
             Status = reservation.Status.ToString();
+            HasRecipe = reservation.HasRecipe;
         }
 
         public class ReservationDetailModelResponse
