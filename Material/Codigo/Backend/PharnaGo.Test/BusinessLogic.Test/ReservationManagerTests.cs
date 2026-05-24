@@ -133,5 +133,31 @@ namespace PharmaGo.Test.BusinessLogic.Test
             Assert.AreEqual(1, result.Details.Count);
             Assert.IsTrue(result.Details.First().RequiresPrescription);
         }
+
+        [TestMethod]
+        public void UploadPrescription_ReturnsTrue_WhenReservationExists()
+        {
+            var publicKey = "CLAVE-PUBLICA-TEST";
+            var reservation = new Reservation
+            {
+                Id = 1,
+                PublicKey = publicKey,
+                Status = ReservationStatus.Pending,
+                UserEmail = "carlos@example.com",
+                PharmacyId = 1
+            };
+
+            _reservationRepository
+                .Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Reservation, bool>>>()))
+                .Returns(reservation);
+            _reservationRepository.Setup(r => r.UpdateOne(It.IsAny<Reservation>()));
+            _reservationRepository.Setup(r => r.Save());
+
+            var result = _reservationManager.UploadPrescription(publicKey, "base64content", "receta.pdf");
+
+            Assert.IsTrue(result);
+            Assert.AreEqual("base64content", reservation.PrescriptionBase64);
+            Assert.AreEqual("receta.pdf", reservation.PrescriptionFileName);
+        }
     }
 }
