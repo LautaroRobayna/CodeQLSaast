@@ -65,19 +65,61 @@ When('arrastra el archivo {string} al elemento input {string}', (fileName: strin
 });
 
 When('hace clic en el botón {string}', (selector: string) => {
-  cy.intercept('POST', '**/api/reservation', {
-    statusCode: 201,
-    body: {
-      id: 1,
-      code: 'RES-001',
-      publicKey: 'PUB-12345',
-      status: 'Pendiente',
-      prescriptionUploaded: true
-    }
-  }).as('createReservation');
+  if (selector === '#btn-subir-receta') {
+    cy.intercept('PATCH', '**/api/reservation*', {
+      statusCode: 200,
+      body: { prescriptionUploaded: true }
+    }).as('uploadPrescription');
+    cy.get(selector).click();
+    cy.wait('@uploadPrescription');
+  } else {
+    cy.intercept('POST', '**/api/reservation', {
+      statusCode: 201,
+      body: {
+        id: 1,
+        code: 'RES-001',
+        publicKey: 'PUB-12345',
+        status: 'Pendiente',
+        prescriptionUploaded: true
+      }
+    }).as('createReservation');
+    cy.get(selector).click();
+    cy.wait('@createReservation');
+  }
+});
 
+Given('existe una reserva en estado {string} con clave pública {string} y fecha de expiración {string}',
+  (status: string, publicKey: string, expirationDate: string) => {
+    cy.intercept('GET', `**/api/reservation*publicKey=${publicKey}*`, {
+      statusCode: 200,
+      body: {
+        id: 1,
+        code: 'RES-001',
+        publicKey: publicKey,
+        userEmail: 'carlos@example.com',
+        reservationDate: '2026-05-01',
+        expirationDate: expirationDate,
+        status: status,
+        prescriptionUploaded: false,
+        details: [
+          { id: 1, drugCode: 'A-500', drugName: 'Amoxicilina 500mg', quantity: 1, requiresPrescription: true }
+        ]
+      }
+    }).as('getReservation');
+  }
+);
+
+Given('el cliente visita la página {string}', (url: string) => {
+  cy.visit(`http://localhost:4200${url}`);
+});
+
+Given('ingresa la clave pública {string} en el campo {string}', (publicKey: string, selector: string) => {
+  cy.get(selector).clear().type(publicKey);
+});
+
+Given('hace clic en {string}', (selector: string) => {
   cy.get(selector).click();
-  cy.wait('@createReservation');
+  cy.wait('@getReservation');
 });
 
 Then('la reserva debe crearse con la etiqueta de estado {string} conteniendo el texto {string}',
