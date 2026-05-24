@@ -61,3 +61,12 @@ Scenario: Visualización de una reserva en estado "Pendiente" sin medicamentos q
     And hace clic en "#btn-buscar-reserva"
     Then el sistema debe mostrar la reserva en estado "Pendiente"
     And no debe mostrar ningún aviso de receta faltante
+
+Scenario: Visualización de una reserva con múltiples medicamentos, algunos con receta
+    Given existe una reserva en estado "Pendiente" con múltiples medicamentos, algunos con receta
+    And el cliente visita la página "/reservations"
+    When ingresa la clave pública "CLAVE-MULTI-TEST" en el campo "#public-key-input"
+    And hace clic en "#btn-buscar-reserva"
+    Then el sistema debe mostrar la reserva en estado "Pendiente"
+    And debe mostrar el aviso "Receta faltante" para el medicamento "Amoxicilina 500mg"
+    And no debe mostrar el aviso de receta faltante para el medicamento "Paracetamol 500mg"

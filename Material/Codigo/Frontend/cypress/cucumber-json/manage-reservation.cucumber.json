@@ -23,7 +23,7 @@
             "name": "que el sistema tiene cargada la farmacia \"Farmacia Central\"",
             "result": {
               "status": "passed",
-              "duration": 39000000
+              "duration": 47000000
             }
           },
           {
@@ -60,7 +60,7 @@
             "name": "existe una reserva en estado \"Pendiente\" para el email \"carlos@example.com\" en \"Farmacia Central\" con los siguientes medicamentos:",
             "result": {
               "status": "passed",
-              "duration": 5000000
+              "duration": 7000000
             }
           },
           {
@@ -70,7 +70,7 @@
             "name": "el cliente visita la página \"/reservations\"",
             "result": {
               "status": "passed",
-              "duration": 142000000
+              "duration": 144000000
             }
           },
           {
@@ -80,7 +80,7 @@
             "name": "ingresa la clave pública \"CLAVE-PUBLICA-TEST\" en el campo \"#public-key-input\"",
             "result": {
               "status": "passed",
-              "duration": 346000000
+              "duration": 369000000
             }
           },
           {
@@ -90,7 +90,7 @@
             "name": "hace clic en \"#btn-buscar-reserva\"",
             "result": {
               "status": "passed",
-              "duration": 81000000
+              "duration": 77000000
             }
           },
           {
@@ -100,7 +100,7 @@
             "name": "el sistema debe mostrar la reserva en estado \"Pendiente\"",
             "result": {
               "status": "passed",
-              "duration": 7000000
+              "duration": 8000000
             }
           },
           {
@@ -130,7 +130,7 @@
             "name": "que el sistema tiene cargada la farmacia \"Farmacia Central\"",
             "result": {
               "status": "passed",
-              "duration": 36000000
+              "duration": 42000000
             }
           },
           {
@@ -140,7 +140,7 @@
             "name": "la \"Farmacia Central\" tiene el medicamento \"Amoxicilina 500mg\" que requiere receta con stock de 3 unidades",
             "result": {
               "status": "passed",
-              "duration": 2000000
+              "duration": 3000000
             }
           },
           {
@@ -177,7 +177,7 @@
             "name": "existe una reserva en estado \"Confirmada\" con clave pública \"CLAVE-CONFIRMADA-TEST\" y fecha de expiración \"2026-06-15\"",
             "result": {
               "status": "passed",
-              "duration": 4000000
+              "duration": 5000000
             }
           },
           {
@@ -187,7 +187,7 @@
             "name": "el cliente visita la página \"/reservations\"",
             "result": {
               "status": "passed",
-              "duration": 72000000
+              "duration": 73000000
             }
           },
           {
@@ -197,7 +197,7 @@
             "name": "ingresa la clave pública \"CLAVE-CONFIRMADA-TEST\" en el campo \"#public-key-input\"",
             "result": {
               "status": "passed",
-              "duration": 385000000
+              "duration": 407000000
             }
           },
           {
@@ -207,7 +207,7 @@
             "name": "hace clic en \"#btn-buscar-reserva\"",
             "result": {
               "status": "passed",
-              "duration": 76000000
+              "duration": 108000000
             }
           },
           {
@@ -217,7 +217,7 @@
             "name": "el sistema debe mostrar la reserva en estado \"Confirmada\"",
             "result": {
               "status": "passed",
-              "duration": 7000000
+              "duration": 9000000
             }
           },
           {
@@ -227,7 +227,7 @@
             "name": "debe mostrar el mensaje \"Lista para retiro en mostrador\"",
             "result": {
               "status": "passed",
-              "duration": 5000000
+              "duration": 7000000
             }
           },
           {
@@ -237,7 +237,7 @@
             "name": "debe mostrar la fecha de expiración \"2026-06-15\"",
             "result": {
               "status": "passed",
-              "duration": 6000000
+              "duration": 8000000
             }
           }
         ]
@@ -257,7 +257,7 @@
             "name": "que el sistema tiene cargada la farmacia \"Farmacia Central\"",
             "result": {
               "status": "passed",
-              "duration": 38000000
+              "duration": 75000000
             }
           },
           {
@@ -267,7 +267,7 @@
             "name": "la \"Farmacia Central\" tiene el medicamento \"Amoxicilina 500mg\" que requiere receta con stock de 3 unidades",
             "result": {
               "status": "passed",
-              "duration": 2000000
+              "duration": 3000000
             }
           },
           {
@@ -294,7 +294,7 @@
             "name": "existe una reserva en estado \"Pendiente\" para el email \"carlos@example.com\" en \"Farmacia Central\" con los siguientes medicamentos:",
             "result": {
               "status": "passed",
-              "duration": 4000000
+              "duration": 5000000
             }
           },
           {
@@ -314,7 +314,7 @@
             "name": "el cliente visita la página \"/reservations\"",
             "result": {
               "status": "passed",
-              "duration": 70000000
+              "duration": 95000000
             }
           },
           {
@@ -324,7 +324,7 @@
             "name": "ingresa la clave pública \"CLAVE-EXPIRADA-TEST\" en el campo \"#public-key-input\"",
             "result": {
               "status": "passed",
-              "duration": 368000000
+              "duration": 409000000
             }
           },
           {
@@ -334,7 +334,7 @@
             "name": "hace clic en \"#btn-buscar-reserva\"",
             "result": {
               "status": "passed",
-              "duration": 84000000
+              "duration": 85000000
             }
           },
           {
@@ -344,7 +344,7 @@
             "name": "el sistema debe mostrar la reserva en estado \"Expirada\"",
             "result": {
               "status": "passed",
-              "duration": 8000000
+              "duration": 9000000
             }
           },
           {
@@ -374,7 +374,7 @@
             "name": "que el sistema tiene cargada la farmacia \"Farmacia Central\"",
             "result": {
               "status": "passed",
-              "duration": 43000000
+              "duration": 41000000
             }
           },
           {
@@ -421,7 +421,7 @@
             "name": "existe una reserva en estado \"Cancelada\" con clave pública \"CLAVE-CANCELADA-TEST\" y fecha de expiración \"2026-05-01\"",
             "result": {
               "status": "passed",
-              "duration": 6000000
+              "duration": 7000000
             }
           },
           {
@@ -431,7 +431,7 @@
             "name": "el cliente visita la página \"/reservations\"",
             "result": {
               "status": "passed",
-              "duration": 87000000
+              "duration": 82000000
             }
           },
           {
@@ -441,7 +441,7 @@
             "name": "ingresa la clave pública \"CLAVE-CANCELADA-TEST\" en el campo \"#public-key-input\"",
             "result": {
               "status": "passed",
-              "duration": 464000000
+              "duration": 402000000
             }
           },
           {
@@ -451,7 +451,7 @@
             "name": "hace clic en \"#btn-buscar-reserva\"",
             "result": {
               "status": "passed",
-              "duration": 93000000
+              "duration": 90000000
             }
           },
           {
@@ -461,7 +461,7 @@
             "name": "el sistema debe mostrar la reserva en estado \"Cancelada\"",
             "result": {
               "status": "passed",
-              "duration": 8000000
+              "duration": 31000000
             }
           },
           {
@@ -471,7 +471,7 @@
             "name": "debe mostrar el mensaje \"Stock liberado.\"",
             "result": {
               "status": "passed",
-              "duration": 5000000
+              "duration": 9000000
             }
           }
         ]
@@ -481,6 +481,317 @@
         "keyword": "Scenario",
         "line": 45,
         "name": "Búsqueda con clave pública inválida",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "que el sistema tiene cargada la farmacia \"Farmacia Central\"",
+            "result": {
+              "status": "passed",
+              "duration": 62000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "la \"Farmacia Central\" tiene el medicamento \"Amoxicilina 500mg\" que requiere receta con stock de 3 unidades",
+            "result": {
+              "status": "passed",
+              "duration": 4000000
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "Medicamento",
+                      "Cantidad"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Amoxicilina 500mg",
+                      "2"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 9,
+            "name": "existe una reserva en estado \"Pendiente\" para el email \"carlos@example.com\" en \"Farmacia Central\" con los siguientes medicamentos:",
+            "result": {
+              "status": "passed",
+              "duration": 7000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 46,
+            "name": "no existe ninguna reserva con la clave pública \"CLAVE-INVALIDA-TEST\"",
+            "result": {
+              "status": "passed",
+              "duration": 18000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 47,
+            "name": "el cliente visita la página \"/reservations\"",
+            "result": {
+              "status": "passed",
+              "duration": 118000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 48,
+            "name": "ingresa la clave pública \"CLAVE-INVALIDA-TEST\" en el campo \"#public-key-input\"",
+            "result": {
+              "status": "passed",
+              "duration": 384000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 49,
+            "name": "hace clic en \"#btn-buscar-reserva\"",
+            "result": {
+              "status": "passed",
+              "duration": 77000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 50,
+            "name": "debe mostrar el mensaje de error \"Reserva no encontrada.\"",
+            "result": {
+              "status": "passed",
+              "duration": 5000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "gestionar-reserva;búsqueda-con-campo-de-clave-pública-vacío",
+        "keyword": "Scenario",
+        "line": 52,
+        "name": "Búsqueda con campo de clave pública vacío",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "que el sistema tiene cargada la farmacia \"Farmacia Central\"",
+            "result": {
+              "status": "passed",
+              "duration": 38000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "la \"Farmacia Central\" tiene el medicamento \"Amoxicilina 500mg\" que requiere receta con stock de 3 unidades",
+            "result": {
+              "status": "passed",
+              "duration": 5000000
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "Medicamento",
+                      "Cantidad"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Amoxicilina 500mg",
+                      "2"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 9,
+            "name": "existe una reserva en estado \"Pendiente\" para el email \"carlos@example.com\" en \"Farmacia Central\" con los siguientes medicamentos:",
+            "result": {
+              "status": "passed",
+              "duration": 4000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 53,
+            "name": "el cliente visita la página \"/reservations\"",
+            "result": {
+              "status": "passed",
+              "duration": 80000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 54,
+            "name": "hace clic en \"#btn-buscar-reserva\"",
+            "result": {
+              "status": "passed",
+              "duration": 90000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 55,
+            "name": "debe mostrar el mensaje de error \"Por favor ingresá una clave pública.\"",
+            "result": {
+              "status": "passed",
+              "duration": 33000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "gestionar-reserva;visualización-de-una-reserva-en-estado-\"pendiente\"-sin-medicamentos-que-requieren-receta",
+        "keyword": "Scenario",
+        "line": 57,
+        "name": "Visualización de una reserva en estado \"Pendiente\" sin medicamentos que requieren receta",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "que el sistema tiene cargada la farmacia \"Farmacia Central\"",
+            "result": {
+              "status": "passed",
+              "duration": 50000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "la \"Farmacia Central\" tiene el medicamento \"Amoxicilina 500mg\" que requiere receta con stock de 3 unidades",
+            "result": {
+              "status": "passed",
+              "duration": 2000000
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "Medicamento",
+                      "Cantidad"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Amoxicilina 500mg",
+                      "2"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 9,
+            "name": "existe una reserva en estado \"Pendiente\" para el email \"carlos@example.com\" en \"Farmacia Central\" con los siguientes medicamentos:",
+            "result": {
+              "status": "passed",
+              "duration": 9000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 58,
+            "name": "existe una reserva en estado \"Pendiente\" con clave pública \"CLAVE-SIN-RECETA-TEST\" y fecha de expiración \"2026-06-15\"",
+            "result": {
+              "status": "passed",
+              "duration": 4000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 59,
+            "name": "el cliente visita la página \"/reservations\"",
+            "result": {
+              "status": "passed",
+              "duration": 71000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 60,
+            "name": "ingresa la clave pública \"CLAVE-SIN-RECETA-TEST\" en el campo \"#public-key-input\"",
+            "result": {
+              "status": "passed",
+              "duration": 388000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 61,
+            "name": "hace clic en \"#btn-buscar-reserva\"",
+            "result": {
+              "status": "passed",
+              "duration": 78000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 62,
+            "name": "el sistema debe mostrar la reserva en estado \"Pendiente\"",
+            "result": {
+              "status": "passed",
+              "duration": 7000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 63,
+            "name": "no debe mostrar ningún aviso de receta faltante",
+            "result": {
+              "status": "passed",
+              "duration": 4000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "gestionar-reserva;visualización-de-una-reserva-con-múltiples-medicamentos,-algunos-con-receta",
+        "keyword": "Scenario",
+        "line": 65,
+        "name": "Visualización de una reserva con múltiples medicamentos, algunos con receta",
         "tags": [],
         "type": "scenario",
         "steps": [
@@ -528,120 +839,23 @@
             "name": "existe una reserva en estado \"Pendiente\" para el email \"carlos@example.com\" en \"Farmacia Central\" con los siguientes medicamentos:",
             "result": {
               "status": "passed",
-              "duration": 5000000
+              "duration": 4000000
             }
           },
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 46,
-            "name": "no existe ninguna reserva con la clave pública \"CLAVE-INVALIDA-TEST\"",
+            "line": 66,
+            "name": "existe una reserva en estado \"Pendiente\" con múltiples medicamentos, algunos con receta",
             "result": {
               "status": "passed",
-              "duration": 5000000
+              "duration": 4000000
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
-            "line": 47,
-            "name": "el cliente visita la página \"/reservations\"",
-            "result": {
-              "status": "passed",
-              "duration": 95000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 48,
-            "name": "ingresa la clave pública \"CLAVE-INVALIDA-TEST\" en el campo \"#public-key-input\"",
-            "result": {
-              "status": "passed",
-              "duration": 446000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 49,
-            "name": "hace clic en \"#btn-buscar-reserva\"",
-            "result": {
-              "status": "passed",
-              "duration": 83000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Then ",
-            "line": 50,
-            "name": "debe mostrar el mensaje de error \"Reserva no encontrada.\"",
-            "result": {
-              "status": "passed",
-              "duration": 5000000
-            }
-          }
-        ]
-      },
-      {
-        "id": "gestionar-reserva;búsqueda-con-campo-de-clave-pública-vacío",
-        "keyword": "Scenario",
-        "line": 52,
-        "name": "Búsqueda con campo de clave pública vacío",
-        "tags": [],
-        "type": "scenario",
-        "steps": [
-          {
-            "arguments": [],
-            "keyword": "Given ",
-            "line": 7,
-            "name": "que el sistema tiene cargada la farmacia \"Farmacia Central\"",
-            "result": {
-              "status": "passed",
-              "duration": 39000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 8,
-            "name": "la \"Farmacia Central\" tiene el medicamento \"Amoxicilina 500mg\" que requiere receta con stock de 3 unidades",
-            "result": {
-              "status": "passed",
-              "duration": 2000000
-            }
-          },
-          {
-            "arguments": [
-              {
-                "rows": [
-                  {
-                    "cells": [
-                      "Medicamento",
-                      "Cantidad"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "Amoxicilina 500mg",
-                      "2"
-                    ]
-                  }
-                ]
-              }
-            ],
-            "keyword": "And ",
-            "line": 9,
-            "name": "existe una reserva en estado \"Pendiente\" para el email \"carlos@example.com\" en \"Farmacia Central\" con los siguientes medicamentos:",
-            "result": {
-              "status": "passed",
-              "duration": 5000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Given ",
-            "line": 53,
+            "line": 67,
             "name": "el cliente visita la página \"/reservations\"",
             "result": {
               "status": "passed",
@@ -651,138 +865,51 @@
           {
             "arguments": [],
             "keyword": "When ",
-            "line": 54,
+            "line": 68,
+            "name": "ingresa la clave pública \"CLAVE-MULTI-TEST\" en el campo \"#public-key-input\"",
+            "result": {
+              "status": "passed",
+              "duration": 325000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 69,
             "name": "hace clic en \"#btn-buscar-reserva\"",
             "result": {
               "status": "passed",
-              "duration": 87000000
+              "duration": 90000000
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 55,
-            "name": "debe mostrar el mensaje de error \"Por favor ingresá una clave pública.\"",
-            "result": {
-              "status": "passed",
-              "duration": 5000000
-            }
-          }
-        ]
-      },
-      {
-        "id": "gestionar-reserva;visualización-de-una-reserva-en-estado-\"pendiente\"-sin-medicamentos-que-requieren-receta",
-        "keyword": "Scenario",
-        "line": 57,
-        "name": "Visualización de una reserva en estado \"Pendiente\" sin medicamentos que requieren receta",
-        "tags": [],
-        "type": "scenario",
-        "steps": [
-          {
-            "arguments": [],
-            "keyword": "Given ",
-            "line": 7,
-            "name": "que el sistema tiene cargada la farmacia \"Farmacia Central\"",
-            "result": {
-              "status": "passed",
-              "duration": 25000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 8,
-            "name": "la \"Farmacia Central\" tiene el medicamento \"Amoxicilina 500mg\" que requiere receta con stock de 3 unidades",
-            "result": {
-              "status": "passed",
-              "duration": 2000000
-            }
-          },
-          {
-            "arguments": [
-              {
-                "rows": [
-                  {
-                    "cells": [
-                      "Medicamento",
-                      "Cantidad"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "Amoxicilina 500mg",
-                      "2"
-                    ]
-                  }
-                ]
-              }
-            ],
-            "keyword": "And ",
-            "line": 9,
-            "name": "existe una reserva en estado \"Pendiente\" para el email \"carlos@example.com\" en \"Farmacia Central\" con los siguientes medicamentos:",
-            "result": {
-              "status": "passed",
-              "duration": 4000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Given ",
-            "line": 58,
-            "name": "existe una reserva en estado \"Pendiente\" con clave pública \"CLAVE-SIN-RECETA-TEST\" y fecha de expiración \"2026-06-15\"",
-            "result": {
-              "status": "passed",
-              "duration": 4000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 59,
-            "name": "el cliente visita la página \"/reservations\"",
-            "result": {
-              "status": "passed",
-              "duration": 69000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 60,
-            "name": "ingresa la clave pública \"CLAVE-SIN-RECETA-TEST\" en el campo \"#public-key-input\"",
-            "result": {
-              "status": "passed",
-              "duration": 389000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 61,
-            "name": "hace clic en \"#btn-buscar-reserva\"",
-            "result": {
-              "status": "passed",
-              "duration": 87000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Then ",
-            "line": 62,
+            "line": 70,
             "name": "el sistema debe mostrar la reserva en estado \"Pendiente\"",
             "result": {
               "status": "passed",
-              "duration": 10000000
+              "duration": 7000000
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
-            "line": 63,
-            "name": "no debe mostrar ningún aviso de receta faltante",
+            "line": 71,
+            "name": "debe mostrar el aviso \"Receta faltante\" para el medicamento \"Amoxicilina 500mg\"",
             "result": {
               "status": "passed",
-              "duration": 9000000
+              "duration": 18000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 72,
+            "name": "no debe mostrar el aviso de receta faltante para el medicamento \"Paracetamol 500mg\"",
+            "result": {
+              "status": "passed",
+              "duration": 8000000
             }
           }
         ]

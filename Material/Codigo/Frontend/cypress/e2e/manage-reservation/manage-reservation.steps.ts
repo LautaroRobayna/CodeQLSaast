@@ -104,3 +104,27 @@ Then('debe mostrar el mensaje de error {string}', (message: string) => {
 Then('no debe mostrar ningún aviso de receta faltante', () => {
   cy.get('[data-cy=prescription-warning]').should('not.exist');
 });
+
+Given('existe una reserva en estado "Pendiente" con múltiples medicamentos, algunos con receta', () => {
+  cy.intercept('GET', '**/api/reservation*', {
+    statusCode: 200,
+    body: {
+      id: 3,
+      code: 'RES-MULTI-001',
+      publicKey: 'CLAVE-MULTI-TEST',
+      status: 'Pendiente',
+      userEmail: 'carlos@example.com',
+      pharmacyId: 1,
+      pharmacyName: 'Farmacia Central',
+      reservationDate: '2026-05-23T10:00:00',
+      details: [
+        { id: 1, drugCode: 'AMX-500', drugName: 'Amoxicilina 500mg', quantity: 2, requiresPrescription: true },
+        { id: 2, drugCode: 'P-500', drugName: 'Paracetamol 500mg', quantity: 1, requiresPrescription: false }
+      ]
+    }
+  }).as('getReservation');
+});
+
+Then('no debe mostrar el aviso de receta faltante para el medicamento {string}', (drugName: string) => {
+  cy.contains('[data-cy=prescription-warning]', drugName).should('not.exist');
+});
