@@ -25,3 +25,11 @@ Scenario: Visualización de una reserva en estado "Confirmada" lista para retiro
     Then el sistema debe mostrar la reserva en estado "Confirmada"
     And debe mostrar el mensaje "Lista para retiro en mostrador"
     And debe mostrar la fecha de expiración "2026-06-15"
+
+Scenario: Visualización de una reserva finalizada en estado "Expirada"
+    Given existe una reserva en estado "Expirada" con clave pública "CLAVE-EXPIRADA-TEST" y fecha de expiración "2026-05-01"
+    And el cliente visita la página "/reservations"
+    When ingresa la clave pública "CLAVE-EXPIRADA-TEST" en el campo "#public-key-input"
+    And hace clic en "#btn-buscar-reserva"
+    Then el sistema debe mostrar la reserva en estado "Expirada"
+    And debe mostrar el mensaje "Reserva expirada. El stock fue liberado."

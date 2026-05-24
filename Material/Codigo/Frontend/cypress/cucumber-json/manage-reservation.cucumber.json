@@ -23,7 +23,7 @@
             "name": "que el sistema tiene cargada la farmacia \"Farmacia Central\"",
             "result": {
               "status": "passed",
-              "duration": 68000000
+              "duration": 45000000
             }
           },
           {
@@ -33,7 +33,7 @@
             "name": "la \"Farmacia Central\" tiene el medicamento \"Amoxicilina 500mg\" que requiere receta con stock de 3 unidades",
             "result": {
               "status": "passed",
-              "duration": 6000000
+              "duration": 3000000
             }
           },
           {
@@ -60,7 +60,7 @@
             "name": "existe una reserva en estado \"Pendiente\" para el email \"carlos@example.com\" en \"Farmacia Central\" con los siguientes medicamentos:",
             "result": {
               "status": "passed",
-              "duration": 9000000
+              "duration": 7000000
             }
           },
           {
@@ -70,7 +70,7 @@
             "name": "el cliente visita la página \"/reservations\"",
             "result": {
               "status": "passed",
-              "duration": 719000000
+              "duration": 561000000
             }
           },
           {
@@ -80,7 +80,7 @@
             "name": "ingresa la clave pública \"CLAVE-PUBLICA-TEST\" en el campo \"#public-key-input\"",
             "result": {
               "status": "passed",
-              "duration": 429000000
+              "duration": 362000000
             }
           },
           {
@@ -90,7 +90,7 @@
             "name": "hace clic en \"#btn-buscar-reserva\"",
             "result": {
               "status": "passed",
-              "duration": 98000000
+              "duration": 94000000
             }
           },
           {
@@ -100,7 +100,7 @@
             "name": "el sistema debe mostrar la reserva en estado \"Pendiente\"",
             "result": {
               "status": "passed",
-              "duration": 352000000
+              "duration": 285000000
             }
           },
           {
@@ -110,7 +110,7 @@
             "name": "debe mostrar el aviso \"Receta faltante\" para el medicamento \"Amoxicilina 500mg\"",
             "result": {
               "status": "passed",
-              "duration": 13000000
+              "duration": 12000000
             }
           }
         ]
@@ -130,7 +130,7 @@
             "name": "que el sistema tiene cargada la farmacia \"Farmacia Central\"",
             "result": {
               "status": "passed",
-              "duration": 39000000
+              "duration": 54000000
             }
           },
           {
@@ -140,7 +140,7 @@
             "name": "la \"Farmacia Central\" tiene el medicamento \"Amoxicilina 500mg\" que requiere receta con stock de 3 unidades",
             "result": {
               "status": "passed",
-              "duration": 2000000
+              "duration": 3000000
             }
           },
           {
@@ -167,7 +167,7 @@
             "name": "existe una reserva en estado \"Pendiente\" para el email \"carlos@example.com\" en \"Farmacia Central\" con los siguientes medicamentos:",
             "result": {
               "status": "passed",
-              "duration": 6000000
+              "duration": 5000000
             }
           },
           {
@@ -177,7 +177,7 @@
             "name": "existe una reserva en estado \"Confirmada\" con clave pública \"CLAVE-CONFIRMADA-TEST\" y fecha de expiración \"2026-06-15\"",
             "result": {
               "status": "passed",
-              "duration": 5000000
+              "duration": 4000000
             }
           },
           {
@@ -187,7 +187,7 @@
             "name": "el cliente visita la página \"/reservations\"",
             "result": {
               "status": "passed",
-              "duration": 100000000
+              "duration": 93000000
             }
           },
           {
@@ -197,7 +197,7 @@
             "name": "ingresa la clave pública \"CLAVE-CONFIRMADA-TEST\" en el campo \"#public-key-input\"",
             "result": {
               "status": "passed",
-              "duration": 421000000
+              "duration": 467000000
             }
           },
           {
@@ -207,7 +207,7 @@
             "name": "hace clic en \"#btn-buscar-reserva\"",
             "result": {
               "status": "passed",
-              "duration": 80000000
+              "duration": 115000000
             }
           },
           {
@@ -217,7 +217,7 @@
             "name": "el sistema debe mostrar la reserva en estado \"Confirmada\"",
             "result": {
               "status": "passed",
-              "duration": 9000000
+              "duration": 33000000
             }
           },
           {
@@ -227,7 +227,7 @@
             "name": "debe mostrar el mensaje \"Lista para retiro en mostrador\"",
             "result": {
               "status": "passed",
-              "duration": 6000000
+              "duration": 25000000
             }
           },
           {
@@ -237,7 +237,124 @@
             "name": "debe mostrar la fecha de expiración \"2026-06-15\"",
             "result": {
               "status": "passed",
-              "duration": 6000000
+              "duration": 27000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "gestionar-reserva;visualización-de-una-reserva-finalizada-en-estado-\"expirada\"",
+        "keyword": "Scenario",
+        "line": 29,
+        "name": "Visualización de una reserva finalizada en estado \"Expirada\"",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "que el sistema tiene cargada la farmacia \"Farmacia Central\"",
+            "result": {
+              "status": "passed",
+              "duration": 41000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "la \"Farmacia Central\" tiene el medicamento \"Amoxicilina 500mg\" que requiere receta con stock de 3 unidades",
+            "result": {
+              "status": "passed",
+              "duration": 4000000
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "Medicamento",
+                      "Cantidad"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Amoxicilina 500mg",
+                      "2"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 9,
+            "name": "existe una reserva en estado \"Pendiente\" para el email \"carlos@example.com\" en \"Farmacia Central\" con los siguientes medicamentos:",
+            "result": {
+              "status": "passed",
+              "duration": 4000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 30,
+            "name": "existe una reserva en estado \"Expirada\" con clave pública \"CLAVE-EXPIRADA-TEST\" y fecha de expiración \"2026-05-01\"",
+            "result": {
+              "status": "passed",
+              "duration": 4000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 31,
+            "name": "el cliente visita la página \"/reservations\"",
+            "result": {
+              "status": "passed",
+              "duration": 82000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 32,
+            "name": "ingresa la clave pública \"CLAVE-EXPIRADA-TEST\" en el campo \"#public-key-input\"",
+            "result": {
+              "status": "passed",
+              "duration": 375000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 33,
+            "name": "hace clic en \"#btn-buscar-reserva\"",
+            "result": {
+              "status": "passed",
+              "duration": 80000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 34,
+            "name": "el sistema debe mostrar la reserva en estado \"Expirada\"",
+            "result": {
+              "status": "passed",
+              "duration": 7000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 35,
+            "name": "debe mostrar el mensaje \"Reserva expirada. El stock fue liberado.\"",
+            "result": {
+              "status": "failed",
+              "error_message": "AssertionError: Timed out retrying after 4000ms: Expected to find element: `[data-cy=reservation-message]`, but never found it.\n    at Context.eval (cypress/e2e/manage-reservation/manage-reservation.steps.ts:89:42)\n    at Context.resolveAndRunStepDefinition (node_modules/cypress-cucumber-preprocessor/lib/resolveStepDefinition.js:193:0)\n    at Context.eval (node_modules/cypress-cucumber-preprocessor/lib/createTestFromScenario.js:27:0)\n    at getRet (http://localhost:4200/__cypress/runner/cypress_runner.js:122807:20)\n    at tryCatcher (http://localhost:4200/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise.attempt.Promise.try (http://localhost:4200/__cypress/runner/cypress_runner.js:4285:29)\n    at Context.thenFn (http://localhost:4200/__cypress/runner/cypress_runner.js:122818:66)\n    at Context.then (http://localhost:4200/__cypress/runner/cypress_runner.js:123069:21)\n    at wrapped (http://localhost:4200/__cypress/runner/cypress_runner.js:146327:19)"
             }
           }
         ]
