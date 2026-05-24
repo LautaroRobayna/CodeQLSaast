@@ -67,7 +67,7 @@
             Receta requerida
           </strong>
           <p class="mb-2">Uno o más medicamentos requieren receta médica. Subí el PDF antes de confirmar.</p>
-          <input type="file" id="file-receta" accept=".pdf" class="form-control form-control-sm">
+          <input type="file" id="file-receta" accept=".pdf" class="form-control form-control-sm" (change)="onFileChange($event)">
         </div>
 
         <form *ngIf="reservationDetails.length > 0">
@@ -94,6 +94,10 @@
         </div>
         <div class="modal-body">
           <p class="mb-2">{{ successMessage }}</p>
+          <p><strong>Estado:</strong> <span class="estado-badge badge bg-secondary">Pendiente</span></p>
+          <div *ngIf="prescriptionUploaded" data-cy="prescription-status" class="alert alert-info py-1 px-2 mb-2">
+            Receta: Presentada - Pendiente de Validación
+          </div>
           <div class="d-flex align-items-center gap-2">
             <code>{{ getPublicKeyPreview() }}</code>
             <button type="button" class="btn btn-outline-primary btn-sm" (click)="copyPublicKey()">Copiar</button>

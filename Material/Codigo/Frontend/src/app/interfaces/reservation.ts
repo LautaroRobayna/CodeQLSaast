@@ -2,6 +2,8 @@ export interface ReservationRequest {
     pharmacyId: number;
     userEmail: string;
     details: ReservationDetailRequest[];
+    prescriptionBase64?: string;
+    prescriptionFileName?: string;
 }
 
 export interface ReservationDetailRequest {
@@ -19,6 +21,7 @@ export interface ReservationResponse {
     expirationDate: string;
     status: string;
     details: ReservationDetailResponse[];
+    prescriptionUploaded?: boolean;
 }
 
 export interface ReservationDetailResponse {

@@ -24,6 +24,9 @@ export class ReservationCreateComponent implements OnInit {
   successMessage: string = "";
   publicKey: string = "";
   showSuccessModal: boolean = false;
+  prescriptionBase64: string = "";
+  prescriptionFileName: string = "";
+  prescriptionUploaded: boolean = false;
 
   constructor(
     private pharmacyService: PharmacyService,
@@ -67,6 +70,19 @@ export class ReservationCreateComponent implements OnInit {
     return this.reservationDetails.some(d => d.requiresPrescription);
   }
 
+  onFileChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (!input.files || input.files.length === 0) return;
+    const file = input.files[0];
+    this.prescriptionFileName = file.name;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = reader.result as string;
+      this.prescriptionBase64 = result.split(',')[1];
+    };
+    reader.readAsDataURL(file);
+  }
+
   removeDetail(index: number): void {
     this.reservationDetails.splice(index, 1);
   }
@@ -83,12 +99,15 @@ export class ReservationCreateComponent implements OnInit {
       details: this.reservationDetails.map(d => ({
         drugCode: d.drugCode,
         quantity: d.quantity
-      } as ReservationDetailRequest))
+      } as ReservationDetailRequest)),
+      prescriptionBase64: this.prescriptionBase64 || undefined,
+      prescriptionFileName: this.prescriptionFileName || undefined
     };
 
     this.reservationService.createReservation(request).subscribe(res => {
       if (res) {
         this.publicKey = res.publicKey;
+        this.prescriptionUploaded = res.prescriptionUploaded ?? false;
         this.successMessage = "Reserva creada exitosamente. Guarda tu clave pública.";
         this.showSuccessModal = true;
         this.commonService.updateToastData("Reserva creada exitosamente", "success", "Éxito");
@@ -138,5 +157,7 @@ export class ReservationCreateComponent implements OnInit {
     this.userEmail = "";
     this.selectedPharmacyId = 0;
     this.availableDrugs = [];
+    this.prescriptionBase64 = "";
+    this.prescriptionFileName = "";
   }
 }
