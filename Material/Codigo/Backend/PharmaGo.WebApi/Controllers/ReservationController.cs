@@ -26,6 +26,15 @@ namespace PharmaGo.WebApi.Controllers
             return Ok(new ReservationModelResponse(reservation));
         }
 
+        [HttpPatch]
+        public IActionResult UploadPrescription([FromQuery] string publicKey, [FromBody] UploadPrescriptionModelRequest model)
+        {
+            var success = _reservationManager.UploadPrescription(publicKey, model.PrescriptionBase64, model.PrescriptionFileName);
+            if (!success)
+                return NotFound(new { message = "Reserva no encontrada." });
+            return Ok(new { prescriptionUploaded = true });
+        }
+
         [HttpPost]
         public IActionResult Create([FromBody] ReservationModelRequest reservationModel)
         {

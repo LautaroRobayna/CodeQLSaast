@@ -52,6 +52,11 @@ namespace PharmaGo.BusinessLogic
             return reservation;
         }
 
+        public bool UploadPrescription(string publicKey, string prescriptionBase64, string prescriptionFileName)
+        {
+            throw new NotImplementedException();
+        }
+
         public Reservation? GetByPublicKey(string publicKey)
         {
             var reservation = _reservationRepository.GetOneByExpression(r => r.PublicKey == publicKey);

@@ -8,5 +8,6 @@ namespace PharmaGo.IBusinessLogic
     {
         Reservation Create(Reservation reservation);
         Reservation? GetByPublicKey(string publicKey);
+        bool UploadPrescription(string publicKey, string prescriptionBase64, string prescriptionFileName);
     }
 }
