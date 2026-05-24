@@ -30,13 +30,10 @@ Scenario: Ocultamiento de zona de carga cuando ningún medicamento requiere rece
     When agrega 3 unidades del medicamento "Paracetamol 500mg"
     Then el contenedor "#upload-zone-receta" no debe ser visible
 
-Scenario: Bloqueo del envío cuando falta receta obligatoria
+Scenario: Etiqueta de receta solo en medicamentos que la requieren
     Given un usuario no autenticado visita la página de reservas "/reservations/create"
     And selecciona la farmacia "Farmacia Central" de la lista desplegable "#select-farmacia"
-    And agrega 1 unidad del medicamento "Amoxicilina 500mg"
-    When completa el formulario de contacto con los siguientes datos:
-      | Input Selector   | Valor              |
-      | #nombre-completo | Carlos Gómez       |
-      | #email           | carlos@example.com |
-    And hace clic en el botón "#btn-confirmar-reserva"
-    Then el sistema debe mostrar un mensaje de error flotante con el texto "Debes subir la receta para los medicamentos que la requieren"
+    And agrega 2 unidades del medicamento "Paracetamol 500mg"
+    When agrega 1 unidad del medicamento "Amoxicilina 500mg"
+    Then la fila del medicamento "Amoxicilina 500mg" debe mostrar la etiqueta ".tag-receta-requerida" con el texto "Requiere Receta"
+    And la fila del medicamento "Paracetamol 500mg" no debe mostrar la etiqueta ".tag-receta-requerida"

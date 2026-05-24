@@ -23,7 +23,7 @@
             "name": "que el sistema tiene cargada la farmacia \"Farmacia Central\"",
             "result": {
               "status": "passed",
-              "duration": 32000000
+              "duration": 65000000
             }
           },
           {
@@ -33,7 +33,7 @@
             "name": "la \"Farmacia Central\" tiene el medicamento \"Amoxicilina 500mg\" que requiere receta con stock de 5 unidades",
             "result": {
               "status": "passed",
-              "duration": 2000000
+              "duration": 4000000
             }
           },
           {
@@ -43,7 +43,7 @@
             "name": "un usuario no autenticado visita la página de reservas \"/reservations/create\"",
             "result": {
               "status": "passed",
-              "duration": 175000000
+              "duration": 248000000
             }
           },
           {
@@ -53,7 +53,7 @@
             "name": "selecciona la farmacia \"Farmacia Central\" de la lista desplegable \"#select-farmacia\"",
             "result": {
               "status": "passed",
-              "duration": 184000000
+              "duration": 430000000
             }
           },
           {
@@ -63,7 +63,7 @@
             "name": "agrega 1 unidad del medicamento \"Amoxicilina 500mg\"",
             "result": {
               "status": "passed",
-              "duration": 397000000
+              "duration": 380000000
             }
           },
           {
@@ -73,7 +73,7 @@
             "name": "la fila del medicamento debe mostrar la etiqueta \".tag-receta-requerida\" con el texto \"Requiere Receta\"",
             "result": {
               "status": "passed",
-              "duration": 37000000
+              "duration": 7000000
             }
           },
           {
@@ -83,7 +83,7 @@
             "name": "debe mostrarse el contenedor de carga de archivos \"#upload-zone-receta\"",
             "result": {
               "status": "passed",
-              "duration": 13000000
+              "duration": 5000000
             }
           }
         ]
@@ -103,7 +103,7 @@
             "name": "que el sistema tiene cargada la farmacia \"Farmacia Central\"",
             "result": {
               "status": "passed",
-              "duration": 50000000
+              "duration": 44000000
             }
           },
           {
@@ -123,7 +123,7 @@
             "name": "un usuario no autenticado visita la página de reservas \"/reservations/create\"",
             "result": {
               "status": "passed",
-              "duration": 119000000
+              "duration": 98000000
             }
           },
           {
@@ -133,7 +133,7 @@
             "name": "selecciona la farmacia \"Farmacia Central\" de la lista desplegable \"#select-farmacia\"",
             "result": {
               "status": "passed",
-              "duration": 241000000
+              "duration": 208000000
             }
           },
           {
@@ -143,7 +143,7 @@
             "name": "agrega 1 unidad del medicamento \"Amoxicilina 500mg\"",
             "result": {
               "status": "passed",
-              "duration": 413000000
+              "duration": 353000000
             }
           },
           {
@@ -153,7 +153,7 @@
             "name": "completa el formulario con nombre \"Carlos Gómez\" y email \"carlos@example.com\"",
             "result": {
               "status": "passed",
-              "duration": 895000000
+              "duration": 820000000
             }
           },
           {
@@ -163,7 +163,7 @@
             "name": "arrastra el archivo \"receta_medica_2026.pdf\" al elemento input \"#file-receta\"",
             "result": {
               "status": "passed",
-              "duration": 61000000
+              "duration": 42000000
             }
           },
           {
@@ -173,7 +173,7 @@
             "name": "hace clic en el botón \"#btn-confirmar-reserva\"",
             "result": {
               "status": "passed",
-              "duration": 110000000
+              "duration": 87000000
             }
           },
           {
@@ -183,7 +183,7 @@
             "name": "la reserva debe crearse con la etiqueta de estado \".estado-badge\" conteniendo el texto \"Pendiente\"",
             "result": {
               "status": "passed",
-              "duration": 25000000
+              "duration": 4000000
             }
           },
           {
@@ -193,7 +193,7 @@
             "name": "el indicador de receta debe decir \"Receta: Presentada - Pendiente de Validación\"",
             "result": {
               "status": "passed",
-              "duration": 23000000
+              "duration": 5000000
             }
           }
         ]
@@ -213,7 +213,7 @@
             "name": "que el sistema tiene cargada la farmacia \"Farmacia Central\"",
             "result": {
               "status": "passed",
-              "duration": 64000000
+              "duration": 28000000
             }
           },
           {
@@ -233,7 +233,7 @@
             "name": "un usuario no autenticado visita la página de reservas \"/reservations/create\"",
             "result": {
               "status": "passed",
-              "duration": 79000000
+              "duration": 78000000
             }
           },
           {
@@ -243,7 +243,7 @@
             "name": "selecciona la farmacia \"Farmacia Central\" de la lista desplegable \"#select-farmacia\"",
             "result": {
               "status": "passed",
-              "duration": 183000000
+              "duration": 195000000
             }
           },
           {
@@ -253,7 +253,7 @@
             "name": "agrega 3 unidades del medicamento \"Paracetamol 500mg\"",
             "result": {
               "status": "passed",
-              "duration": 331000000
+              "duration": 363000000
             }
           },
           {
@@ -263,16 +263,16 @@
             "name": "el contenedor \"#upload-zone-receta\" no debe ser visible",
             "result": {
               "status": "passed",
-              "duration": 8000000
+              "duration": 16000000
             }
           }
         ]
       },
       {
-        "id": "subir-receta-médica-a-una-reserva;bloqueo-del-envío-cuando-falta-receta-obligatoria",
+        "id": "subir-receta-médica-a-una-reserva;etiqueta-de-receta-solo-en-medicamentos-que-la-requieren",
         "keyword": "Scenario",
         "line": 33,
-        "name": "Bloqueo del envío cuando falta receta obligatoria",
+        "name": "Etiqueta de receta solo en medicamentos que la requieren",
         "tags": [],
         "type": "scenario",
         "steps": [
@@ -283,7 +283,7 @@
             "name": "que el sistema tiene cargada la farmacia \"Farmacia Central\"",
             "result": {
               "status": "passed",
-              "duration": 36000000
+              "duration": 44000000
             }
           },
           {
@@ -293,7 +293,7 @@
             "name": "la \"Farmacia Central\" tiene el medicamento \"Amoxicilina 500mg\" que requiere receta con stock de 5 unidades",
             "result": {
               "status": "passed",
-              "duration": 3000000
+              "duration": 2000000
             }
           },
           {
@@ -303,7 +303,7 @@
             "name": "un usuario no autenticado visita la página de reservas \"/reservations/create\"",
             "result": {
               "status": "passed",
-              "duration": 86000000
+              "duration": 78000000
             }
           },
           {
@@ -313,69 +313,47 @@
             "name": "selecciona la farmacia \"Farmacia Central\" de la lista desplegable \"#select-farmacia\"",
             "result": {
               "status": "passed",
-              "duration": 214000000
+              "duration": 194000000
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
             "line": 36,
-            "name": "agrega 1 unidad del medicamento \"Amoxicilina 500mg\"",
+            "name": "agrega 2 unidades del medicamento \"Paracetamol 500mg\"",
             "result": {
               "status": "passed",
-              "duration": 375000000
-            }
-          },
-          {
-            "arguments": [
-              {
-                "rows": [
-                  {
-                    "cells": [
-                      "Input Selector",
-                      "Valor"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "#nombre-completo",
-                      "Carlos Gómez"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "#email",
-                      "carlos@example.com"
-                    ]
-                  }
-                ]
-              }
-            ],
-            "keyword": "When ",
-            "line": 37,
-            "name": "completa el formulario de contacto con los siguientes datos:",
-            "result": {
-              "status": "passed",
-              "duration": 838000000
+              "duration": 362000000
             }
           },
           {
             "arguments": [],
-            "keyword": "And ",
-            "line": 41,
-            "name": "hace clic en el botón \"#btn-confirmar-reserva\"",
+            "keyword": "When ",
+            "line": 37,
+            "name": "agrega 1 unidad del medicamento \"Amoxicilina 500mg\"",
             "result": {
-              "status": "failed",
-              "error_message": "CypressError: Timed out retrying after 5000ms: `cy.wait()` timed out waiting `5000ms` for the 1st request to the route: `createReservation`. No request ever occurred.\n    at cypressErr (http://localhost:4200/__cypress/runner/cypress_runner.js:78300:18)\n    at Object.errByPath (http://localhost:4200/__cypress/runner/cypress_runner.js:78368:10)\n    at checkForXhr (http://localhost:4200/__cypress/runner/cypress_runner.js:138931:84)\n    at <unknown> (http://localhost:4200/__cypress/runner/cypress_runner.js:138956:28)\n    at tryCatcher (http://localhost:4200/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise.attempt.Promise.try (http://localhost:4200/__cypress/runner/cypress_runner.js:4285:29)\nFrom previous event:\n    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (http://localhost:4200/__cypress/runner/cypress_runner.js:3456:19)\n    at Promise._then (http://localhost:4200/__cypress/runner/cypress_runner.js:1209:17)\n    at Promise.then (http://localhost:4200/__cypress/runner/cypress_runner.js:1102:17)\n    at next (http://localhost:4200/__cypress/runner/cypress_runner.js:152461:64)\n    at <unknown> (http://localhost:4200/__cypress/runner/cypress_runner.js:152482:16)\n    at tryCatcher (http://localhost:4200/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise._settlePromiseFromHandler (http://localhost:4200/__cypress/runner/cypress_runner.js:1489:31)\n    at Promise._settlePromise (http://localhost:4200/__cypress/runner/cypress_runner.js:1546:18)\n    at Promise._settlePromise0 (http://localhost:4200/__cypress/runner/cypress_runner.js:1591:10)\n    at Promise._settlePromises (http://localhost:4200/__cypress/runner/cypress_runner.js:1671:18)\n    at <unknown> (http://localhost:4200/__cypress/runner/cypress_runner.js:2362:25)\nFrom Your Spec Code:\n    at Context.eval (cypress/e2e/upload-prescription/upload-prescription.steps.ts:80:5)\n    at Context.resolveAndRunStepDefinition (node_modules/cypress-cucumber-preprocessor/lib/resolveStepDefinition.js:193:0)\n    at Context.eval (node_modules/cypress-cucumber-preprocessor/lib/createTestFromScenario.js:27:0)\n    at getRet (http://localhost:4200/__cypress/runner/cypress_runner.js:122807:20)\n    at tryCatcher (http://localhost:4200/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise.attempt.Promise.try (http://localhost:4200/__cypress/runner/cypress_runner.js:4285:29)\n    at Context.thenFn (http://localhost:4200/__cypress/runner/cypress_runner.js:122818:66)\n    at Context.then (http://localhost:4200/__cypress/runner/cypress_runner.js:123069:21)\n    at wrapped (http://localhost:4200/__cypress/runner/cypress_runner.js:146327:19)"
+              "status": "passed",
+              "duration": 364000000
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 42,
-            "name": "el sistema debe mostrar un mensaje de error flotante con el texto \"Debes subir la receta para los medicamentos que la requieren\"",
+            "line": 38,
+            "name": "la fila del medicamento \"Amoxicilina 500mg\" debe mostrar la etiqueta \".tag-receta-requerida\" con el texto \"Requiere Receta\"",
             "result": {
-              "status": "skipped"
+              "status": "passed",
+              "duration": 12000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 39,
+            "name": "la fila del medicamento \"Paracetamol 500mg\" no debe mostrar la etiqueta \".tag-receta-requerida\"",
+            "result": {
+              "status": "passed",
+              "duration": 9000000
             }
           }
         ]

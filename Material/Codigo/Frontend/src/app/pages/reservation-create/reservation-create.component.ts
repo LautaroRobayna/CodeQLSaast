@@ -101,8 +101,9 @@ export class ReservationCreateComponent implements OnInit {
     }
 
     if (this.anyRequiresPrescription && !this.prescriptionBase64) {
-      this.prescriptionError = "Debes subir la receta para los medicamentos que la requieren";
-      this.cdr.detectChanges();
+      setTimeout(() => {
+        this.prescriptionError = "Debes subir la receta para los medicamentos que la requieren";
+      }, 0);
       return;
     }
     this.prescriptionError = "";

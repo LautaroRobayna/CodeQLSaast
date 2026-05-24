@@ -106,6 +106,18 @@ Then('el contenedor {string} no debe ser visible', (selector: string) => {
   cy.get(selector).should('not.exist');
 });
 
+Then('la fila del medicamento {string} debe mostrar la etiqueta {string} con el texto {string}',
+  (drugName: string, cssClass: string, text: string) => {
+    cy.contains('li', drugName).find(cssClass).should('contain', text);
+  }
+);
+
+Then('la fila del medicamento {string} no debe mostrar la etiqueta {string}',
+  (drugName: string, cssClass: string) => {
+    cy.contains('li', drugName).find(cssClass).should('not.exist');
+  }
+);
+
 When('completa el formulario de contacto con los siguientes datos:', (dataTable: any) => {
   dataTable.rows().forEach(([selector, value]: [string, string]) => {
     cy.get(selector).clear().type(value);

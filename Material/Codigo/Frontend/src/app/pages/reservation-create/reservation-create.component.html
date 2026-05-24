@@ -69,9 +69,10 @@
           </strong>
           <p class="mb-2">Uno o más medicamentos requieren receta médica. Subí el PDF antes de confirmar.</p>
           <input type="file" id="file-receta" accept=".pdf" class="form-control form-control-sm" (change)="onFileChange($event)">
-          <div *ngIf="prescriptionError" id="prescription-format-error" class="alert alert-danger mt-2 py-1" role="alert">
-            {{ prescriptionError }}
-          </div>
+        </div>
+
+        <div *ngIf="prescriptionError" id="prescription-format-error" class="alert alert-danger mt-2" role="alert">
+          {{ prescriptionError }}
         </div>
 
         <form *ngIf="reservationDetails.length > 0">
