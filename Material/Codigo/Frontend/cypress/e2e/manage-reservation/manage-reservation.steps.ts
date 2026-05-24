@@ -92,3 +92,16 @@ Then('debe mostrar el mensaje {string}', (message: string) => {
 Then('debe mostrar la fecha de expiración {string}', (date: string) => {
   cy.get('[data-cy=expiration-date]').should('contain', date);
 });
+
+// === ESCENARIO 5 ===
+
+Given('no existe ninguna reserva con la clave pública {string}', (_publicKey: string) => {
+  cy.intercept('GET', '**/api/reservation*', {
+    statusCode: 404,
+    body: { message: 'Reserva no encontrada.' }
+  }).as('getReservation');
+});
+
+Then('debe mostrar el mensaje de error {string}', (message: string) => {
+  cy.get('[data-cy=error-message]').should('contain', message);
+});

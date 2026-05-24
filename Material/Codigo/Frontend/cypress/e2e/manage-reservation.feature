@@ -41,3 +41,10 @@ Scenario: Visualización de una reserva en estado "Cancelada"
     And hace clic en "#btn-buscar-reserva"
     Then el sistema debe mostrar la reserva en estado "Cancelada"
     And debe mostrar el mensaje "Stock liberado."
+
+Scenario: Búsqueda con clave pública inválida
+    Given no existe ninguna reserva con la clave pública "CLAVE-INVALIDA-TEST"
+    And el cliente visita la página "/reservations"
+    When ingresa la clave pública "CLAVE-INVALIDA-TEST" en el campo "#public-key-input"
+    And hace clic en "#btn-buscar-reserva"
+    Then debe mostrar el mensaje de error "Reserva no encontrada."
