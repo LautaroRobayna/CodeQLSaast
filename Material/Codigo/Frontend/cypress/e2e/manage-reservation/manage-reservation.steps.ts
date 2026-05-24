@@ -1,6 +1,5 @@
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 
-// === BACKGROUND ===
 
 Given('que el sistema tiene cargada la farmacia {string}', (pharmacyName: string) => {
   cy.log(`Farmacia ${pharmacyName} registrada en sistema`);
@@ -63,7 +62,6 @@ Then('debe mostrar el aviso {string} para el medicamento {string}', (warning: st
   cy.get('[data-cy=prescription-warning]').should('contain', drugName);
 });
 
-// === ESCENARIO 2 ===
 
 Given('existe una reserva en estado {string} con clave pública {string} y fecha de expiración {string}',
   (status: string, publicKey: string, expirationDate: string) => {
@@ -83,7 +81,7 @@ Given('existe una reserva en estado {string} con clave pública {string} y fecha
           { id: 1, drugCode: 'P-500', drugName: 'Paracetamol 500mg', quantity: 2, requiresPrescription: false }
         ]
       }
-    }).as('getReservationConfirmada');
+    }).as('getReservation');
   }
 );
 

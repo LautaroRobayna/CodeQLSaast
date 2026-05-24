@@ -30,6 +30,13 @@
         <strong>Estado:</strong>
         <span data-cy="reservation-status">{{ reservation.status }}</span>
       </p>
+      <p>
+        <strong>Fecha de expiración:</strong>
+        <span data-cy="expiration-date">{{ reservation.expirationDate | date:'yyyy-MM-dd' }}</span>
+      </p>
+      <div *ngIf="reservation.status === 'Confirmada'" class="alert alert-success" data-cy="reservation-message">
+        Lista para retiro en mostrador
+      </div>
 
       <h6 class="mt-3">Medicamentos:</h6>
       <ul class="list-group">

@@ -16,6 +16,7 @@ export interface ReservationResponse {
     pharmacyId: number;
     userEmail: string;
     reservationDate: string;
+    expirationDate: string;
     status: string;
     details: ReservationDetailResponse[];
 }
