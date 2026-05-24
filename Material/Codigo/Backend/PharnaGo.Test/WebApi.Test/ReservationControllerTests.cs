@@ -189,5 +189,25 @@ namespace PharmaGo.Test.WebApi.Test
             Assert.IsNotNull(response);
             Assert.IsTrue(response.PrescriptionUploaded);
         }
+
+        [TestMethod]
+        public void UploadPrescription_ReturnsOk_WhenPrescriptionUploaded()
+        {
+            var publicKey = "CLAVE-PUBLICA-TEST";
+            var model = new UploadPrescriptionModelRequest
+            {
+                PrescriptionBase64 = "base64content",
+                PrescriptionFileName = "receta.pdf"
+            };
+
+            _reservationManagerMock.Setup(m => m.UploadPrescription(publicKey, model.PrescriptionBase64, model.PrescriptionFileName))
+                .Returns(true);
+
+            var result = _reservationController.UploadPrescription(publicKey, model);
+            var okResult = result as OkObjectResult;
+
+            Assert.IsNotNull(okResult);
+            Assert.AreEqual(200, okResult.StatusCode);
+        }
     }
 }
