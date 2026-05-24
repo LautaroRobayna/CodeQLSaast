@@ -62,6 +62,34 @@ namespace PharmaGo.Test.BusinessLogic.Test
         }
 
         [TestMethod]
+        public void Create_WithPrescription_StoresPrescriptionData()
+        {
+            var pharmacy = new Pharmacy { Id = 1, Name = "Test Pharmacy" };
+            var drug = new Drug { Id = 1, Code = "A-500", Name = "Amoxicilina 500mg", Stock = 5, Prescription = true };
+
+            var reservation = new Reservation
+            {
+                PharmacyId = 1,
+                UserEmail = "carlos@example.com",
+                PrescriptionBase64 = "base64pdfcontent",
+                PrescriptionFileName = "receta.pdf",
+                Details = [new ReservationDetail { DrugCode = "A-500", Quantity = 1 }]
+            };
+
+            _pharmacyRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Pharmacy, bool>>>())).Returns(pharmacy);
+            _drugRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Drug, bool>>>())).Returns(drug);
+            _drugRepository.Setup(r => r.UpdateOne(It.IsAny<Drug>()));
+            _drugRepository.Setup(r => r.Save());
+            _reservationRepository.Setup(r => r.InsertOne(It.IsAny<Reservation>()));
+            _reservationRepository.Setup(r => r.Save());
+
+            var result = _reservationManager.Create(reservation);
+
+            Assert.IsNotNull(result.PrescriptionBase64);
+            Assert.AreEqual("receta.pdf", result.PrescriptionFileName);
+        }
+
+        [TestMethod]
         public void GetByPublicKey_ReturnsReservationWithPrescriptionInfo()
         {
             // Arrange

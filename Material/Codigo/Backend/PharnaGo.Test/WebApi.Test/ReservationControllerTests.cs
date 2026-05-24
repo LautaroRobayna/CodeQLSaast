@@ -151,5 +151,43 @@ namespace PharmaGo.Test.WebApi.Test
             Assert.IsNotNull(notFoundResult);
             Assert.AreEqual(404, notFoundResult.StatusCode);
         }
+
+        [TestMethod]
+        public void Create_WithPrescription_ReturnsPrescriptionUploaded()
+        {
+            var modelWithPrescription = new ReservationModelRequest
+            {
+                PharmacyId = 1,
+                UserEmail = "carlos@example.com",
+                Details = [new ReservationModelRequest.ReservationDetailModelRequest { DrugCode = "A-500", Quantity = 1 }],
+                PrescriptionBase64 = "base64content",
+                PrescriptionFileName = "receta.pdf"
+            };
+
+            var reservationWithPrescription = new Reservation
+            {
+                Id = 1,
+                Code = "RES-001",
+                PublicKey = "PUB-KEY-001",
+                Status = ReservationStatus.Pending,
+                UserEmail = "carlos@example.com",
+                PharmacyId = 1,
+                ReservationDate = DateTime.Now,
+                PrescriptionBase64 = "base64content",
+                PrescriptionFileName = "receta.pdf",
+                Details = [new ReservationDetail { Id = 1, DrugCode = "A-500", Quantity = 1 }]
+            };
+
+            _reservationManagerMock.Setup(x => x.Create(It.IsAny<Reservation>())).Returns(reservationWithPrescription);
+
+            var result = _reservationController.Create(modelWithPrescription);
+            var okResult = result as ObjectResult;
+
+            Assert.IsNotNull(okResult);
+            Assert.AreEqual(200, okResult.StatusCode);
+            var response = okResult.Value as ReservationModelResponse;
+            Assert.IsNotNull(response);
+            Assert.IsTrue(response.PrescriptionUploaded);
+        }
     }
 }
