@@ -40,6 +40,9 @@
       <div *ngIf="reservation.status === 'Expirada'" class="alert alert-danger" data-cy="reservation-message">
         Reserva expirada. El stock fue liberado.
       </div>
+      <div *ngIf="reservation.status === 'Cancelada'" class="alert alert-secondary" data-cy="reservation-message">
+        Stock liberado.
+      </div>
 
       <h6 class="mt-3">Medicamentos:</h6>
       <ul class="list-group">
