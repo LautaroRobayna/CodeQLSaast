@@ -56,6 +56,9 @@ namespace PharmaGo.BusinessLogic
         {
             var reservation = _reservationRepository.GetOneByExpression(r => r.PublicKey == publicKey);
 
+            if (reservation == null)
+                return null;
+
             foreach (var detail in reservation.Details)
             {
                 var drug = _drugRepository.GetOneByExpression(d => d.Code == detail.DrugCode);

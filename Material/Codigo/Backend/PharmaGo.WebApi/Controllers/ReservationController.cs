@@ -21,6 +21,8 @@ namespace PharmaGo.WebApi.Controllers
         public IActionResult GetByPublicKey([FromQuery] string publicKey)
         {
             var reservation = _reservationManager.GetByPublicKey(publicKey);
+            if (reservation == null)
+                return NotFound(new { message = "Reserva no encontrada." });
             return Ok(new ReservationModelResponse(reservation));
         }
 
