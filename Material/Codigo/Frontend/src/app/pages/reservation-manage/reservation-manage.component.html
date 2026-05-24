@@ -1,0 +1,81 @@
+<div class="container mt-4">
+  <h2>Consultar Reserva</h2>
+  <hr>
+
+  <div class="row mb-3">
+    <div class="col-md-8">
+      <label class="form-label">Clave Pública</label>
+      <input
+        type="text"
+        id="public-key-input"
+        class="form-control"
+        [(ngModel)]="publicKey"
+        placeholder="Ingresá tu clave pública..."
+      >
+    </div>
+    <div class="col-md-4 d-flex align-items-end">
+      <button id="btn-buscar-reserva" class="btn btn-primary w-100" (click)="searchReservation()">
+        Buscar Reserva
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="errorMessage" data-cy="error-message" class="alert alert-danger mt-3">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="reservation">
+    <div class="card p-3 shadow-sm">
+      <h5>Detalle de la Reserva</h5>
+      <p><strong>Código:</strong> {{ reservation.code }}</p>
+      <p><strong>Email:</strong> {{ reservation.userEmail }}</p>
+      <p><strong>Fecha:</strong> {{ reservation.reservationDate | date }}</p>
+      <p>
+        <strong>Estado:</strong>
+        <span data-cy="reservation-status">{{ reservation.status }}</span>
+      </p>
+      <p>
+        <strong>Fecha de expiración:</strong>
+        <span data-cy="expiration-date">{{ reservation.expirationDate | date:'yyyy-MM-dd' }}</span>
+      </p>
+      <div *ngIf="reservation.status === 'Confirmed' || reservation.status === 'Confirmada'" class="alert alert-success" data-cy="reservation-message">
+        Lista para retiro en mostrador
+      </div>
+      <div *ngIf="reservation.status === 'Expired' || reservation.status === 'Expirada'" class="alert alert-danger" data-cy="reservation-message">
+        Reserva expirada. El stock fue liberado.
+      </div>
+      <div *ngIf="reservation.status === 'Cancelled' || reservation.status === 'Cancelada'" class="alert alert-secondary" data-cy="reservation-message">
+        Stock liberado.
+      </div>
+
+      <div *ngIf="prescriptionUploaded && reservation.status !== 'Confirmed' && reservation.status !== 'Confirmada'" data-cy="prescription-status" class="alert alert-info py-1 px-2 mb-2">
+        Receta: Presentada - Pendiente de Validación
+      </div>
+      <div *ngIf="prescriptionUploaded && (reservation.status === 'Confirmed' || reservation.status === 'Confirmada')" class="alert alert-success py-1 px-2 mb-2">
+        Receta: Validada ✓
+      </div>
+
+      <div *ngIf="showPrescriptionUpload" class="mt-3">
+        <label class="form-label">Subir Receta (PDF)</label>
+        <input type="file" id="file-receta-post" accept=".pdf" class="form-control form-control-sm" (change)="onFileChange($event)">
+        <button id="btn-subir-receta" class="btn btn-warning mt-2" (click)="uploadPrescription()">Subir Receta</button>
+      </div>
+
+      <h6 class="mt-3">Medicamentos:</h6>
+      <ul class="list-group">
+        <li *ngFor="let detail of reservation.details" class="list-group-item">
+          <div class="d-flex justify-content-between align-items-center">
+            <span>{{ detail.drugName || detail.drugCode }} — Cantidad: {{ detail.quantity }}</span>
+            <span
+              *ngIf="detail.requiresPrescription && !prescriptionUploaded"
+              data-cy="prescription-warning"
+              class="badge bg-warning text-dark"
+            >
+              ⚠️ Receta faltante — {{ detail.drugName || detail.drugCode }}
+            </span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

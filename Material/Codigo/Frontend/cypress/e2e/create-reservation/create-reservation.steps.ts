@@ -60,6 +60,20 @@ Given('selecciona la farmacia {string} de la lista desplegable {string}', (pharm
 
 Given(/agrega (\d+) unidad(?:es)? del medicamento "([^"]+)"/, (quantity: string, drugName: string) => {
   const qty = parseInt(quantity);
+
+  const drugDetailMap: { [key: string]: { id: number; prescription: boolean } } = {
+    'Paracetamol 500mg': { id: 1, prescription: false },
+    'Ibuprofeno 400mg':  { id: 2, prescription: false },
+    'Amoxicilina 500mg': { id: 3, prescription: true },
+    'Aspirina 500mg':    { id: 4, prescription: false },
+  };
+  const drugInfo = drugDetailMap[drugName] ?? { id: 1, prescription: false };
+
+  cy.intercept('GET', `**/api/drug/${drugInfo.id}`, {
+    statusCode: 200,
+    body: { id: drugInfo.id, name: drugName, prescription: drugInfo.prescription }
+  }).as(`getDrugDetail${drugInfo.id}`);
+
   cy.contains('td', drugName)
     .parents('tr')
     .within(() => {
@@ -75,12 +89,30 @@ Given(/agrega (\d+) unidad(?:es)? del medicamento "([^"]+)"/, (quantity: string,
 });
 
 Given('un usuario ya agregó a la reserva {int} unidades de {string} y {int} unidades de {string}', (qty1: number, drug1: string, qty2: number, drug2: string) => {
+  const drugDetailMap: { [key: string]: { id: number; prescription: boolean } } = {
+    'Paracetamol 500mg': { id: 1, prescription: false },
+    'Ibuprofeno 400mg':  { id: 2, prescription: false },
+    'Amoxicilina 500mg': { id: 3, prescription: true },
+    'Aspirina 500mg':    { id: 4, prescription: false },
+  };
+  const info1 = drugDetailMap[drug1] ?? { id: 1, prescription: false };
+  const info2 = drugDetailMap[drug2] ?? { id: 2, prescription: false };
+
+  cy.intercept('GET', `**/api/drug/${info1.id}`, {
+    statusCode: 200,
+    body: { id: info1.id, name: drug1, prescription: info1.prescription }
+  }).as(`getDrugDetail${info1.id}`);
   cy.contains('td', drug1)
     .parents('tr')
     .within(() => {
       cy.get('input[type="number"]').clear().type(qty1.toString());
       cy.contains('button', 'Agregar').click();
     });
+
+  cy.intercept('GET', `**/api/drug/${info2.id}`, {
+    statusCode: 200,
+    body: { id: info2.id, name: drug2, prescription: info2.prescription }
+  }).as(`getDrugDetail${info2.id}`);
   cy.contains('td', drug2)
     .parents('tr')
     .within(() => {

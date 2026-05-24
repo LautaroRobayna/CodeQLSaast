@@ -42,9 +42,32 @@ namespace PharmaGo.WebApi.Controllers
                         model.RecipeFiles = recipeFiles.Select(f => Convert.ToBase64String(System.IO.File.ReadAllBytes(f))).ToList();
                     }
                 }
+                if (!model.HasRecipe && !string.IsNullOrEmpty(r.PrescriptionBase64))
+                {
+                    model.HasRecipe = true;
+                    model.RecipeFiles = new List<string> { r.PrescriptionBase64 };
+                }
                 return model;
             }).ToList();
             return Ok(response);
+        }
+
+        [HttpGet]
+        public IActionResult GetByPublicKey([FromQuery] string publicKey)
+        {
+            var reservation = _reservationManager.GetByPublicKey(publicKey);
+            if (reservation == null)
+                return NotFound(new { message = "Reserva no encontrada." });
+            return Ok(new ReservationModelResponse(reservation));
+        }
+
+        [HttpPatch]
+        public IActionResult UploadPrescription([FromQuery] string publicKey, [FromBody] UploadPrescriptionModelRequest model)
+        {
+            var success = _reservationManager.UploadPrescription(publicKey, model.PrescriptionBase64, model.PrescriptionFileName);
+            if (!success)
+                return NotFound(new { message = "Reserva no encontrada." });
+            return Ok(new { prescriptionUploaded = true });
         }
 
         [HttpPost]
@@ -54,6 +77,8 @@ namespace PharmaGo.WebApi.Controllers
             {
                 PharmacyId = reservationModel.PharmacyId,
                 UserEmail = reservationModel.UserEmail,
+                PrescriptionBase64 = reservationModel.PrescriptionBase64,
+                PrescriptionFileName = reservationModel.PrescriptionFileName,
                 Details = reservationModel.Details.Select(d => new ReservationDetail
                 {
                     DrugCode = d.DrugCode,

@@ -17,6 +17,8 @@ namespace PharmaGo.WebApi.Models.Out
         public bool HasRecipe { get; set; }
         public bool RequiresPrescription { get; set; }
         public List<string> RecipeFiles { get; set; }
+        public DateTime ExpirationDate { get; set; }
+        public bool PrescriptionUploaded { get; set; }
 
         public ReservationModelResponse(Reservation reservation)
         {
@@ -27,7 +29,8 @@ namespace PharmaGo.WebApi.Models.Out
             {
                 Id = d.Id,
                 DrugCode = d.DrugCode,
-                Quantity = d.Quantity
+                Quantity = d.Quantity,
+                RequiresPrescription = d.RequiresPrescription
             }).ToList();
             PharmacyId = reservation.PharmacyId;
             UserEmail = reservation.UserEmail;
@@ -35,6 +38,8 @@ namespace PharmaGo.WebApi.Models.Out
             Status = reservation.Status.ToString();
             HasRecipe = reservation.HasRecipe;
             RequiresPrescription = reservation.RequiresPrescription;
+            ExpirationDate = reservation.ReservationDate.AddDays(30);
+            PrescriptionUploaded = !string.IsNullOrEmpty(reservation.PrescriptionBase64);
         }
 
         public class ReservationDetailModelResponse
@@ -42,6 +47,7 @@ namespace PharmaGo.WebApi.Models.Out
             public int Id { get; set; }
             public string DrugCode { get; set; }
             public int Quantity { get; set; }
+            public bool RequiresPrescription { get; set; }
         }
     }
 }

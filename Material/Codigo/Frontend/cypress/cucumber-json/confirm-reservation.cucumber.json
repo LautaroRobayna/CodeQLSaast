@@ -23,7 +23,7 @@
             "name": "que el sistema tiene la reserva \"RES-777\" en estado \"Pendiente\"",
             "result": {
               "status": "passed",
-              "duration": 78000000
+              "duration": 91000000
             }
           },
           {
@@ -33,7 +33,7 @@
             "name": "la reserva \"RES-777\" contiene 3 unidades de \"Paracetamol 500mg\" y 2 unidades de \"Amoxicilina 500mg\"",
             "result": {
               "status": "passed",
-              "duration": 16000000
+              "duration": 18000000
             }
           },
           {
@@ -43,7 +43,7 @@
             "name": "el medicamento \"Paracetamol 500mg\" no requiere receta médica",
             "result": {
               "status": "passed",
-              "duration": 4000000
+              "duration": 3000000
             }
           },
           {
@@ -73,7 +73,7 @@
             "name": "accede al panel de empleado en \"/employee\"",
             "result": {
               "status": "passed",
-              "duration": 617000000
+              "duration": 813000000
             }
           },
           {
@@ -83,7 +83,7 @@
             "name": "hace clic en \"#btn-validar-reservas\" para ir a la gestión de reservas",
             "result": {
               "status": "passed",
-              "duration": 111000000
+              "duration": 127000000
             }
           },
           {
@@ -93,7 +93,7 @@
             "name": "se encuentra en la página de validación \"/employee/validate-reservations\"",
             "result": {
               "status": "passed",
-              "duration": 270000000
+              "duration": 282000000
             }
           },
           {
@@ -103,7 +103,7 @@
             "name": "selecciona la reserva \"RES-777\" de la lista de pendientes",
             "result": {
               "status": "passed",
-              "duration": 86000000
+              "duration": 87000000
             }
           },
           {
@@ -113,7 +113,7 @@
             "name": "hace clic en el archivo \"receta-amoxicilina.pdf\" de la lista de recetas adjuntas",
             "result": {
               "status": "passed",
-              "duration": 89000000
+              "duration": 92000000
             }
           },
           {
@@ -123,7 +123,7 @@
             "name": "visualiza la receta de \"Amoxicilina 500mg\" en el visor \".visor-receta\"",
             "result": {
               "status": "passed",
-              "duration": 10000000
+              "duration": 9000000
             }
           },
           {
@@ -133,7 +133,7 @@
             "name": "confirma la reserva haciendo clic en \"#btn-confirmar-reserva-sistema\"",
             "result": {
               "status": "passed",
-              "duration": 115000000
+              "duration": 132000000
             }
           },
           {
@@ -143,7 +143,7 @@
             "name": "el sistema debe mostrar un mensaje modal con el texto \"Reserva confirmada exitosamente\"",
             "result": {
               "status": "passed",
-              "duration": 372000000
+              "duration": 347000000
             }
           },
           {
@@ -153,7 +153,7 @@
             "name": "el sistema debe cambiar el estado de la reserva a \"Confirmed\"",
             "result": {
               "status": "passed",
-              "duration": 11000000
+              "duration": 12000000
             }
           },
           {
@@ -163,7 +163,7 @@
             "name": "la reserva \"RES-777\" no debe aparecer en la lista de pendientes",
             "result": {
               "status": "passed",
-              "duration": 8000000
+              "duration": 11000000
             }
           }
         ]
@@ -183,7 +183,7 @@
             "name": "que el sistema tiene la reserva \"RES-777\" en estado \"Pendiente\"",
             "result": {
               "status": "passed",
-              "duration": 58000000
+              "duration": 50000000
             }
           },
           {
@@ -203,7 +203,7 @@
             "name": "el medicamento \"Paracetamol 500mg\" no requiere receta médica",
             "result": {
               "status": "passed",
-              "duration": 1000000
+              "duration": 3000000
             }
           },
           {
@@ -213,7 +213,7 @@
             "name": "el medicamento \"Amoxicilina 500mg\" requiere receta médica",
             "result": {
               "status": "passed",
-              "duration": 3000000
+              "duration": 2000000
             }
           },
           {
@@ -223,7 +223,7 @@
             "name": "una reserva pendiente sin receta médica",
             "result": {
               "status": "passed",
-              "duration": 7000000
+              "duration": 28000000
             }
           },
           {
@@ -233,7 +233,7 @@
             "name": "el empleado \"Carlos\" con rol \"Empleado Farmacia\" inicia sesión en el sistema",
             "result": {
               "status": "passed",
-              "duration": 1000000
+              "duration": 2000000
             }
           },
           {
@@ -243,7 +243,7 @@
             "name": "accede al panel de empleado en \"/employee\"",
             "result": {
               "status": "passed",
-              "duration": 68000000
+              "duration": 88000000
             }
           },
           {
@@ -253,7 +253,7 @@
             "name": "hace clic en \"#btn-validar-reservas\" para ir a la gestión de reservas",
             "result": {
               "status": "passed",
-              "duration": 88000000
+              "duration": 101000000
             }
           },
           {
@@ -263,7 +263,7 @@
             "name": "se encuentra en la página de validación \"/employee/validate-reservations\"",
             "result": {
               "status": "passed",
-              "duration": 79000000
+              "duration": 90000000
             }
           },
           {
@@ -273,7 +273,7 @@
             "name": "selecciona la reserva \"RES-NO-RECIPE\" de la lista de pendientes",
             "result": {
               "status": "passed",
-              "duration": 108000000
+              "duration": 128000000
             }
           },
           {
@@ -283,7 +283,7 @@
             "name": "confirma la reserva haciendo clic en \"#btn-confirmar-reserva-sistema\"",
             "result": {
               "status": "passed",
-              "duration": 88000000
+              "duration": 106000000
             }
           },
           {
@@ -293,7 +293,7 @@
             "name": "el sistema debe mostrar un mensaje modal con el texto \"Reserva confirmada exitosamente\"",
             "result": {
               "status": "passed",
-              "duration": 349000000
+              "duration": 371000000
             }
           },
           {
@@ -303,7 +303,7 @@
             "name": "el sistema debe cambiar el estado de la reserva a \"Confirmed\"",
             "result": {
               "status": "passed",
-              "duration": 4000000
+              "duration": 10000000
             }
           },
           {
@@ -313,7 +313,7 @@
             "name": "la reserva \"RES-NO-RECIPE\" no debe aparecer en la lista de pendientes",
             "result": {
               "status": "passed",
-              "duration": 5000000
+              "duration": 8000000
             }
           }
         ]
@@ -333,7 +333,7 @@
             "name": "que el sistema tiene la reserva \"RES-777\" en estado \"Pendiente\"",
             "result": {
               "status": "passed",
-              "duration": 38000000
+              "duration": 43000000
             }
           },
           {
@@ -353,7 +353,7 @@
             "name": "el medicamento \"Paracetamol 500mg\" no requiere receta médica",
             "result": {
               "status": "passed",
-              "duration": 1000000
+              "duration": 2000000
             }
           },
           {
@@ -373,7 +373,7 @@
             "name": "una reserva pendiente que requiere receta médica pero no tiene receta adjunta",
             "result": {
               "status": "passed",
-              "duration": 6000000
+              "duration": 10000000
             }
           },
           {
@@ -383,7 +383,7 @@
             "name": "el empleado \"Carlos\" con rol \"Empleado Farmacia\" inicia sesión en el sistema",
             "result": {
               "status": "passed",
-              "duration": 2000000
+              "duration": 1000000
             }
           },
           {
@@ -393,7 +393,7 @@
             "name": "accede al panel de empleado en \"/employee\"",
             "result": {
               "status": "passed",
-              "duration": 69000000
+              "duration": 77000000
             }
           },
           {
@@ -403,7 +403,7 @@
             "name": "hace clic en \"#btn-validar-reservas\" para ir a la gestión de reservas",
             "result": {
               "status": "passed",
-              "duration": 99000000
+              "duration": 90000000
             }
           },
           {
@@ -413,7 +413,7 @@
             "name": "se encuentra en la página de validación \"/employee/validate-reservations\"",
             "result": {
               "status": "passed",
-              "duration": 78000000
+              "duration": 92000000
             }
           },
           {
@@ -423,7 +423,7 @@
             "name": "selecciona la reserva \"RES-NO-UPLOAD\" de la lista de pendientes",
             "result": {
               "status": "passed",
-              "duration": 122000000
+              "duration": 107000000
             }
           },
           {
@@ -453,317 +453,7 @@
             "name": "que el sistema tiene la reserva \"RES-777\" en estado \"Pendiente\"",
             "result": {
               "status": "passed",
-              "duration": 29000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 8,
-            "name": "la reserva \"RES-777\" contiene 3 unidades de \"Paracetamol 500mg\" y 2 unidades de \"Amoxicilina 500mg\"",
-            "result": {
-              "status": "passed",
-              "duration": 5000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 9,
-            "name": "el medicamento \"Paracetamol 500mg\" no requiere receta médica",
-            "result": {
-              "status": "passed",
-              "duration": 2000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 10,
-            "name": "el medicamento \"Amoxicilina 500mg\" requiere receta médica",
-            "result": {
-              "status": "passed",
-              "duration": 1000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Given ",
-            "line": 47,
-            "name": "una reserva pendiente sin receta médica",
-            "result": {
-              "status": "passed",
-              "duration": 7000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 48,
-            "name": "el empleado \"Carlos\" con rol \"Empleado Farmacia\" inicia sesión en el sistema",
-            "result": {
-              "status": "passed",
-              "duration": 1000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 49,
-            "name": "accede al panel de empleado en \"/employee\"",
-            "result": {
-              "status": "passed",
-              "duration": 66000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 50,
-            "name": "hace clic en \"#btn-validar-reservas\" para ir a la gestión de reservas",
-            "result": {
-              "status": "passed",
-              "duration": 100000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 51,
-            "name": "se encuentra en la página de validación \"/employee/validate-reservations\"",
-            "result": {
-              "status": "passed",
-              "duration": 76000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 52,
-            "name": "selecciona la reserva \"RES-NO-RECIPE\" de la lista de pendientes",
-            "result": {
-              "status": "passed",
-              "duration": 107000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 53,
-            "name": "hace clic en \"#btn-rechazar-receta\"",
-            "result": {
-              "status": "passed",
-              "duration": 85000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Then ",
-            "line": 54,
-            "name": "el sistema debe mostrar un mensaje modal con el texto \"Reserva rechazada\"",
-            "result": {
-              "status": "passed",
-              "duration": 338000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 55,
-            "name": "el sistema debe cambiar el estado de la reserva a \"Cancelled\"",
-            "result": {
-              "status": "passed",
-              "duration": 4000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 56,
-            "name": "la reserva \"RES-NO-RECIPE\" no debe aparecer en la lista de pendientes",
-            "result": {
-              "status": "passed",
-              "duration": 5000000
-            }
-          }
-        ]
-      },
-      {
-        "id": "confirmar-reserva;rechazo-de-reserva-por-receta-inválida",
-        "keyword": "Scenario",
-        "line": 58,
-        "name": "Rechazo de reserva por receta inválida",
-        "tags": [],
-        "type": "scenario",
-        "steps": [
-          {
-            "arguments": [],
-            "keyword": "Given ",
-            "line": 7,
-            "name": "que el sistema tiene la reserva \"RES-777\" en estado \"Pendiente\"",
-            "result": {
-              "status": "passed",
-              "duration": 41000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 8,
-            "name": "la reserva \"RES-777\" contiene 3 unidades de \"Paracetamol 500mg\" y 2 unidades de \"Amoxicilina 500mg\"",
-            "result": {
-              "status": "passed",
-              "duration": 5000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 9,
-            "name": "el medicamento \"Paracetamol 500mg\" no requiere receta médica",
-            "result": {
-              "status": "passed",
-              "duration": 1000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 10,
-            "name": "el medicamento \"Amoxicilina 500mg\" requiere receta médica",
-            "result": {
-              "status": "passed",
-              "duration": 2000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Given ",
-            "line": 59,
-            "name": "el empleado \"Carlos\" con rol \"Empleado Farmacia\" inicia sesión en el sistema",
-            "result": {
-              "status": "passed",
-              "duration": 2000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 60,
-            "name": "accede al panel de empleado en \"/employee\"",
-            "result": {
-              "status": "passed",
-              "duration": 69000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 61,
-            "name": "hace clic en \"#btn-validar-reservas\" para ir a la gestión de reservas",
-            "result": {
-              "status": "passed",
-              "duration": 98000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 62,
-            "name": "se encuentra en la página de validación \"/employee/validate-reservations\"",
-            "result": {
-              "status": "passed",
-              "duration": 76000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 63,
-            "name": "selecciona la reserva \"RES-777\" de la lista de pendientes",
-            "result": {
-              "status": "passed",
-              "duration": 107000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 64,
-            "name": "hace clic en el archivo \"receta-amoxicilina.pdf\" de la lista de recetas adjuntas",
-            "result": {
-              "status": "passed",
-              "duration": 87000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 65,
-            "name": "visualiza la receta de \"Amoxicilina 500mg\" en el visor \"#visor-receta-archivo\"",
-            "result": {
-              "status": "passed",
-              "duration": 8000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 66,
-            "name": "hace clic en \"#btn-rechazar-receta\"",
-            "result": {
-              "status": "passed",
-              "duration": 125000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Then ",
-            "line": 67,
-            "name": "el sistema debe mostrar un mensaje modal con el texto \"Reserva rechazada\"",
-            "result": {
-              "status": "passed",
-              "duration": 349000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 68,
-            "name": "el sistema debe cambiar el estado de la reserva a \"Cancelled\"",
-            "result": {
-              "status": "passed",
-              "duration": 5000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 69,
-            "name": "la reserva \"RES-777\" no debe aparecer en la lista de pendientes",
-            "result": {
-              "status": "passed",
-              "duration": 6000000
-            }
-          }
-        ]
-      },
-      {
-        "id": "confirmar-reserva;intento-de-confirmar-una-reserva-no-pendiente",
-        "keyword": "Scenario",
-        "line": 71,
-        "name": "Intento de confirmar una reserva no pendiente",
-        "tags": [],
-        "type": "scenario",
-        "steps": [
-          {
-            "arguments": [],
-            "keyword": "Given ",
-            "line": 7,
-            "name": "que el sistema tiene la reserva \"RES-777\" en estado \"Pendiente\"",
-            "result": {
-              "status": "passed",
-              "duration": 43000000
+              "duration": 37000000
             }
           },
           {
@@ -799,8 +489,8 @@
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 72,
-            "name": "una reserva en estado \"Confirmed\" y otra en estado \"Cancelled\" en el sistema",
+            "line": 47,
+            "name": "una reserva pendiente sin receta médica",
             "result": {
               "status": "passed",
               "duration": 7000000
@@ -809,7 +499,7 @@
           {
             "arguments": [],
             "keyword": "And ",
-            "line": 73,
+            "line": 48,
             "name": "el empleado \"Carlos\" con rol \"Empleado Farmacia\" inicia sesión en el sistema",
             "result": {
               "status": "passed",
@@ -819,11 +509,321 @@
           {
             "arguments": [],
             "keyword": "And ",
+            "line": 49,
+            "name": "accede al panel de empleado en \"/employee\"",
+            "result": {
+              "status": "passed",
+              "duration": 77000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 50,
+            "name": "hace clic en \"#btn-validar-reservas\" para ir a la gestión de reservas",
+            "result": {
+              "status": "passed",
+              "duration": 91000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 51,
+            "name": "se encuentra en la página de validación \"/employee/validate-reservations\"",
+            "result": {
+              "status": "passed",
+              "duration": 89000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 52,
+            "name": "selecciona la reserva \"RES-NO-RECIPE\" de la lista de pendientes",
+            "result": {
+              "status": "passed",
+              "duration": 106000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 53,
+            "name": "hace clic en \"#btn-rechazar-receta\"",
+            "result": {
+              "status": "passed",
+              "duration": 114000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 54,
+            "name": "el sistema debe mostrar un mensaje modal con el texto \"Reserva rechazada\"",
+            "result": {
+              "status": "passed",
+              "duration": 341000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 55,
+            "name": "el sistema debe cambiar el estado de la reserva a \"Cancelled\"",
+            "result": {
+              "status": "passed",
+              "duration": 5000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 56,
+            "name": "la reserva \"RES-NO-RECIPE\" no debe aparecer en la lista de pendientes",
+            "result": {
+              "status": "passed",
+              "duration": 6000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "confirmar-reserva;rechazo-de-reserva-por-receta-inválida",
+        "keyword": "Scenario",
+        "line": 58,
+        "name": "Rechazo de reserva por receta inválida",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "que el sistema tiene la reserva \"RES-777\" en estado \"Pendiente\"",
+            "result": {
+              "status": "passed",
+              "duration": 44000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "la reserva \"RES-777\" contiene 3 unidades de \"Paracetamol 500mg\" y 2 unidades de \"Amoxicilina 500mg\"",
+            "result": {
+              "status": "passed",
+              "duration": 9000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 9,
+            "name": "el medicamento \"Paracetamol 500mg\" no requiere receta médica",
+            "result": {
+              "status": "passed",
+              "duration": 3000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 10,
+            "name": "el medicamento \"Amoxicilina 500mg\" requiere receta médica",
+            "result": {
+              "status": "passed",
+              "duration": 4000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 59,
+            "name": "el empleado \"Carlos\" con rol \"Empleado Farmacia\" inicia sesión en el sistema",
+            "result": {
+              "status": "passed",
+              "duration": 2000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 60,
+            "name": "accede al panel de empleado en \"/employee\"",
+            "result": {
+              "status": "passed",
+              "duration": 86000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 61,
+            "name": "hace clic en \"#btn-validar-reservas\" para ir a la gestión de reservas",
+            "result": {
+              "status": "passed",
+              "duration": 97000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 62,
+            "name": "se encuentra en la página de validación \"/employee/validate-reservations\"",
+            "result": {
+              "status": "passed",
+              "duration": 102000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 63,
+            "name": "selecciona la reserva \"RES-777\" de la lista de pendientes",
+            "result": {
+              "status": "passed",
+              "duration": 120000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 64,
+            "name": "hace clic en el archivo \"receta-amoxicilina.pdf\" de la lista de recetas adjuntas",
+            "result": {
+              "status": "passed",
+              "duration": 406000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 65,
+            "name": "visualiza la receta de \"Amoxicilina 500mg\" en el visor \"#visor-receta-archivo\"",
+            "result": {
+              "status": "passed",
+              "duration": 15000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 66,
+            "name": "hace clic en \"#btn-rechazar-receta\"",
+            "result": {
+              "status": "passed",
+              "duration": 136000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 67,
+            "name": "el sistema debe mostrar un mensaje modal con el texto \"Reserva rechazada\"",
+            "result": {
+              "status": "passed",
+              "duration": 351000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 68,
+            "name": "el sistema debe cambiar el estado de la reserva a \"Cancelled\"",
+            "result": {
+              "status": "passed",
+              "duration": 15000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 69,
+            "name": "la reserva \"RES-777\" no debe aparecer en la lista de pendientes",
+            "result": {
+              "status": "passed",
+              "duration": 17000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "confirmar-reserva;intento-de-confirmar-una-reserva-no-pendiente",
+        "keyword": "Scenario",
+        "line": 71,
+        "name": "Intento de confirmar una reserva no pendiente",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "que el sistema tiene la reserva \"RES-777\" en estado \"Pendiente\"",
+            "result": {
+              "status": "passed",
+              "duration": 63000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "la reserva \"RES-777\" contiene 3 unidades de \"Paracetamol 500mg\" y 2 unidades de \"Amoxicilina 500mg\"",
+            "result": {
+              "status": "passed",
+              "duration": 6000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 9,
+            "name": "el medicamento \"Paracetamol 500mg\" no requiere receta médica",
+            "result": {
+              "status": "passed",
+              "duration": 2000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 10,
+            "name": "el medicamento \"Amoxicilina 500mg\" requiere receta médica",
+            "result": {
+              "status": "passed",
+              "duration": 2000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 72,
+            "name": "una reserva en estado \"Confirmed\" y otra en estado \"Cancelled\" en el sistema",
+            "result": {
+              "status": "passed",
+              "duration": 18000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 73,
+            "name": "el empleado \"Carlos\" con rol \"Empleado Farmacia\" inicia sesión en el sistema",
+            "result": {
+              "status": "passed",
+              "duration": 4000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
             "line": 74,
             "name": "accede al panel de empleado en \"/employee\"",
             "result": {
               "status": "passed",
-              "duration": 83000000
+              "duration": 87000000
             }
           },
           {
@@ -833,7 +833,7 @@
             "name": "hace clic en \"#btn-validar-reservas\" para ir a la gestión de reservas",
             "result": {
               "status": "passed",
-              "duration": 89000000
+              "duration": 108000000
             }
           },
           {
@@ -843,7 +843,7 @@
             "name": "se encuentra en la página de validación \"/employee/validate-reservations\"",
             "result": {
               "status": "passed",
-              "duration": 82000000
+              "duration": 113000000
             }
           },
           {
@@ -853,7 +853,7 @@
             "name": "la lista de pendientes muestra el mensaje \"No hay reservas pendientes\"",
             "result": {
               "status": "passed",
-              "duration": 6000000
+              "duration": 9000000
             }
           }
         ]
@@ -873,7 +873,7 @@
             "name": "que el sistema tiene la reserva \"RES-777\" en estado \"Pendiente\"",
             "result": {
               "status": "passed",
-              "duration": 38000000
+              "duration": 39000000
             }
           },
           {
@@ -893,7 +893,7 @@
             "name": "el medicamento \"Paracetamol 500mg\" no requiere receta médica",
             "result": {
               "status": "passed",
-              "duration": 1000000
+              "duration": 3000000
             }
           },
           {
@@ -903,7 +903,7 @@
             "name": "el medicamento \"Amoxicilina 500mg\" requiere receta médica",
             "result": {
               "status": "passed",
-              "duration": 2000000
+              "duration": 3000000
             }
           },
           {
@@ -933,7 +933,7 @@
             "name": "accede al panel de empleado en \"/employee\"",
             "result": {
               "status": "passed",
-              "duration": 67000000
+              "duration": 75000000
             }
           },
           {
@@ -943,7 +943,7 @@
             "name": "hace clic en \"#btn-validar-reservas\" para ir a la gestión de reservas",
             "result": {
               "status": "passed",
-              "duration": 97000000
+              "duration": 90000000
             }
           },
           {
@@ -953,7 +953,7 @@
             "name": "se encuentra en la página de validación \"/employee/validate-reservations\"",
             "result": {
               "status": "passed",
-              "duration": 77000000
+              "duration": 96000000
             }
           },
           {

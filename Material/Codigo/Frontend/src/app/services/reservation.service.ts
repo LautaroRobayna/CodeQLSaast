@@ -26,11 +26,28 @@ export class ReservationService {
       .set('Authorization', token);
   }
 
+  getByPublicKey(publicKey: string): Observable<ReservationResponse> {
+    return this.http.get<ReservationResponse>(`${this.url}?publicKey=${encodeURIComponent(publicKey)}`, { headers: this.getHttpHeaders() })
+      .pipe(
+        tap((res: ReservationResponse) => console.log(`Got reservation w/ code=${res.code}`)),
+        catchError(this.handleError<ReservationResponse>('Get Reservation By Public Key'))
+      );
+  }
+
   createReservation(reservation: ReservationRequest): Observable<ReservationResponse> {
     return this.http.post<ReservationResponse>(this.url, reservation, {headers: this.getHttpHeaders()})
       .pipe(
         tap((newReservation: ReservationResponse) => console.log(`Created reservation w/ code=${newReservation.code}`)),
         catchError(this.handleError<ReservationResponse>('Create Reservation'))
+      );
+  }
+
+  uploadPrescription(publicKey: string, prescriptionBase64: string, prescriptionFileName: string): Observable<any> {
+    return this.http.patch<any>(`${this.url}?publicKey=${encodeURIComponent(publicKey)}`,
+      { prescriptionBase64, prescriptionFileName }, { headers: this.getHttpHeaders() })
+      .pipe(
+        tap(() => console.log('Prescription uploaded')),
+        catchError(this.handleError<any>('Upload Prescription'))
       );
   }
 

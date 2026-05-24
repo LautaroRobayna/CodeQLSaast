@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PharmaGo.DataAccess;
 
@@ -11,9 +12,11 @@ using PharmaGo.DataAccess;
 namespace PharmaGo.DataAccess.Migrations
 {
     [DbContext(typeof(PharmacyGoDbContext))]
-    partial class PharmacyGoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260524145334_AddPrescriptionToReservation")]
+    partial class AddPrescriptionToReservation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -223,9 +226,6 @@ namespace PharmaGo.DataAccess.Migrations
                     b.Property<string>("Code")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("HasRecipe")
-                        .HasColumnType("bit");
-
                     b.Property<int>("PharmacyId")
                         .HasColumnType("int");
 
@@ -240,9 +240,6 @@ namespace PharmaGo.DataAccess.Migrations
 
                     b.Property<string>("PublicKey")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("RequiresPrescription")
-                        .HasColumnType("bit");
 
                     b.Property<DateTime>("ReservationDate")
                         .HasColumnType("datetime2");

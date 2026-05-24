@@ -30,7 +30,8 @@
           <p><b>Email:</b> {{ selectedReservation.userEmail }}</p>
           <p><b>Fecha:</b> {{ selectedReservation.reservationDate | date:'dd/MM/yyyy HH:mm' }}</p>
           <p><b>Estado:</b> {{ selectedReservation.status }}</p>
-          <p *ngIf="selectedReservation.requiresPrescription" class="text-warning"><b>Receta:</b> Requiere receta médica</p>
+          <p *ngIf="selectedReservation.requiresPrescription && selectedReservation.hasRecipe" class="text-info"><b>Receta:</b> Requiere confirmar receta</p>
+          <p *ngIf="selectedReservation.requiresPrescription && !selectedReservation.hasRecipe" class="text-warning"><b>Receta:</b> Requiere receta médica</p>
           <p *ngIf="!selectedReservation.requiresPrescription" class="text-success"><b>Receta:</b> No requiere receta médica</p>
           <table cTable hover responsive>
             <thead><tr><th>Medicamento</th><th>Cantidad</th></tr></thead>

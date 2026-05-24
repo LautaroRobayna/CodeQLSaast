@@ -120,6 +120,39 @@ namespace PharmaGo.BusinessLogic
             return reservation;
         }
 
+        public bool UploadPrescription(string publicKey, string prescriptionBase64, string prescriptionFileName)
+        {
+            var reservation = _reservationRepository.GetOneByExpression(r => r.PublicKey == publicKey);
+            if (reservation == null)
+                return false;
+
+            reservation.PrescriptionBase64 = prescriptionBase64;
+            reservation.PrescriptionFileName = prescriptionFileName;
+            reservation.HasRecipe = true;
+            _reservationRepository.UpdateOne(reservation);
+            _reservationRepository.Save();
+            return true;
+        }
+
+        public Reservation? GetByPublicKey(string publicKey)
+        {
+            var reservation = _reservationRepository.GetOneByExpression(r => r.PublicKey == publicKey);
+
+            if (reservation == null)
+                return null;
+
+            foreach (var detail in reservation.Details)
+            {
+                var drug = _drugRepository.GetOneByExpression(d => d.Code == detail.DrugCode);
+                if (drug != null)
+                {
+                    detail.RequiresPrescription = drug.Prescription;
+                }
+            }
+
+            return reservation;
+        }
+
         public IEnumerable<Reservation> GetAllPending()
         {
             return _reservationRepository.GetAllByExpression(r => r.Status == ReservationStatus.Pending);
@@ -133,7 +166,8 @@ namespace PharmaGo.BusinessLogic
             if (reservation.Status != ReservationStatus.Pending)
                 throw new InvalidResourceException("Solo se pueden confirmar reservas en estado pendiente");
 
-            if (!reservation.HasRecipe)
+            var prescriptionPresent = reservation.HasRecipe || !string.IsNullOrEmpty(reservation.PrescriptionBase64);
+            if (!prescriptionPresent)
             {
                 var requiresPrescription = reservation.Details?.Any(d =>
                 {
