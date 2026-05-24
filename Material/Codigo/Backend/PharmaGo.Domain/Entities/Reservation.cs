@@ -15,5 +15,7 @@ namespace PharmaGo.Domain.Entities
         public ReservationStatus Status { get; set; }
         public string? PrescriptionBase64 { get; set; }
         public string? PrescriptionFileName { get; set; }
+        public bool HasRecipe { get; set; }
+        public bool RequiresPrescription { get; set; }
     }
 }

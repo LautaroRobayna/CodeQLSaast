@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PharmaGo.DataAccess;
 
@@ -11,9 +12,11 @@ using PharmaGo.DataAccess;
 namespace PharmaGo.DataAccess.Migrations
 {
     [DbContext(typeof(PharmacyGoDbContext))]
-    partial class PharmacyGoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260523235943_AddHasRecipeToReservation")]
+    partial class AddHasRecipeToReservation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -229,20 +232,11 @@ namespace PharmaGo.DataAccess.Migrations
                     b.Property<int>("PharmacyId")
                         .HasColumnType("int");
 
-                    b.Property<string>("PrescriptionBase64")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PrescriptionFileName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("PrivateKey")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PublicKey")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("RequiresPrescription")
-                        .HasColumnType("bit");
 
                     b.Property<DateTime>("ReservationDate")
                         .HasColumnType("datetime2");
@@ -271,9 +265,6 @@ namespace PharmaGo.DataAccess.Migrations
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
-
-                    b.Property<bool>("RequiresPrescription")
-                        .HasColumnType("bit");
 
                     b.Property<int?>("ReservationId")
                         .HasColumnType("int");

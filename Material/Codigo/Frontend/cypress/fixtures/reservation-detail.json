@@ -1,0 +1,12 @@
+{
+  "id": 1,
+  "code": "RES-777",
+  "status": "Pending",
+  "pharmacyId": 1,
+  "userEmail": "cliente@example.com",
+  "reservationDate": "2026-05-23T10:00:00",
+  "details": [
+    { "id": 1, "drugCode": "PAR-500", "drugName": "Paracetamol 500mg", "quantity": 3 },
+    { "id": 2, "drugCode": "AMO-500", "drugName": "Amoxicilina 500mg", "quantity": 2 }
+  ]
+}

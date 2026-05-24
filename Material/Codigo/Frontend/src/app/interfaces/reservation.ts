@@ -22,6 +22,9 @@ export interface ReservationResponse {
     status: string;
     details: ReservationDetailResponse[];
     prescriptionUploaded?: boolean;
+    hasRecipe: boolean;
+    requiresPrescription: boolean;
+    recipeFiles: string[];
 }
 
 export interface ReservationDetailResponse {

@@ -3,21 +3,16 @@ import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 // ===== BACKGROUND STEPS =====
 
 Given('que el sistema tiene cargada la farmacia {string}', (pharmacyName: string) => {
-  cy.intercept('GET', '**/api/pharmacy*', {
-    statusCode: 200,
-    body: [
-      {
-        id: 1,
-        name: pharmacyName,
-        address: 'Av. Principal 123'
-      },
-      {
-        id: 2,
-        name: 'Farmacia Norte',
-        address: 'Calle Norte 456'
-      }
-    ]
-  }).as('getPharmacies');
+  cy.fixture('pharmacies.json').then((pharmacies) => {
+    const body = Array.isArray(pharmacies) ? [...pharmacies] : [];
+    if (body[0]) {
+      body[0] = { ...body[0], name: pharmacyName };
+    }
+    cy.intercept('GET', '**/api/pharmacy*', {
+      statusCode: 200,
+      body
+    }).as('getPharmacies');
+  });
 });
 
 Given('la {string} tiene el medicamento {string} con stock de {int} unidades', (pharmacyName: string, drugName: string, stock: number) => {
@@ -32,25 +27,11 @@ Given('existe la farmacia {string} con el medicamento {string}', (pharmacyName: 
   cy.log(`Farmacia ${pharmacyName} con medicamento ${drugName} registrada`);
 });
 
-Given('esta logueado con email {string} y contrasenia {string}', (email: string, _password: string) => {
-  cy.intercept('POST', '**/api/auth/login', {
-    statusCode: 200,
-    body: {
-      token: 'fake-jwt-token',
-      user: {
-        email: email,
-        name: 'Carlos Gómez'
-      }
-    }
-  }).as('login');
-
-  localStorage.setItem('authToken', 'fake-jwt-token');
-  localStorage.setItem('userEmail', email);
-});
 
 // ===== SCENARIO STEPS =====
 
 Given('un usuario no autenticado visita la página de reservas {string}', (url: string) => {
+  Cypress.env('reservationErrorIntercept', null);
   cy.wrap({}).as('reservationQuantities');
   cy.wrap({}).as('stockByName');
 
@@ -58,38 +39,18 @@ Given('un usuario no autenticado visita la página de reservas {string}', (url: 
     stockByName['Paracetamol 500mg'] = 10;
     stockByName['Ibuprofeno 400mg'] = 3;
     stockByName['Amoxicilina 500mg'] = 5;
+    stockByName['Aspirina 500mg'] = 10;
     cy.wrap(stockByName).as('stockByName');
   });
 
   cy.intercept('GET', '**/api/drug?PharmacyId=*', {
     statusCode: 200,
-    body: [
-      {
-        id: 1,
-        code: 'P-500',
-        name: 'Paracetamol 500mg',
-        symptom: 'Dolor',
-        price: 150
-      },
-      {
-        id: 2,
-        code: 'I-400',
-        name: 'Ibuprofeno 400mg',
-        symptom: 'Fiebre',
-        price: 200
-      },
-      {
-        id: 3,
-        code: 'A-500',
-        name: 'Amoxicilina 500mg',
-        symptom: 'Infeccion',
-        price: 300
-      }
-    ]
+    fixture: 'drugs-pharmacy-1.json'
   }).as('getDrugs');
 
   cy.visit(`http://localhost:4200${url}`);
 });
+
 
 Given('selecciona la farmacia {string} de la lista desplegable {string}', (pharmacyName: string, selector: string) => {
   cy.wait('@getPharmacies');
@@ -97,17 +58,49 @@ Given('selecciona la farmacia {string} de la lista desplegable {string}', (pharm
   cy.wait('@getDrugs');
 });
 
-Given('agrega {int} unidades del medicamento {string}', (quantity: number, drugName: string) => {
+Given(/agrega (\d+) unidad(?:es)? del medicamento "([^"]+)"/, (quantity: string, drugName: string) => {
+  const qty = parseInt(quantity);
   cy.contains('td', drugName)
     .parents('tr')
     .within(() => {
-      cy.get('input[type="number"]').clear().type(quantity.toString());
+      cy.get('input[type="number"]').clear().type(quantity);
       cy.contains('button', 'Agregar').click();
     });
 
   cy.get<Record<string, number>>('@reservationQuantities').then((quantities) => {
-    quantities[drugName] = quantity;
+    const current = quantities[drugName] ?? 0;
+    quantities[drugName] = current + qty;
     cy.wrap(quantities).as('reservationQuantities');
+  });
+});
+
+Given('un usuario ya agregó a la reserva {int} unidades de {string} y {int} unidades de {string}', (qty1: number, drug1: string, qty2: number, drug2: string) => {
+  cy.contains('td', drug1)
+    .parents('tr')
+    .within(() => {
+      cy.get('input[type="number"]').clear().type(qty1.toString());
+      cy.contains('button', 'Agregar').click();
+    });
+  cy.contains('td', drug2)
+    .parents('tr')
+    .within(() => {
+      cy.get('input[type="number"]').clear().type(qty2.toString());
+      cy.contains('button', 'Agregar').click();
+    });
+});
+
+Given(/el usuario intenta agregar (\d+) unidad(?:es)? de "([^"]+)"/, (quantity: string, drugName: string) => {
+  cy.contains('td', drugName)
+    .parents('tr')
+    .within(() => {
+      cy.get('input[type="number"]').clear().type(quantity);
+    });
+  cy.wrap(drugName).as('intendedDrug');
+});
+
+Given('el sistema debe permitir seleccionar como máximo 5 unidades por medicamento', () => {
+  cy.get('table tbody tr input[type="number"]').each(($input) => {
+    cy.wrap($input).should('have.attr', 'max', '5');
   });
 });
 
@@ -123,36 +116,56 @@ When('completa el formulario de contacto con los siguientes datos:', (dataTable:
   });
 });
 
+When('ingresa el valor {string} en el campo de cantidad {string}', (value: string, selector: string) => {
+  cy.get(selector).clear().type(value);
+});
+
 When('hace clic en el botón {string}', (selector: string) => {
-  cy.intercept('POST', '**/api/reservation', {
-    statusCode: 201,
-    body: {
-      id: 123,
-      status: 'Pendiente',
-      publicKey: 'PUB-12345',
-      items: [
-        { drugName: 'Paracetamol 500mg', quantity: 3 },
-        { drugName: 'Ibuprofeno 400mg', quantity: 2 }
-      ]
+  if (selector === '#btn-agregar-reserva') {
+    cy.get<string>('@intendedDrug').then((drugName) => {
+      cy.contains('td', drugName)
+        .parents('tr')
+        .within(() => {
+          cy.contains('button', 'Agregar').click();
+        });
+    });
+    return;
+  }
+
+  if (selector === '#btn-confirmar-reserva') {
+    const errorMessage = Cypress.env('reservationErrorIntercept');
+    if (errorMessage) {
+      cy.intercept('POST', '**/api/reservation', {
+        statusCode: 400,
+        body: { message: errorMessage }
+      }).as('createReservation');
+    } else {
+      cy.intercept('POST', '**/api/reservation', {
+        statusCode: 201,
+        fixture: 'reservation-create-response.json'
+      }).as('createReservation');
     }
-  }).as('createReservation');
+  }
 
   cy.get(selector).click();
 
-  cy.wait('@createReservation').then((interception) => {
-    cy.wrap(interception).as('createReservationResponse');
-  });
-
-  cy.get<Record<string, number>>('@reservationQuantities').then((quantities) => {
-    cy.get<Record<string, number>>('@stockByName').then((stockByName) => {
-      Object.entries(quantities).forEach(([name, qty]) => {
-        const current = stockByName[name] ?? 0;
-        stockByName[name] = Math.max(0, current - qty);
-      });
-
-      cy.wrap(stockByName).as('stockByName');
+  if (selector === '#btn-confirmar-reserva') {
+    cy.wait('@createReservation').then((interception) => {
+      cy.wrap(interception).as('createReservationResponse');
     });
-  });
+
+    if (!Cypress.env('reservationErrorIntercept')) {
+      cy.get<Record<string, number>>('@reservationQuantities').then((quantities) => {
+        cy.get<Record<string, number>>('@stockByName').then((stockByName) => {
+          Object.entries(quantities).forEach(([name, qty]) => {
+            const current = stockByName[name] ?? 0;
+            stockByName[name] = Math.max(0, current - qty);
+          });
+          cy.wrap(stockByName).as('stockByName');
+        });
+      });
+    }
+  }
 });
 
 Then('el sistema debe mostrar un mensaje en pantalla {string}', (message: string) => {
@@ -176,5 +189,54 @@ Then('el stock en backend de {string} debe actualizarse a {int} unidad(es)', (dr
   cy.get<Record<string, number>>('@stockByName').then((stockByName) => {
     expect(stockByName[drugName]).to.equal(expectedStock);
   });
+});
+
+Then('el sistema debe mostrar un mensaje de error flotante con el texto {string}', (message: string) => {
+  cy.get('c-toast .customToastBody').contains(message).should('be.visible');
+});
+
+Then('el sistema debe impedir la acción y mostrar la alerta {string} con el texto {string}', (alertSelector: string, message: string) => {
+  cy.get(alertSelector).should('be.visible').and('contain.text', message);
+});
+
+Then('el botón {string} debe mantenerse deshabilitado', (selector: string) => {
+  cy.get('body').then(($body) => {
+    if ($body.find(selector).length > 0) {
+      cy.get(selector).should('be.disabled');
+    }
+  });
+});
+
+Given('el sistema rechazará la creación de la reserva con el error {string}', (errorMessage: string) => {
+  Cypress.env('reservationErrorIntercept', errorMessage);
+});
+
+When('intenta seleccionar la farmacia {string} en el buscador', (pharmacyName: string) => {
+  cy.get('#select-farmacia').select(pharmacyName);
+});
+
+Then('la selección debe revertirse automáticamente a {string}', (pharmacyName: string) => {
+  cy.get('#select-farmacia option:selected').should('have.text', pharmacyName);
+});
+
+Then('el campo email debe mostrar un error de validación visual', () => {
+  cy.get('#email').should('have.class', 'is-invalid');
+  cy.get('.invalid-feedback').should('be.visible').and('contain.text', 'El email ingresado no es válido');
+});
+
+When('hace clic en el botón {string} con mail invalido', (selector: string) => {
+  cy.get(selector).click();
+});
+
+Given('el sistema detecta que el usuario ya cuenta con {int} reservas activas', (count: number) => {
+  Cypress.env('reservationErrorIntercept', `No puedes tener más de ${count} reservas activas simultáneamente`);
+});
+
+Then('el sistema debe rechazar la solicitud mostrando un modal con el ID {string}', (modalSelector: string) => {
+  cy.get(modalSelector).should('be.visible');
+});
+
+Then('el modal debe contener el texto {string}', (text: string) => {
+  cy.contains(text).should('be.visible');
 });
 

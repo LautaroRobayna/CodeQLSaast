@@ -9,7 +9,6 @@ Background:
     And la "Farmacia Central" tiene el medicamento "Ibuprofeno 400mg" con stock de 3 unidades
     And la "Farmacia Central" tiene el medicamento "Amoxicilina 500mg" que requiere receta con stock de 5 unidades
     And existe la farmacia "Farmacia Norte" con el medicamento "Aspirina"
-    And esta logueado con email "carlos@example.com" y contrasenia "12345"
 
 Scenario: Creación exitosa de una reserva con medicamentos comunes
     Given un usuario no autenticado visita la página de reservas "/reservations/create"
@@ -26,3 +25,83 @@ Scenario: Creación exitosa de una reserva con medicamentos comunes
     And la base de datos debe registrar la reserva en estado "Pendiente"
     And el stock en backend de "Paracetamol 500mg" debe actualizarse a 7 unidades
     And el stock en backend de "Ibuprofeno 400mg" debe actualizarse a 1 unidad
+
+Scenario: Intento de reserva sin medicamentos
+    Given un usuario no autenticado visita la página de reservas "/reservations/create"
+    And selecciona la farmacia "Farmacia Central" de la lista desplegable "#select-farmacia"
+    Then el botón "#btn-confirmar-reserva" debe mantenerse deshabilitado
+
+Scenario: Intento de reserva superando el límite total de 15 unidades
+    Given un usuario no autenticado visita la página de reservas "/reservations/create"
+    And selecciona la farmacia "Farmacia Central" de la lista desplegable "#select-farmacia"
+    And agrega 5 unidades del medicamento "Paracetamol 500mg"
+    And agrega 5 unidades del medicamento "Amoxicilina 500mg"
+    And agrega 5 unidades del medicamento "Aspirina 500mg"
+    And el usuario intenta agregar 1 unidad de "Ibuprofeno 400mg"
+    When hace clic en el botón "#btn-agregar-reserva"
+    Then el sistema debe impedir la acción y mostrar la alerta "#alert-error" con el texto "La reserva no puede superar las 15 unidades totales"
+
+Scenario: Intento de reserva superando el límite de 5 unidades del mismo medicamento
+    Given un usuario no autenticado visita la página de reservas "/reservations/create"
+    And selecciona la farmacia "Farmacia Central" de la lista desplegable "#select-farmacia"
+    And el sistema debe permitir seleccionar como máximo 5 unidades por medicamento
+    When agrega 3 unidades del medicamento "Paracetamol 500mg"
+    And agrega 3 unidades del medicamento "Paracetamol 500mg"
+    Then el sistema debe mostrar un mensaje de error flotante con el texto "No se permiten más de 5 unidades del mismo medicamento"
+    And el botón "#btn-confirmar-reserva" debe mantenerse deshabilitado
+
+Scenario: Intento de adición que supera ambos límites simultáneamente
+    Given un usuario no autenticado visita la página de reservas "/reservations/create"
+    And selecciona la farmacia "Farmacia Central" de la lista desplegable "#select-farmacia"
+    And agrega 4 unidades del medicamento "Paracetamol 500mg"
+    And agrega 5 unidades del medicamento "Ibuprofeno 400mg"
+    And agrega 3 unidades del medicamento "Amoxicilina 500mg"
+    And el usuario intenta agregar 6 unidades de "Paracetamol 500mg"
+    When hace clic en el botón "#btn-agregar-reserva"
+    Then el sistema debe mostrar un mensaje de error flotante con el texto "No se permiten más de 5 unidades del mismo medicamento"
+    And el botón "#btn-confirmar-reserva" debe mantenerse deshabilitado
+
+Scenario: Intento de crear reserva que supera el stock disponible
+    Given un usuario no autenticado visita la página de reservas "/reservations/create"
+    And selecciona la farmacia "Farmacia Central" de la lista desplegable "#select-farmacia"
+    And agrega 4 unidades del medicamento "Ibuprofeno 400mg"
+    And el sistema rechazará la creación de la reserva con el error "La cantidad solicitada supera el stock disponible"
+    When completa el formulario de contacto con los siguientes datos:
+    | Input Selector      | Valor               |
+    | #nombre-completo    | Carlos Gómez        |
+    | #email              | carlos@example.com  |
+    And hace clic en el botón "#btn-confirmar-reserva"
+    Then el sistema debe mostrar un mensaje de error flotante con el texto "La cantidad solicitada supera el stock disponible"
+
+Scenario: Intento de reservar medicamentos de múltiples farmacias
+    Given un usuario no autenticado visita la página de reservas "/reservations/create"
+    And selecciona la farmacia "Farmacia Central" de la lista desplegable "#select-farmacia"
+    And agrega 3 unidades del medicamento "Paracetamol 500mg"
+    When intenta seleccionar la farmacia "Farmacia Norte" en el buscador
+    Then el sistema debe mostrar un mensaje de error flotante con el texto "Una reserva solo puede contener medicamentos de una única farmacia"
+    And la selección debe revertirse automáticamente a "Farmacia Central"
+
+Scenario: Intento de reserva con email inválido
+    Given un usuario no autenticado visita la página de reservas "/reservations/create"
+    And selecciona la farmacia "Farmacia Central" de la lista desplegable "#select-farmacia"
+    And agrega 3 unidades del medicamento "Paracetamol 500mg"
+    When completa el formulario de contacto con los siguientes datos:
+    | Input Selector      | Valor               |
+    | #nombre-completo    | Carlos Gómez        |
+    | #email              | email-invalido      |
+    And hace clic en el botón "#btn-confirmar-reserva" con mail invalido
+    Then el sistema debe mostrar un mensaje de error flotante con el texto "El email ingresado no es válido"
+    And el campo email debe mostrar un error de validación visual
+
+Scenario: Rechazo de reserva por superar el límite de 10 reservas activas
+    Given un usuario no autenticado visita la página de reservas "/reservations/create"
+    And selecciona la farmacia "Farmacia Central" de la lista desplegable "#select-farmacia"
+    And agrega 3 unidades del medicamento "Paracetamol 500mg"
+    And completa el formulario de contacto con los siguientes datos:
+    | Input Selector      | Valor               |
+    | #nombre-completo    | Carlos Gómez        |
+    | #email              | usuario.limite@example.com |
+    And el sistema detecta que el usuario ya cuenta con 10 reservas activas
+    When hace clic en el botón "#btn-confirmar-reserva"
+    Then el sistema debe rechazar la solicitud mostrando un modal con el ID "#modal-limite"
+    And el modal debe contener el texto "No puedes tener más de 10 reservas activas simultáneamente"

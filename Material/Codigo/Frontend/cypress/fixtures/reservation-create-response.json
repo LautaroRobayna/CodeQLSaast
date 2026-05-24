@@ -1,0 +1,9 @@
+{
+  "id": 123,
+  "status": "Pendiente",
+  "publicKey": "PUB-12345",
+  "items": [
+    { "drugName": "Paracetamol 500mg", "quantity": 3 },
+    { "drugName": "Ibuprofeno 400mg", "quantity": 2 }
+  ]
+}
