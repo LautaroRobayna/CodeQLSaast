@@ -31,7 +31,7 @@ Given('selecciona la farmacia {string} de la lista desplegable {string}', (pharm
   cy.wait('@getDrugs');
 });
 
-When(/^agrega (\d+) unidades? del medicamento "([^"]+)"$/, (quantity: number, drugName: string) => {
+When(/^agrega (\d+) unidad(?:es)? del medicamento "([^"]+)"$/, (quantity: number, drugName: string) => {
   cy.contains('td', drugName)
     .parents('tr')
     .within(() => {
