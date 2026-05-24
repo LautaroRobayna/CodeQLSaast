@@ -23,7 +23,7 @@
             "name": "que el sistema tiene cargada la farmacia \"Farmacia Central\"",
             "result": {
               "status": "passed",
-              "duration": 39000000
+              "duration": 55000000
             }
           },
           {
@@ -33,7 +33,7 @@
             "name": "la \"Farmacia Central\" tiene el medicamento \"Amoxicilina 500mg\" que requiere receta con stock de 5 unidades",
             "result": {
               "status": "passed",
-              "duration": 2000000
+              "duration": 3000000
             }
           },
           {
@@ -43,7 +43,7 @@
             "name": "un usuario no autenticado visita la página de reservas \"/reservations/create\"",
             "result": {
               "status": "passed",
-              "duration": 1029000000
+              "duration": 160000000
             }
           },
           {
@@ -53,7 +53,7 @@
             "name": "selecciona la farmacia \"Farmacia Central\" de la lista desplegable \"#select-farmacia\"",
             "result": {
               "status": "passed",
-              "duration": 384000000
+              "duration": 174000000
             }
           },
           {
@@ -63,7 +63,7 @@
             "name": "agrega 1 unidad del medicamento \"Amoxicilina 500mg\"",
             "result": {
               "status": "passed",
-              "duration": 332000000
+              "duration": 330000000
             }
           },
           {
@@ -73,7 +73,7 @@
             "name": "la fila del medicamento debe mostrar la etiqueta \".tag-receta-requerida\" con el texto \"Requiere Receta\"",
             "result": {
               "status": "passed",
-              "duration": 7000000
+              "duration": 44000000
             }
           },
           {
@@ -83,7 +83,7 @@
             "name": "debe mostrarse el contenedor de carga de archivos \"#upload-zone-receta\"",
             "result": {
               "status": "passed",
-              "duration": 6000000
+              "duration": 8000000
             }
           }
         ]
@@ -103,7 +103,7 @@
             "name": "que el sistema tiene cargada la farmacia \"Farmacia Central\"",
             "result": {
               "status": "passed",
-              "duration": 41000000
+              "duration": 43000000
             }
           },
           {
@@ -123,7 +123,7 @@
             "name": "un usuario no autenticado visita la página de reservas \"/reservations/create\"",
             "result": {
               "status": "passed",
-              "duration": 107000000
+              "duration": 88000000
             }
           },
           {
@@ -133,7 +133,7 @@
             "name": "selecciona la farmacia \"Farmacia Central\" de la lista desplegable \"#select-farmacia\"",
             "result": {
               "status": "passed",
-              "duration": 170000000
+              "duration": 200000000
             }
           },
           {
@@ -143,7 +143,7 @@
             "name": "agrega 1 unidad del medicamento \"Amoxicilina 500mg\"",
             "result": {
               "status": "passed",
-              "duration": 329000000
+              "duration": 411000000
             }
           },
           {
@@ -153,7 +153,7 @@
             "name": "completa el formulario con nombre \"Carlos Gómez\" y email \"carlos@example.com\"",
             "result": {
               "status": "passed",
-              "duration": 816000000
+              "duration": 799000000
             }
           },
           {
@@ -163,7 +163,7 @@
             "name": "arrastra el archivo \"receta_medica_2026.pdf\" al elemento input \"#file-receta\"",
             "result": {
               "status": "passed",
-              "duration": 27000000
+              "duration": 46000000
             }
           },
           {
@@ -173,7 +173,7 @@
             "name": "hace clic en el botón \"#btn-confirmar-reserva\"",
             "result": {
               "status": "passed",
-              "duration": 93000000
+              "duration": 92000000
             }
           },
           {
@@ -183,7 +183,7 @@
             "name": "la reserva debe crearse con la etiqueta de estado \".estado-badge\" conteniendo el texto \"Pendiente\"",
             "result": {
               "status": "passed",
-              "duration": 5000000
+              "duration": 4000000
             }
           },
           {
@@ -213,7 +213,7 @@
             "name": "que el sistema tiene cargada la farmacia \"Farmacia Central\"",
             "result": {
               "status": "passed",
-              "duration": 27000000
+              "duration": 28000000
             }
           },
           {
@@ -223,7 +223,7 @@
             "name": "la \"Farmacia Central\" tiene el medicamento \"Amoxicilina 500mg\" que requiere receta con stock de 5 unidades",
             "result": {
               "status": "passed",
-              "duration": 3000000
+              "duration": 2000000
             }
           },
           {
@@ -233,7 +233,7 @@
             "name": "un usuario no autenticado visita la página de reservas \"/reservations/create\"",
             "result": {
               "status": "passed",
-              "duration": 82000000
+              "duration": 84000000
             }
           },
           {
@@ -243,7 +243,7 @@
             "name": "selecciona la farmacia \"Farmacia Central\" de la lista desplegable \"#select-farmacia\"",
             "result": {
               "status": "passed",
-              "duration": 180000000
+              "duration": 190000000
             }
           },
           {
@@ -253,7 +253,7 @@
             "name": "agrega 3 unidades del medicamento \"Paracetamol 500mg\"",
             "result": {
               "status": "passed",
-              "duration": 349000000
+              "duration": 338000000
             }
           },
           {
@@ -263,7 +263,7 @@
             "name": "el contenedor \"#upload-zone-receta\" no debe ser visible",
             "result": {
               "status": "passed",
-              "duration": 4000000
+              "duration": 3000000
             }
           }
         ]
@@ -293,7 +293,7 @@
             "name": "la \"Farmacia Central\" tiene el medicamento \"Amoxicilina 500mg\" que requiere receta con stock de 5 unidades",
             "result": {
               "status": "passed",
-              "duration": 3000000
+              "duration": 2000000
             }
           },
           {
@@ -303,7 +303,7 @@
             "name": "un usuario no autenticado visita la página de reservas \"/reservations/create\"",
             "result": {
               "status": "passed",
-              "duration": 81000000
+              "duration": 91000000
             }
           },
           {
@@ -313,7 +313,7 @@
             "name": "selecciona la farmacia \"Farmacia Central\" de la lista desplegable \"#select-farmacia\"",
             "result": {
               "status": "passed",
-              "duration": 184000000
+              "duration": 181000000
             }
           },
           {
@@ -323,7 +323,7 @@
             "name": "agrega 2 unidades del medicamento \"Paracetamol 500mg\"",
             "result": {
               "status": "passed",
-              "duration": 339000000
+              "duration": 365000000
             }
           },
           {
@@ -333,7 +333,7 @@
             "name": "agrega 1 unidad del medicamento \"Amoxicilina 500mg\"",
             "result": {
               "status": "passed",
-              "duration": 333000000
+              "duration": 352000000
             }
           },
           {
@@ -343,7 +343,7 @@
             "name": "la fila del medicamento \"Amoxicilina 500mg\" debe mostrar la etiqueta \".tag-receta-requerida\" con el texto \"Requiere Receta\"",
             "result": {
               "status": "passed",
-              "duration": 9000000
+              "duration": 8000000
             }
           },
           {
@@ -373,7 +373,7 @@
             "name": "que el sistema tiene cargada la farmacia \"Farmacia Central\"",
             "result": {
               "status": "passed",
-              "duration": 38000000
+              "duration": 37000000
             }
           },
           {
@@ -403,7 +403,7 @@
             "name": "el cliente visita la página \"/reservations\"",
             "result": {
               "status": "passed",
-              "duration": 121000000
+              "duration": 75000000
             }
           },
           {
@@ -413,7 +413,7 @@
             "name": "ingresa la clave pública \"CLAVE-PUBLICA-TEST\" en el campo \"#public-key-input\"",
             "result": {
               "status": "passed",
-              "duration": 446000000
+              "duration": 433000000
             }
           },
           {
@@ -423,7 +423,7 @@
             "name": "hace clic en \"#btn-buscar-reserva\"",
             "result": {
               "status": "passed",
-              "duration": 89000000
+              "duration": 84000000
             }
           },
           {
@@ -433,7 +433,7 @@
             "name": "arrastra el archivo \"receta_medica_2026.pdf\" al elemento input \"#file-receta-post\"",
             "result": {
               "status": "passed",
-              "duration": 25000000
+              "duration": 26000000
             }
           },
           {
@@ -443,7 +443,7 @@
             "name": "hace clic en el botón \"#btn-subir-receta\"",
             "result": {
               "status": "passed",
-              "duration": 88000000
+              "duration": 83000000
             }
           },
           {
