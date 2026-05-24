@@ -65,6 +65,62 @@ namespace PharmaGo.Test.BusinessLogic.Test
         }
 
         [TestMethod]
+        public void CreateReservation_WithPrescriptionDrug_SetsRequiresPrescription()
+        {
+            var pharmacy = new Pharmacy { Id = 1, Name = "Test Pharmacy" };
+            var drug = new Drug { Id = 1, Code = "AMO-500", Name = "Amoxicilina 500mg", Stock = 10, Prescription = true, Pharmacy = pharmacy };
+
+            var reservation = new Reservation
+            {
+                PharmacyId = 1,
+                UserEmail = "test@user.com",
+                Details = new List<ReservationDetail>
+                {
+                    new ReservationDetail { DrugCode = "AMO-500", Quantity = 2 }
+                }
+            };
+
+            _pharmacyRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Pharmacy, bool>>>())).Returns(pharmacy);
+            _drugRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Drug, bool>>>())).Returns(drug);
+            _reservationRepository.Setup(r => r.InsertOne(It.IsAny<Reservation>()));
+            _drugRepository.Setup(r => r.UpdateOne(It.IsAny<Drug>()));
+
+            var result = _reservationManager.Create(reservation);
+
+            Assert.IsTrue(result.RequiresPrescription);
+            _reservationRepository.Verify(r => r.InsertOne(It.IsAny<Reservation>()), Times.Once);
+            _reservationRepository.Verify(r => r.Save(), Times.Once);
+        }
+
+        [TestMethod]
+        public void CreateReservation_WithoutPrescriptionDrug_DoesNotSetRequiresPrescription()
+        {
+            var pharmacy = new Pharmacy { Id = 1, Name = "Test Pharmacy" };
+            var drug = new Drug { Id = 1, Code = "PAR-500", Name = "Paracetamol 500mg", Stock = 10, Prescription = false, Pharmacy = pharmacy };
+
+            var reservation = new Reservation
+            {
+                PharmacyId = 1,
+                UserEmail = "test@user.com",
+                Details = new List<ReservationDetail>
+                {
+                    new ReservationDetail { DrugCode = "PAR-500", Quantity = 3 }
+                }
+            };
+
+            _pharmacyRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Pharmacy, bool>>>())).Returns(pharmacy);
+            _drugRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Drug, bool>>>())).Returns(drug);
+            _reservationRepository.Setup(r => r.InsertOne(It.IsAny<Reservation>()));
+            _drugRepository.Setup(r => r.UpdateOne(It.IsAny<Drug>()));
+
+            var result = _reservationManager.Create(reservation);
+
+            Assert.IsFalse(result.RequiresPrescription);
+            _reservationRepository.Verify(r => r.InsertOne(It.IsAny<Reservation>()), Times.Once);
+            _reservationRepository.Verify(r => r.Save(), Times.Once);
+        }
+
+        [TestMethod]
         public void CreateReservation_NullReservation_ThrowsInvalidResourceException()
         {
             var ex = Assert.ThrowsException<InvalidResourceException>(() => _reservationManager.Create(null));

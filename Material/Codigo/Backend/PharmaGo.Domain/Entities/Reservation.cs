@@ -14,5 +14,6 @@ namespace PharmaGo.Domain.Entities
         public DateTime ReservationDate { get; set; }
         public ReservationStatus Status { get; set; }
         public bool HasRecipe { get; set; }
+        public bool RequiresPrescription { get; set; }
     }
 }

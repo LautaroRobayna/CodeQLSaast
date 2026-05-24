@@ -7,6 +7,7 @@
     "userEmail": "nosubio@example.com",
     "reservationDate": "2026-05-23T13:00:00",
     "hasRecipe": false,
+    "requiresPrescription": true,
     "recipeFiles": [],
     "details": [
       { "id": 4, "drugCode": "AMO-500", "drugName": "Amoxicilina 500mg", "quantity": 2 }

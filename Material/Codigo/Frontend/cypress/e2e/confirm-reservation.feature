@@ -41,9 +41,7 @@ Scenario: Confirmación exitosa de una reserva pendiente por un empleado de farm
     And hace clic en "#btn-validar-reservas" para ir a la gestión de reservas
     And se encuentra en la página de validación "/employee/validate-reservations"
     And selecciona la reserva "RES-NO-UPLOAD" de la lista de pendientes
-    When confirma la reserva y la operacion falla
-    Then el sistema debe mostrar un mensaje modal con el texto "Error al confirmar la reserva"
-    And la reserva "RES-NO-UPLOAD" debe permanecer en la lista de pendientes
+    Then el boton "#btn-confirmar-reserva-sistema" debe estar deshabilitado
 
   Scenario: Cancelación de reserva sin receta médica
     Given una reserva pendiente sin receta médica

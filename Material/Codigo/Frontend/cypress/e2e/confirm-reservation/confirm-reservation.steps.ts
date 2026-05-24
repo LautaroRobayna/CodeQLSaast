@@ -150,27 +150,6 @@ Given('una reserva pendiente que requiere receta médica pero no tiene receta ad
   }).as('listaReservasPendientes');
 });
 
-When('confirma la reserva y la operacion falla', () => {
-  cy.get('@reservaSeleccionada').then((reserva: any) => {
-    cy.intercept('PUT', `**/api/reservation/${reserva.codigo}/confirm`, {
-      statusCode: 400,
-      body: { Message: "La reserva requiere receta médica" }
-    }).as('confirmacionFallida');
-  });
-
-  cy.get('@reservaSeleccionada').then((reserva: any) => {
-    cy.intercept('GET', '**/api/reservation/pending', {
-      statusCode: 200,
-      fixture: 'reservations-requires-recipe-no-upload.json'
-    }).as('pendientesTrasFallar');
-  });
-
-  cy.get('#btn-confirmar-reserva-sistema').click();
-  cy.wait('@confirmacionFallida');
-});
-
-Then('la reserva {string} debe permanecer en la lista de pendientes', (codigoReserva: string) => {
-  cy.wait('@pendientesTrasFallar').then(() => {
-    cy.contains(codigoReserva).should('be.visible');
-  });
+Then('el boton {string} debe estar deshabilitado', (selector: string) => {
+  cy.get(selector).should('be.disabled');
 });

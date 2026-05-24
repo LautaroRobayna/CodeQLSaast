@@ -78,6 +78,9 @@ namespace PharmaGo.BusinessLogic
                 var drug = _drugRepository.GetOneByExpression(d => d.Code == detail.DrugCode);
                 if (drug != null)
                 {
+                    if (drug.Prescription)
+                        reservation.RequiresPrescription = true;
+
                     if (drug.Pharmacy?.Id != reservation.PharmacyId)
                     {
                         throw new InvalidResourceException("Una reserva solo puede contener medicamentos de una unica farmacia");

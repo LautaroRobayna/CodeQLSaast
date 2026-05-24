@@ -5,5 +5,8 @@
   "pharmacyId": 1,
   "userEmail": "cliente@example.com",
   "reservationDate": "2026-05-23T10:00:00",
+  "hasRecipe": true,
+  "requiresPrescription": true,
+  "recipeFiles": [],
   "details": []
 }
