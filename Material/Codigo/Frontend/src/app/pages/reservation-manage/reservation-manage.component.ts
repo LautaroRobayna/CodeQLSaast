@@ -15,7 +15,10 @@ export class ReservationManageComponent {
   constructor(private reservationService: ReservationService) {}
 
   searchReservation(): void {
-    if (!this.publicKey.trim()) return;
+    if (!this.publicKey.trim()) {
+      this.errorMessage = 'Por favor ingresá una clave pública.';
+      return;
+    }
     this.reservation = null;
     this.errorMessage = '';
     this.reservationService.getByPublicKey(this.publicKey).subscribe(res => {
