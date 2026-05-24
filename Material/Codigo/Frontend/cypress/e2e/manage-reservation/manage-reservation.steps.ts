@@ -100,3 +100,7 @@ Then('debe mostrar la fecha de expiración {string}', (date: string) => {
 Then('debe mostrar el mensaje de error {string}', (message: string) => {
   cy.get('[data-cy=error-message]').should('contain', message);
 });
+
+Then('no debe mostrar ningún aviso de receta faltante', () => {
+  cy.get('[data-cy=prescription-warning]').should('not.exist');
+});

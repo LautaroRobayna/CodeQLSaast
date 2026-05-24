@@ -53,3 +53,11 @@ Scenario: Búsqueda con campo de clave pública vacío
     Given el cliente visita la página "/reservations"
     When hace clic en "#btn-buscar-reserva"
     Then debe mostrar el mensaje de error "Por favor ingresá una clave pública."
+
+Scenario: Visualización de una reserva en estado "Pendiente" sin medicamentos que requieren receta
+    Given existe una reserva en estado "Pendiente" con clave pública "CLAVE-SIN-RECETA-TEST" y fecha de expiración "2026-06-15"
+    And el cliente visita la página "/reservations"
+    When ingresa la clave pública "CLAVE-SIN-RECETA-TEST" en el campo "#public-key-input"
+    And hace clic en "#btn-buscar-reserva"
+    Then el sistema debe mostrar la reserva en estado "Pendiente"
+    And no debe mostrar ningún aviso de receta faltante
