@@ -15,6 +15,7 @@ namespace PharmaGo.WebApi.Models.Out
         public DateTime ReservationDate { get; set; }
         public string Status { get; set; }
         public DateTime ExpirationDate { get; set; }
+        public bool PrescriptionUploaded { get; set; }
 
         public ReservationModelResponse(Reservation reservation)
         {
@@ -33,6 +34,7 @@ namespace PharmaGo.WebApi.Models.Out
             ReservationDate = reservation.ReservationDate;
             Status = reservation.Status.ToString();
             ExpirationDate = reservation.ReservationDate.AddDays(30);
+            PrescriptionUploaded = !string.IsNullOrEmpty(reservation.PrescriptionBase64);
         }
 
         public class ReservationDetailModelResponse

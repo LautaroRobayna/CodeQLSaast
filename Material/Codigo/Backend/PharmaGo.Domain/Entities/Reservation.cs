@@ -13,5 +13,7 @@ namespace PharmaGo.Domain.Entities
         public string UserEmail { get; set; }
         public DateTime ReservationDate { get; set; }
         public ReservationStatus Status { get; set; }
+        public string? PrescriptionBase64 { get; set; }
+        public string? PrescriptionFileName { get; set; }
     }
 }

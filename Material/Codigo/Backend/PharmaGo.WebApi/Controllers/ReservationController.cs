@@ -33,6 +33,8 @@ namespace PharmaGo.WebApi.Controllers
             {
                 PharmacyId = reservationModel.PharmacyId,
                 UserEmail = reservationModel.UserEmail,
+                PrescriptionBase64 = reservationModel.PrescriptionBase64,
+                PrescriptionFileName = reservationModel.PrescriptionFileName,
                 Details = reservationModel.Details.Select(d => new ReservationDetail
                 {
                     DrugCode = d.DrugCode,
