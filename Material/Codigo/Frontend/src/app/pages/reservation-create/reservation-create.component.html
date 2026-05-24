@@ -48,13 +48,27 @@
         <h5>Detalle de la Reserva</h5>
         <ul *ngIf="reservationDetails.length > 0; else noDetails" class="list-group mb-3">
           <li *ngFor="let item of reservationDetails; let i = index" class="list-group-item d-flex justify-content-between align-items-center">
-            {{ item.name }} x {{ item.quantity }}
+            <span>
+              {{ item.name }} x {{ item.quantity }}
+              <span *ngIf="item.requiresPrescription" class="tag-receta-requerida badge bg-warning text-dark ms-2">Requiere Receta</span>
+            </span>
             <button class="btn btn-danger btn-sm" (click)="removeDetail(i)">Eliminar</button>
           </li>
         </ul>
         <ng-template #noDetails>
           <p class="text-muted">No has agregado medicamentos aún.</p>
         </ng-template>
+
+        <div *ngIf="anyRequiresPrescription" id="upload-zone-receta" class="alert alert-warning mt-3">
+          <strong>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill me-1" viewBox="0 0 16 16">
+              <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+            </svg>
+            Receta requerida
+          </strong>
+          <p class="mb-2">Uno o más medicamentos requieren receta médica. Subí el PDF antes de confirmar.</p>
+          <input type="file" id="file-receta" accept=".pdf" class="form-control form-control-sm">
+        </div>
 
         <form *ngIf="reservationDetails.length > 0">
           <div class="mb-3">

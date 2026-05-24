@@ -1,0 +1,93 @@
+[
+  {
+    "description": "    Como cliente\n    Quiero subir una receta médica a una reserva\n    Para poder reservar medicamentos que requieren prescripción",
+    "keyword": "Feature",
+    "name": "Subir receta médica a una reserva",
+    "line": 1,
+    "id": "subir-receta-médica-a-una-reserva",
+    "tags": [],
+    "uri": "upload-prescription.feature",
+    "elements": [
+      {
+        "id": "subir-receta-médica-a-una-reserva;identificación-visual-de-medicamento-que-requiere-receta-médica",
+        "keyword": "Scenario",
+        "line": 10,
+        "name": "Identificación visual de medicamento que requiere receta médica",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "que el sistema tiene cargada la farmacia \"Farmacia Central\"",
+            "result": {
+              "status": "passed",
+              "duration": 51000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "la \"Farmacia Central\" tiene el medicamento \"Amoxicilina 500mg\" que requiere receta con stock de 5 unidades",
+            "result": {
+              "status": "passed",
+              "duration": 5000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 11,
+            "name": "un usuario no autenticado visita la página de reservas \"/reservations/create\"",
+            "result": {
+              "status": "passed",
+              "duration": 1306000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 12,
+            "name": "selecciona la farmacia \"Farmacia Central\" de la lista desplegable \"#select-farmacia\"",
+            "result": {
+              "status": "passed",
+              "duration": 693000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 13,
+            "name": "agrega 1 unidad del medicamento \"Amoxicilina 500mg\"",
+            "result": {
+              "status": "passed",
+              "duration": 652000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 14,
+            "name": "la fila del medicamento debe mostrar la etiqueta \".tag-receta-requerida\" con el texto \"Requiere Receta\"",
+            "result": {
+              "status": "passed",
+              "duration": 14000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 15,
+            "name": "debe mostrarse el contenedor de carga de archivos \"#upload-zone-receta\"",
+            "result": {
+              "status": "passed",
+              "duration": 13000000
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

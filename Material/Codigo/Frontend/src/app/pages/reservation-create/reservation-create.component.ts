@@ -18,7 +18,7 @@ export class ReservationCreateComponent implements OnInit {
   availableDrugs: Drug[] = [];
   drugQuantities: { [key: string]: number } = {};
 
-  reservationDetails: { drugCode: string, name: string, quantity: number }[] = [];
+  reservationDetails: { drugCode: string, name: string, quantity: number, requiresPrescription: boolean }[] = [];
   userName: string = "";
   userEmail: string = "";
   successMessage: string = "";
@@ -55,11 +55,16 @@ export class ReservationCreateComponent implements OnInit {
       this.reservationDetails.push({
         drugCode: drug.code,
         name: drug.name,
-        quantity: qty
+        quantity: qty,
+        requiresPrescription: drug.prescription
       });
     } else {
       this.commonService.updateToastData("Cantidad inválida", "warning", "Atención");
     }
+  }
+
+  get anyRequiresPrescription(): boolean {
+    return this.reservationDetails.some(d => d.requiresPrescription);
   }
 
   removeDetail(index: number): void {
