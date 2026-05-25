@@ -619,5 +619,15 @@ namespace PharmaGo.Test.WebApi.Test
 
             _reservationController.CancelReservation("CLAVE-CANCEL-YA-CANCELADA");
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidResourceException))]
+        public void PutCancelReservation_Expired_Throws()
+        {
+            _reservationManagerMock.Setup(x => x.CancelReservation("CLAVE-CANCEL-EXPIRADA"))
+                .Throws(new InvalidResourceException("La reserva se encuentra expirada"));
+
+            _reservationController.CancelReservation("CLAVE-CANCEL-EXPIRADA");
+        }
     }
 }

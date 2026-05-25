@@ -208,6 +208,8 @@ namespace PharmaGo.BusinessLogic
                 throw new ResourceNotFoundException("Reservation not found");
             if (reservation.Status == ReservationStatus.Cancelled)
                 throw new InvalidResourceException("La reserva ya se encuentra cancelada");
+            if (reservation.Status == ReservationStatus.Expired)
+                throw new InvalidResourceException("La reserva se encuentra expirada");
 
             reservation.Status = ReservationStatus.Cancelled;
             _reservationRepository.UpdateOne(reservation);

@@ -734,6 +734,28 @@ namespace PharmaGo.Test.BusinessLogic.Test
         }
 
         [TestMethod]
+        public void CancelReservation_Expired_Throws()
+        {
+            var reservation = new Reservation
+            {
+                Id = 1,
+                Code = "RES-001",
+                PublicKey = "CLAVE-CANCEL-EXPIRADA",
+                Status = ReservationStatus.Expired,
+                PharmacyId = 1,
+                UserEmail = "cliente@example.com",
+                Details = new List<ReservationDetail>()
+            };
+
+            _reservationRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Reservation, bool>>>()))
+                .Returns(reservation);
+
+            var ex = Assert.ThrowsException<InvalidResourceException>(() =>
+                _reservationManager.CancelReservation("CLAVE-CANCEL-EXPIRADA"));
+            Assert.AreEqual("La reserva se encuentra expirada", ex.Message);
+        }
+
+        [TestMethod]
         public void CancelReservation_NotFound_Throws()
         {
             _reservationRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Reservation, bool>>>()))
