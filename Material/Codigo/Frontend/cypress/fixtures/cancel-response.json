@@ -1,0 +1,17 @@
+{
+  "id": 1,
+  "code": "RES-001",
+  "publicKey": "CLAVE-CANCEL-TEST",
+  "status": "Cancelled",
+  "pharmacyId": 1,
+  "userEmail": "cliente@example.com",
+  "reservationDate": "2026-05-23T10:00:00",
+  "expirationDate": "2026-06-22",
+  "hasRecipe": false,
+  "requiresPrescription": false,
+  "recipeFiles": [],
+  "prescriptionUploaded": false,
+  "details": [
+    { "id": 1, "drugCode": "PAR-500", "drugName": "Paracetamol 500mg", "quantity": 3, "requiresPrescription": false }
+  ]
+}
