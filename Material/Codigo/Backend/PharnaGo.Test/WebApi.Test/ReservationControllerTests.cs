@@ -609,5 +609,15 @@ namespace PharmaGo.Test.WebApi.Test
 
             _reservationController.CancelReservation("NONEXISTENT");
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidResourceException))]
+        public void PutCancelReservation_AlreadyCancelled_Throws()
+        {
+            _reservationManagerMock.Setup(x => x.CancelReservation("CLAVE-CANCEL-YA-CANCELADA"))
+                .Throws(new InvalidResourceException("La reserva ya se encuentra cancelada"));
+
+            _reservationController.CancelReservation("CLAVE-CANCEL-YA-CANCELADA");
+        }
     }
 }

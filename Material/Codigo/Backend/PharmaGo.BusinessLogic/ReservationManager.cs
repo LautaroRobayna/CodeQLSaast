@@ -206,6 +206,8 @@ namespace PharmaGo.BusinessLogic
             var reservation = _reservationRepository.GetOneByExpression(r => r.PublicKey == publicKey);
             if (reservation == null)
                 throw new ResourceNotFoundException("Reservation not found");
+            if (reservation.Status == ReservationStatus.Cancelled)
+                throw new InvalidResourceException("La reserva ya se encuentra cancelada");
 
             reservation.Status = ReservationStatus.Cancelled;
             _reservationRepository.UpdateOne(reservation);

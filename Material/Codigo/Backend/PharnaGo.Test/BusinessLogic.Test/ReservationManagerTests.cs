@@ -688,7 +688,7 @@ namespace PharmaGo.Test.BusinessLogic.Test
         }
 
         [TestMethod]
-        public void CancelReservation_AlreadyCancelled_Ok()
+        public void CancelReservation_AlreadyCancelled_Throws()
         {
             var reservation = new Reservation
             {
@@ -704,11 +704,9 @@ namespace PharmaGo.Test.BusinessLogic.Test
             _reservationRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Reservation, bool>>>()))
                 .Returns(reservation);
 
-            var result = _reservationManager.CancelReservation("CLAVE-CANCEL-TEST");
-
-            Assert.AreEqual(ReservationStatus.Cancelled, result.Status);
-            _reservationRepository.Verify(r => r.UpdateOne(It.Is<Reservation>(res => res.Status == ReservationStatus.Cancelled)), Times.Once);
-            _reservationRepository.Verify(r => r.Save(), Times.Once);
+            var ex = Assert.ThrowsException<InvalidResourceException>(() =>
+                _reservationManager.CancelReservation("CLAVE-CANCEL-TEST"));
+            Assert.AreEqual("La reserva ya se encuentra cancelada", ex.Message);
         }
 
         [TestMethod]
