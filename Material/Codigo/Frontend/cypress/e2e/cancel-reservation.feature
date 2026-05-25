@@ -29,3 +29,9 @@ Scenario: Cancelación no permitida de una reserva ya cancelada
     And ingresa la clave pública "CLAVE-CANCEL-YA-CANCELADA" en el campo "#public-key-input"
     And hace clic en "#btn-buscar-reserva"
     Then el botón "#btn-cancelar-reserva" no debe estar visible
+
+Scenario: Cancelación no permitida de una reserva expirada
+    Given existe una reserva en estado "Expired" con clave pública "CLAVE-CANCEL-EXPIRADA" y fecha de expiración "2026-05-01"
+    And ingresa la clave pública "CLAVE-CANCEL-EXPIRADA" en el campo "#public-key-input"
+    And hace clic en "#btn-buscar-reserva"
+    Then el botón "#btn-cancelar-reserva" no debe estar visible
