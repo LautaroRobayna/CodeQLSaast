@@ -1,18 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpErrorResponse } from '@angular/common/http';
-import { Observable, timer, throwError } from 'rxjs';
-import { retry } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
+import { RetryQueueService } from './retry-queue.service';
 
 const CONFIG_URL = 'assets/config.json';
-
-interface RetryConfig {
-  maxRetries: number;
-  baseDelay: number;
-}
-
-let fileConfig: RetryConfig | null = null;
-let fileConfigPromise: Promise<void> | null = null;
+let fileConfig: { maxRetries: number; baseDelay: number } | null = null;
 
 async function loadFileConfig(): Promise<void> {
   try {
@@ -24,21 +18,16 @@ async function loadFileConfig(): Promise<void> {
   }
 }
 
-function readConfig(): RetryConfig {
-  if (fileConfig) {
-    return fileConfig;
-  }
-  const env = environment.retryConfig ?? {};
-  return {
-    maxRetries: env.maxRetries ?? 0,
-    baseDelay: env.baseDelay ?? 1000,
-  };
+function readConfig() {
+  return fileConfig ?? environment.retryConfig ?? { maxRetries: 0, baseDelay: 1000 };
 }
 
-fileConfigPromise = loadFileConfig();
+loadFileConfig();
 
 @Injectable()
 export class RetryInterceptor implements HttpInterceptor {
+
+  constructor(private queueService: RetryQueueService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const config = readConfig();
@@ -47,15 +36,11 @@ export class RetryInterceptor implements HttpInterceptor {
     }
 
     return next.handle(req).pipe(
-      retry({
-        count: config.maxRetries,
-        delay: (error: HttpErrorResponse, retryCount: number) => {
-          if (error.status >= 400 && error.status < 500) {
-            return throwError(() => error);
-          }
-          const delayMs = config.baseDelay * Math.pow(2, retryCount);
-          return timer(delayMs);
+      catchError((error: HttpErrorResponse) => {
+        if (error.status >= 400 && error.status < 500) {
+          return throwError(() => error);
         }
+        return this.queueService.enqueue(req, config);
       })
     );
   }
