@@ -545,5 +545,89 @@ namespace PharmaGo.Test.WebApi.Test
 
             _reservationController.RejectReservation("RES-999");
         }
+
+        [TestMethod]
+        public void PutCancelReservation_Pending_Ok()
+        {
+            var reservation = new Reservation
+            {
+                Id = 1,
+                Code = "RES-001",
+                PublicKey = "CLAVE-CANCEL-TEST",
+                Status = ReservationStatus.Cancelled,
+                PharmacyId = 1,
+                UserEmail = "cliente@example.com",
+                ReservationDate = DateTime.Now,
+                Details = new List<ReservationDetail>()
+            };
+
+            _reservationManagerMock.Setup(x => x.CancelReservation("CLAVE-CANCEL-TEST")).Returns(reservation);
+
+            var result = _reservationController.CancelReservation("CLAVE-CANCEL-TEST");
+            var objectResult = result as ObjectResult;
+
+            _reservationManagerMock.VerifyAll();
+            Assert.AreEqual(200, objectResult.StatusCode);
+            var response = objectResult.Value as ReservationModelResponse;
+            Assert.AreEqual("RES-001", response.Code);
+            Assert.AreEqual("Cancelled", response.Status);
+        }
+
+        [TestMethod]
+        public void PutCancelReservation_Confirmed_Ok()
+        {
+            var reservation = new Reservation
+            {
+                Id = 1,
+                Code = "RES-001",
+                PublicKey = "CLAVE-CANCEL-CONFIRMADA",
+                Status = ReservationStatus.Cancelled,
+                PharmacyId = 1,
+                UserEmail = "cliente@example.com",
+                ReservationDate = DateTime.Now,
+                Details = new List<ReservationDetail>()
+            };
+
+            _reservationManagerMock.Setup(x => x.CancelReservation("CLAVE-CANCEL-CONFIRMADA")).Returns(reservation);
+
+            var result = _reservationController.CancelReservation("CLAVE-CANCEL-CONFIRMADA");
+            var objectResult = result as ObjectResult;
+
+            _reservationManagerMock.VerifyAll();
+            Assert.AreEqual(200, objectResult.StatusCode);
+            var response = objectResult.Value as ReservationModelResponse;
+            Assert.AreEqual("RES-001", response.Code);
+            Assert.AreEqual("Cancelled", response.Status);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ResourceNotFoundException))]
+        public void PutCancelReservation_NotFound_Throws()
+        {
+            _reservationManagerMock.Setup(x => x.CancelReservation("NONEXISTENT"))
+                .Throws(new ResourceNotFoundException("Reservation not found"));
+
+            _reservationController.CancelReservation("NONEXISTENT");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidResourceException))]
+        public void PutCancelReservation_AlreadyCancelled_Throws()
+        {
+            _reservationManagerMock.Setup(x => x.CancelReservation("CLAVE-CANCEL-YA-CANCELADA"))
+                .Throws(new InvalidResourceException("La reserva ya se encuentra cancelada"));
+
+            _reservationController.CancelReservation("CLAVE-CANCEL-YA-CANCELADA");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidResourceException))]
+        public void PutCancelReservation_Expired_Throws()
+        {
+            _reservationManagerMock.Setup(x => x.CancelReservation("CLAVE-CANCEL-EXPIRADA"))
+                .Throws(new InvalidResourceException("La reserva se encuentra expirada"));
+
+            _reservationController.CancelReservation("CLAVE-CANCEL-EXPIRADA");
+        }
     }
 }

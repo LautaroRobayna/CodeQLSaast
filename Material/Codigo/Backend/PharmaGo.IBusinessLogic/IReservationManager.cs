@@ -9,6 +9,7 @@ namespace PharmaGo.IBusinessLogic
         bool UploadPrescription(string publicKey, string prescriptionBase64, string prescriptionFileName);
         Reservation ConfirmReservation(string code);
         Reservation RejectReservation(string code);
+        Reservation CancelReservation(string publicKey);
         IEnumerable<Reservation> GetAllPending();
     }
 }

@@ -104,5 +104,12 @@ namespace PharmaGo.WebApi.Controllers
             var rejected = _reservationManager.RejectReservation(code);
             return Ok(new ReservationModelResponse(rejected));
         }
+
+        [HttpPut("cancel")]
+        public IActionResult CancelReservation([FromQuery] string publicKey)
+        {
+            var cancelled = _reservationManager.CancelReservation(publicKey);
+            return Ok(new ReservationModelResponse(cancelled));
+        }
     }
 }
