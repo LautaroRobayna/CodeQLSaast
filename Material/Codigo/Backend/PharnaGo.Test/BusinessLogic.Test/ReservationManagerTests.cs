@@ -763,6 +763,6 @@ namespace PharmaGo.Test.BusinessLogic.Test
 
             Assert.ThrowsException<ResourceNotFoundException>(() =>
                 _reservationManager.CancelReservation("NONEXISTENT"));
-        }       
+        }
     }
 }
