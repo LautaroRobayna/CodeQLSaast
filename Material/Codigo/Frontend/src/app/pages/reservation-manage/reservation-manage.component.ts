@@ -56,11 +56,17 @@ export class ReservationManageComponent {
   }
 
   get showCancelButton(): boolean {
-    return !!this.reservation &&
-      this.reservation.status !== 'Cancelled' &&
-      this.reservation.status !== 'Cancelada' &&
-      this.reservation.status !== 'Expired' &&
-      this.reservation.status !== 'Expirada'
+    if (!this.reservation) return false;
+
+    const blockedStatuses = ['Cancelled', 'Cancelada', 'Expired', 'Expirada'];
+    if (blockedStatuses.includes(this.reservation.status)) return false;
+
+    const expirationDate = new Date(this.reservation.expirationDate);
+    const now = new Date();
+    const daysUntilExpiration = Math.ceil((expirationDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+    if (daysUntilExpiration < 5) return false;
+
+    return true;
   }
 
   cancelReservation(): void {

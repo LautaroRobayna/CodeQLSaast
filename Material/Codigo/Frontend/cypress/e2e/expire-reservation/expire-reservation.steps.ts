@@ -102,24 +102,26 @@ When('el cliente busca su reserva con clave pública {string}', (publicKey: stri
   cy.wait('@getReservation');
 });
 
+Then('el sistema debe mostrar la reserva como {string}', (status: string) => {
+  cy.get('[data-cy=reservation-status]').should('contain', status);
+});
+
 When('el empleado solicita todas las reservas pendientes', () => {
   const pendingReservations = reservations.filter(r => r.status === 'Pending');
 
-  cy.intercept('GET', '**/api/reservation*', {
+  localStorage.setItem('login', JSON.stringify({ role: 'Employee', token: 'jwt-simulado-para-test' }));
+
+  cy.intercept('GET', '**/api/reservation/pending', {
     statusCode: 200,
     body: pendingReservations
   }).as('getAllPending');
-  cy.visit('http://localhost:4200/reservations/manage');
-  cy.wait('@getAllPending');
+  cy.visit('http://localhost:4200/employee/validate-reservations');
+  cy.wait('@getAllPending', { timeout: 10000 });
 });
 
-Then('solo debe aparecer la reserva {string}', (publicKey: string) => {
+Then('solo debe aparecer la reserva con código {string}', (code: string) => {
   cy.get('[data-cy=reservation-row]').should('have.length', 1);
-  cy.get('[data-cy=reservation-row]').should('contain', publicKey);
-});
-
-Then('el sistema debe mostrar la reserva como {string}', (status: string) => {
-  cy.get('[data-cy=reservation-status]').should('contain', status);
+  cy.get('[data-cy=reservation-row]').should('contain', code);
 });
 
 Then('el sistema debe mostrar el mensaje {string}', (message: string) => {

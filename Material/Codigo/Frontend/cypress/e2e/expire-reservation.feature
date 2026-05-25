@@ -15,7 +15,7 @@ Scenario: Expiración automática de una reserva pendiente después de 30 días
     Given existe una reserva pendiente creada hace 31 días con clave pública "EXP-ALL-001"
     And existe una reserva pendiente creada hace 5 días con clave pública "EXP-ALL-002"
     When el empleado solicita todas las reservas pendientes
-    Then solo debe aparecer la reserva "EXP-ALL-002"
+    Then solo debe aparecer la reserva con código "RES-EXP-002"
 
   Scenario: Una reserva confirmada se expira automáticamente
     Given existe una reserva confirmada creada hace 31 días con clave pública "CONF-EXP-001"

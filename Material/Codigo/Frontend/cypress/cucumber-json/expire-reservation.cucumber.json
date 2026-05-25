@@ -1,0 +1,253 @@
+[
+  {
+    "description": "    Como cliente\n    Quiero que las reservas pendientes expiren automáticamente después de 30 días\n    Para liberar el stock de medicamentos no retirados",
+    "keyword": "Feature",
+    "name": "Expiración de reservas",
+    "line": 1,
+    "id": "expiración-de-reservas",
+    "tags": [],
+    "uri": "expire-reservation.feature",
+    "elements": [
+      {
+        "id": "expiración-de-reservas;expiración-automática-de-una-reserva-pendiente-después-de-30-días",
+        "keyword": "Scenario",
+        "line": 6,
+        "name": "Expiración automática de una reserva pendiente después de 30 días",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "existe una reserva pendiente creada hace 31 días con clave pública \"CLAVE-EXPIRADA-TEST\"",
+            "result": {
+              "status": "passed",
+              "duration": 64000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "el cliente visita la página \"/reservations\"",
+            "result": {
+              "status": "passed",
+              "duration": 560000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 9,
+            "name": "ingresa la clave pública \"CLAVE-EXPIRADA-TEST\" en el campo \"#public-key-input\"",
+            "result": {
+              "status": "passed",
+              "duration": 466000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 10,
+            "name": "busca la reserva",
+            "result": {
+              "status": "passed",
+              "duration": 358000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 11,
+            "name": "el sistema debe mostrar la reserva como \"Expired\"",
+            "result": {
+              "status": "passed",
+              "duration": 14000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 12,
+            "name": "el sistema debe mostrar el mensaje \"Reserva expirada. El stock fue liberado.\"",
+            "result": {
+              "status": "passed",
+              "duration": 5000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "expiración-de-reservas;empleado-lista-reservas-pendientes-y-las-vencidas-ya-no-aparecen",
+        "keyword": "Scenario",
+        "line": 14,
+        "name": "Empleado lista reservas pendientes y las vencidas ya no aparecen",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 15,
+            "name": "existe una reserva pendiente creada hace 31 días con clave pública \"EXP-ALL-001\"",
+            "result": {
+              "status": "passed",
+              "duration": 40000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 16,
+            "name": "existe una reserva pendiente creada hace 5 días con clave pública \"EXP-ALL-002\"",
+            "result": {
+              "status": "passed",
+              "duration": 2000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 17,
+            "name": "el empleado solicita todas las reservas pendientes",
+            "result": {
+              "status": "passed",
+              "duration": 123000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 18,
+            "name": "solo debe aparecer la reserva con código \"RES-EXP-002\"",
+            "result": {
+              "status": "passed",
+              "duration": 9000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "expiración-de-reservas;una-reserva-confirmada-se-expira-automáticamente",
+        "keyword": "Scenario",
+        "line": 20,
+        "name": "Una reserva confirmada se expira automáticamente",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 21,
+            "name": "existe una reserva confirmada creada hace 31 días con clave pública \"CONF-EXP-001\"",
+            "result": {
+              "status": "passed",
+              "duration": 25000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 22,
+            "name": "el cliente busca su reserva con clave pública \"CONF-EXP-001\"",
+            "result": {
+              "status": "passed",
+              "duration": 498000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 23,
+            "name": "el sistema debe mostrar la reserva como \"Expired\"",
+            "result": {
+              "status": "passed",
+              "duration": 5000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "expiración-de-reservas;una-reserva-cancelada-no-se-expira-automáticamente",
+        "keyword": "Scenario",
+        "line": 25,
+        "name": "Una reserva cancelada no se expira automáticamente",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 26,
+            "name": "existe una reserva cancelada creada hace 31 días con clave pública \"CANC-EXP-001\"",
+            "result": {
+              "status": "passed",
+              "duration": 36000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 27,
+            "name": "el cliente busca su reserva con clave pública \"CANC-EXP-001\"",
+            "result": {
+              "status": "passed",
+              "duration": 503000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 28,
+            "name": "el sistema debe mostrar la reserva como \"Cancelled\"",
+            "result": {
+              "status": "passed",
+              "duration": 5000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "expiración-de-reservas;cancelación-bloqueada-si-faltan-menos-de-5-días-para-la-expiración",
+        "keyword": "Scenario",
+        "line": 30,
+        "name": "Cancelación bloqueada si faltan menos de 5 días para la expiración",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 31,
+            "name": "existe una reserva pendiente creada hace 27 días con clave pública \"CLOSE-TO-EXPIRE\"",
+            "result": {
+              "status": "passed",
+              "duration": 38000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 32,
+            "name": "el cliente busca su reserva con clave pública \"CLOSE-TO-EXPIRE\"",
+            "result": {
+              "status": "passed",
+              "duration": 550000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 33,
+            "name": "el botón \"#btn-cancelar-reserva\" no debe estar visible",
+            "result": {
+              "status": "passed",
+              "duration": 4000000
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

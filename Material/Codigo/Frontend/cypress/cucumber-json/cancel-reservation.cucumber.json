@@ -23,7 +23,7 @@
             "name": "existe una reserva en estado \"Pendiente\" con clave pública \"CLAVE-CANCEL-TEST\" y fecha de expiración \"2026-06-22\"",
             "result": {
               "status": "passed",
-              "duration": 33000000
+              "duration": 56000000
             }
           },
           {
@@ -33,7 +33,7 @@
             "name": "el cliente visita la página \"/reservations\"",
             "result": {
               "status": "passed",
-              "duration": 538000000
+              "duration": 137000000
             }
           },
           {
@@ -43,7 +43,7 @@
             "name": "ingresa la clave pública \"CLAVE-CANCEL-TEST\" en el campo \"#public-key-input\"",
             "result": {
               "status": "passed",
-              "duration": 441000000
+              "duration": 422000000
             }
           },
           {
@@ -53,7 +53,7 @@
             "name": "busca la reserva",
             "result": {
               "status": "passed",
-              "duration": 346000000
+              "duration": 83000000
             }
           },
           {
@@ -73,7 +73,7 @@
             "name": "hace clic en \"#btn-cancelar-reserva\"",
             "result": {
               "status": "passed",
-              "duration": 82000000
+              "duration": 78000000
             }
           },
           {
@@ -83,7 +83,7 @@
             "name": "el sistema debe cambiar el estado de la reserva a \"Cancelled\"",
             "result": {
               "status": "passed",
-              "duration": 8000000
+              "duration": 9000000
             }
           },
           {
@@ -113,7 +113,7 @@
             "name": "existe una reserva en estado \"Confirmada\" con clave pública \"CLAVE-CANCEL-CONFIRMADA\" y fecha de expiración \"2026-07-15\"",
             "result": {
               "status": "passed",
-              "duration": 35000000
+              "duration": 38000000
             }
           },
           {
@@ -123,7 +123,7 @@
             "name": "el cliente visita la página \"/reservations\"",
             "result": {
               "status": "passed",
-              "duration": 65000000
+              "duration": 70000000
             }
           },
           {
@@ -133,7 +133,7 @@
             "name": "ingresa la clave pública \"CLAVE-CANCEL-CONFIRMADA\" en el campo \"#public-key-input\"",
             "result": {
               "status": "passed",
-              "duration": 506000000
+              "duration": 496000000
             }
           },
           {
@@ -153,7 +153,7 @@
             "name": "el sistema muestra el botón \"#btn-cancelar-reserva\"",
             "result": {
               "status": "passed",
-              "duration": 4000000
+              "duration": 5000000
             }
           },
           {
@@ -163,7 +163,7 @@
             "name": "hace clic en \"#btn-cancelar-reserva\"",
             "result": {
               "status": "passed",
-              "duration": 76000000
+              "duration": 79000000
             }
           },
           {
@@ -173,7 +173,7 @@
             "name": "el sistema debe cambiar el estado de la reserva a \"Cancelled\"",
             "result": {
               "status": "passed",
-              "duration": 9000000
+              "duration": 7000000
             }
           },
           {
@@ -203,7 +203,7 @@
             "name": "existe una reserva en estado \"Cancelled\" con clave pública \"CLAVE-CANCEL-YA-CANCELADA\" y fecha de expiración \"2026-06-22\"",
             "result": {
               "status": "passed",
-              "duration": 37000000
+              "duration": 35000000
             }
           },
           {
@@ -213,7 +213,7 @@
             "name": "el cliente visita la página \"/reservations\"",
             "result": {
               "status": "passed",
-              "duration": 75000000
+              "duration": 108000000
             }
           },
           {
@@ -223,7 +223,7 @@
             "name": "ingresa la clave pública \"CLAVE-CANCEL-YA-CANCELADA\" en el campo \"#public-key-input\"",
             "result": {
               "status": "passed",
-              "duration": 513000000
+              "duration": 508000000
             }
           },
           {
@@ -233,7 +233,7 @@
             "name": "busca la reserva",
             "result": {
               "status": "passed",
-              "duration": 82000000
+              "duration": 80000000
             }
           },
           {
@@ -263,7 +263,7 @@
             "name": "existe una reserva en estado \"Expired\" con clave pública \"CLAVE-CANCEL-EXPIRADA\" y fecha de expiración \"2026-05-01\"",
             "result": {
               "status": "passed",
-              "duration": 33000000
+              "duration": 36000000
             }
           },
           {
@@ -273,7 +273,7 @@
             "name": "el cliente visita la página \"/reservations\"",
             "result": {
               "status": "passed",
-              "duration": 67000000
+              "duration": 79000000
             }
           },
           {
@@ -283,7 +283,7 @@
             "name": "ingresa la clave pública \"CLAVE-CANCEL-EXPIRADA\" en el campo \"#public-key-input\"",
             "result": {
               "status": "passed",
-              "duration": 465000000
+              "duration": 474000000
             }
           },
           {
@@ -293,7 +293,7 @@
             "name": "busca la reserva",
             "result": {
               "status": "passed",
-              "duration": 84000000
+              "duration": 80000000
             }
           },
           {
@@ -303,7 +303,7 @@
             "name": "el botón \"#btn-cancelar-reserva\" no debe estar visible",
             "result": {
               "status": "passed",
-              "duration": 3000000
+              "duration": 5000000
             }
           }
         ]
@@ -323,7 +323,7 @@
             "name": "existe una reserva en estado \"Pendiente\" con clave pública \"CLAVE-MODIFY-TEST\" y fecha de expiración \"2026-07-01\"",
             "result": {
               "status": "passed",
-              "duration": 33000000
+              "duration": 45000000
             }
           },
           {
@@ -333,7 +333,7 @@
             "name": "el cliente visita la página \"/reservations\"",
             "result": {
               "status": "passed",
-              "duration": 65000000
+              "duration": 79000000
             }
           },
           {
@@ -343,7 +343,7 @@
             "name": "ingresa la clave pública \"CLAVE-MODIFY-TEST\" en el campo \"#public-key-input\"",
             "result": {
               "status": "passed",
-              "duration": 421000000
+              "duration": 401000000
             }
           },
           {
@@ -353,7 +353,7 @@
             "name": "busca la reserva",
             "result": {
               "status": "passed",
-              "duration": 79000000
+              "duration": 80000000
             }
           },
           {
@@ -363,7 +363,7 @@
             "name": "el sistema no debe mostrar controles para modificar los medicamentos",
             "result": {
               "status": "passed",
-              "duration": 7000000
+              "duration": 8000000
             }
           }
         ]
