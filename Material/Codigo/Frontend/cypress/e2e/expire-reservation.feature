@@ -21,3 +21,8 @@ Scenario: Expiración automática de una reserva pendiente después de 30 días
     Given existe una reserva confirmada creada hace 31 días con clave pública "CONF-EXP-001"
     When el cliente busca su reserva con clave pública "CONF-EXP-001"
     Then el sistema debe mostrar la reserva como "Expired"
+
+  Scenario: Una reserva cancelada no se expira automáticamente
+    Given existe una reserva cancelada creada hace 31 días con clave pública "CANC-EXP-001"
+    When el cliente busca su reserva con clave pública "CANC-EXP-001"
+    Then el sistema debe mostrar la reserva como "Cancelled"

@@ -52,6 +52,27 @@ Given('existe una reserva confirmada creada hace {int} días con clave pública 
   }
 );
 
+Given('existe una reserva cancelada creada hace {int} días con clave pública {string}',
+  (daysAgo: number, publicKey: string) => {
+    const reservationDate = new Date();
+    reservationDate.setDate(reservationDate.getDate() - daysAgo);
+
+    reservations.push({
+      id: reservations.length + 1,
+      code: `RES-CANC-00${reservations.length + 1}`,
+      publicKey: publicKey,
+      userEmail: 'cliente@example.com',
+      reservationDate: reservationDate.toISOString(),
+      expirationDate: new Date(reservationDate.getTime() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+      status: 'Cancelled',
+      prescriptionUploaded: false,
+      details: [
+        { id: 1, drugCode: 'PAR-500', drugName: 'Paracetamol 500mg', quantity: 3, requiresPrescription: false }
+      ]
+    });
+  }
+);
+
 Given('el cliente visita la página {string}', (url: string) => {
   cy.visit(`http://localhost:4200${url}`);
 });
