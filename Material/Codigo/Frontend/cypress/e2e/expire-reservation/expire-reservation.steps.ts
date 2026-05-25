@@ -29,6 +29,29 @@ Given('existe una reserva pendiente creada hace {int} días con clave pública {
   }
 );
 
+Given('existe una reserva confirmada creada hace {int} días con clave pública {string}',
+  (daysAgo: number, publicKey: string) => {
+    const reservationDate = new Date();
+    reservationDate.setDate(reservationDate.getDate() - daysAgo);
+
+    const isExpired = daysAgo > 30;
+
+    reservations.push({
+      id: reservations.length + 1,
+      code: `RES-CONF-00${reservations.length + 1}`,
+      publicKey: publicKey,
+      userEmail: 'cliente@example.com',
+      reservationDate: reservationDate.toISOString(),
+      expirationDate: new Date(reservationDate.getTime() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+      status: isExpired ? 'Expired' : 'Confirmed',
+      prescriptionUploaded: false,
+      details: [
+        { id: 1, drugCode: 'PAR-500', drugName: 'Paracetamol 500mg', quantity: 3, requiresPrescription: false }
+      ]
+    });
+  }
+);
+
 Given('el cliente visita la página {string}', (url: string) => {
   cy.visit(`http://localhost:4200${url}`);
 });
@@ -42,6 +65,18 @@ Given('busca la reserva', () => {
     statusCode: 200,
     body: reservations[0]
   }).as('getReservation');
+  cy.get('#btn-buscar-reserva').click();
+  cy.wait('@getReservation');
+});
+
+When('el cliente busca su reserva con clave pública {string}', (publicKey: string) => {
+  const reservation = reservations.find(r => r.publicKey === publicKey);
+  cy.intercept('GET', '**/api/reservation*', {
+    statusCode: 200,
+    body: reservation
+  }).as('getReservation');
+  cy.visit('http://localhost:4200/reservations');
+  cy.get('#public-key-input').clear().type(publicKey);
   cy.get('#btn-buscar-reserva').click();
   cy.wait('@getReservation');
 });
