@@ -543,6 +543,22 @@ namespace PharmaGo.Test.BusinessLogic.Test
         }
 
         [TestMethod]
+        public void ExpireOverdueReservations_DoesNotExpireCancelled()
+        {
+            var cancelled = new Reservation { Id = 1, Code = "RES-001", Status = ReservationStatus.Cancelled, ReservationDate = DateTime.Now.AddDays(-31), Details = new List<ReservationDetail>() };
+
+            _reservationRepository.Setup(r => r.GetAllByExpression(It.IsAny<Expression<Func<Reservation, bool>>>()))
+                .Returns((Expression<Func<Reservation, bool>> expr) =>
+                    new List<Reservation> { cancelled }.AsQueryable().Where(expr).ToList());
+
+            _reservationManager.ExpireOverdueReservations();
+
+            Assert.AreEqual(ReservationStatus.Cancelled, cancelled.Status);
+            _reservationRepository.Verify(r => r.UpdateOne(It.IsAny<Reservation>()), Times.Never);
+            _reservationRepository.Verify(r => r.Save(), Times.Never);
+        }
+
+        [TestMethod]
         public void ConfirmReservation_Ok()
         {
             var reservation = new Reservation
