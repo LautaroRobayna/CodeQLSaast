@@ -688,14 +688,14 @@ namespace PharmaGo.Test.BusinessLogic.Test
         }
 
         [TestMethod]
-        public void CancelReservation_Ok()
+        public void CancelReservation_AlreadyCancelled_Ok()
         {
             var reservation = new Reservation
             {
                 Id = 1,
                 Code = "RES-001",
                 PublicKey = "CLAVE-CANCEL-TEST",
-                Status = ReservationStatus.Pending,
+                Status = ReservationStatus.Cancelled,
                 PharmacyId = 1,
                 UserEmail = "cliente@example.com",
                 Details = new List<ReservationDetail>()
@@ -705,6 +705,30 @@ namespace PharmaGo.Test.BusinessLogic.Test
                 .Returns(reservation);
 
             var result = _reservationManager.CancelReservation("CLAVE-CANCEL-TEST");
+
+            Assert.AreEqual(ReservationStatus.Cancelled, result.Status);
+            _reservationRepository.Verify(r => r.UpdateOne(It.Is<Reservation>(res => res.Status == ReservationStatus.Cancelled)), Times.Once);
+            _reservationRepository.Verify(r => r.Save(), Times.Once);
+        }
+
+        [TestMethod]
+        public void CancelReservation_Confirmed_Ok()
+        {
+            var reservation = new Reservation
+            {
+                Id = 1,
+                Code = "RES-001",
+                PublicKey = "CLAVE-CANCEL-CONFIRMADA",
+                Status = ReservationStatus.Confirmed,
+                PharmacyId = 1,
+                UserEmail = "cliente@example.com",
+                Details = new List<ReservationDetail>()
+            };
+
+            _reservationRepository.Setup(r => r.GetOneByExpression(It.IsAny<Expression<Func<Reservation, bool>>>()))
+                .Returns(reservation);
+
+            var result = _reservationManager.CancelReservation("CLAVE-CANCEL-CONFIRMADA");
 
             Assert.AreEqual(ReservationStatus.Cancelled, result.Status);
             _reservationRepository.Verify(r => r.UpdateOne(It.Is<Reservation>(res => res.Status == ReservationStatus.Cancelled)), Times.Once);

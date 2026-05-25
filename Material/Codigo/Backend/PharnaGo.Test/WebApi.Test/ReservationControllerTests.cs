@@ -547,7 +547,7 @@ namespace PharmaGo.Test.WebApi.Test
         }
 
         [TestMethod]
-        public void PutCancelReservation_Ok()
+        public void PutCancelReservation_Pending_Ok()
         {
             var reservation = new Reservation
             {
@@ -574,6 +574,33 @@ namespace PharmaGo.Test.WebApi.Test
         }
 
         [TestMethod]
+        public void PutCancelReservation_Confirmed_Ok()
+        {
+            var reservation = new Reservation
+            {
+                Id = 1,
+                Code = "RES-001",
+                PublicKey = "CLAVE-CANCEL-CONFIRMADA",
+                Status = ReservationStatus.Cancelled,
+                PharmacyId = 1,
+                UserEmail = "cliente@example.com",
+                ReservationDate = DateTime.Now,
+                Details = new List<ReservationDetail>()
+            };
+
+            _reservationManagerMock.Setup(x => x.CancelReservation("CLAVE-CANCEL-CONFIRMADA")).Returns(reservation);
+
+            var result = _reservationController.CancelReservation("CLAVE-CANCEL-CONFIRMADA");
+            var objectResult = result as ObjectResult;
+
+            _reservationManagerMock.VerifyAll();
+            Assert.AreEqual(200, objectResult.StatusCode);
+            var response = objectResult.Value as ReservationModelResponse;
+            Assert.AreEqual("RES-001", response.Code);
+            Assert.AreEqual("Cancelled", response.Status);
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(ResourceNotFoundException))]
         public void PutCancelReservation_NotFound_Throws()
         {
@@ -581,6 +608,6 @@ namespace PharmaGo.Test.WebApi.Test
                 .Throws(new ResourceNotFoundException("Reservation not found"));
 
             _reservationController.CancelReservation("NONEXISTENT");
-        }        
+        }
     }
 }
