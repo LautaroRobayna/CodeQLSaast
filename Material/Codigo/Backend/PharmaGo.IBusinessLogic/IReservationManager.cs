@@ -10,6 +10,7 @@ namespace PharmaGo.IBusinessLogic
         Reservation ConfirmReservation(string code);
         Reservation RejectReservation(string code);
         Reservation CancelReservation(string publicKey);
+        void ExpireOverdueReservations();
         IEnumerable<Reservation> GetAllPending();
     }
 }

@@ -467,6 +467,45 @@ namespace PharmaGo.Test.BusinessLogic.Test
         }
 
         [TestMethod]
+        public void ExpireOverdueReservations_ExpiresPendingOlderThan30Days()
+        {
+            var overdue = new List<Reservation>
+            {
+                new Reservation { Id = 1, Code = "RES-001", Status = ReservationStatus.Pending, ReservationDate = DateTime.Now.AddDays(-31), Details = new List<ReservationDetail>() },
+                new Reservation { Id = 2, Code = "RES-002", Status = ReservationStatus.Pending, ReservationDate = DateTime.Now.AddDays(-35), Details = new List<ReservationDetail>() }
+            };
+
+            _reservationRepository.Setup(r => r.GetAllByExpression(It.IsAny<Expression<Func<Reservation, bool>>>()))
+                .Returns(overdue);
+            _reservationRepository.Setup(r => r.UpdateOne(It.IsAny<Reservation>()));
+
+            _reservationManager.ExpireOverdueReservations();
+
+            Assert.AreEqual(ReservationStatus.Expired, overdue[0].Status);
+            Assert.AreEqual(ReservationStatus.Expired, overdue[1].Status);
+            _reservationRepository.Verify(r => r.UpdateOne(It.Is<Reservation>(res => res.Status == ReservationStatus.Expired)), Times.Exactly(2));
+            _reservationRepository.Verify(r => r.Save(), Times.Once);
+        }
+
+        [TestMethod]
+        public void ExpireOverdueReservations_NoOverdue_DoesNothing()
+        {
+            var recent = new List<Reservation>
+            {
+                new Reservation { Id = 1, Code = "RES-001", Status = ReservationStatus.Pending, ReservationDate = DateTime.Now.AddDays(-5), Details = new List<ReservationDetail>() }
+            };
+
+            _reservationRepository.Setup(r => r.GetAllByExpression(It.IsAny<Expression<Func<Reservation, bool>>>()))
+                .Returns(recent);
+
+            _reservationManager.ExpireOverdueReservations();
+
+            Assert.AreEqual(ReservationStatus.Pending, recent[0].Status);
+            _reservationRepository.Verify(r => r.UpdateOne(It.IsAny<Reservation>()), Times.Never);
+            _reservationRepository.Verify(r => r.Save(), Times.Never);
+        }        
+
+        [TestMethod]
         public void ConfirmReservation_Ok()
         {
             var reservation = new Reservation

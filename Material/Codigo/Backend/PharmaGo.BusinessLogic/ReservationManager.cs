@@ -134,8 +134,26 @@ namespace PharmaGo.BusinessLogic
             return true;
         }
 
+        public void ExpireOverdueReservations()
+        {
+            var overdue = _reservationRepository.GetAllByExpression(r =>
+                r.Status == ReservationStatus.Pending &&
+                r.ReservationDate.AddDays(30) < DateTime.Now);
+
+            foreach (var reservation in overdue)
+            {
+                reservation.Status = ReservationStatus.Expired;
+                _reservationRepository.UpdateOne(reservation);
+            }
+
+            if (overdue.Any())
+                _reservationRepository.Save();
+        }
+
         public Reservation? GetByPublicKey(string publicKey)
         {
+            ExpireOverdueReservations();
+
             var reservation = _reservationRepository.GetOneByExpression(r => r.PublicKey == publicKey);
 
             if (reservation == null)
