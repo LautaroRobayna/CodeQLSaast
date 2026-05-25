@@ -6,7 +6,7 @@
         <c-card-header><strong>Reservas Pendientes</strong></c-card-header>
         <c-card-body>
           <ul class="list-group" *ngIf="pendingReservations.length > 0; else noPending">
-            <li
+            <li data-cy="reservation-row"
               class="list-group-item"
               [class.active]="selectedReservation?.id === r.id"
               (click)="selectReservation(r)"

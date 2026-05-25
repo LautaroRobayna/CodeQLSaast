@@ -134,8 +134,26 @@ namespace PharmaGo.BusinessLogic
             return true;
         }
 
+        public void ExpireOverdueReservations()
+        {
+            var overdue = _reservationRepository.GetAllByExpression(r =>
+                (r.Status == ReservationStatus.Pending || r.Status == ReservationStatus.Confirmed) &&
+                r.ReservationDate.AddDays(30) < DateTime.Now);
+
+            foreach (var reservation in overdue)
+            {
+                reservation.Status = ReservationStatus.Expired;
+                _reservationRepository.UpdateOne(reservation);
+            }
+
+            if (overdue.Any())
+                _reservationRepository.Save();
+        }
+
         public Reservation? GetByPublicKey(string publicKey)
         {
+            ExpireOverdueReservations();
+
             var reservation = _reservationRepository.GetOneByExpression(r => r.PublicKey == publicKey);
 
             if (reservation == null)
@@ -155,6 +173,7 @@ namespace PharmaGo.BusinessLogic
 
         public IEnumerable<Reservation> GetAllPending()
         {
+            ExpireOverdueReservations();
             return _reservationRepository.GetAllByExpression(r => r.Status == ReservationStatus.Pending);
         }
 
@@ -210,6 +229,10 @@ namespace PharmaGo.BusinessLogic
                 throw new InvalidResourceException("La reserva ya se encuentra cancelada");
             if (reservation.Status == ReservationStatus.Expired)
                 throw new InvalidResourceException("La reserva se encuentra expirada");
+
+            var daysUntilExpiration = (reservation.ReservationDate.AddDays(30) - DateTime.Now).Days;
+            if (daysUntilExpiration < 5)
+                throw new InvalidResourceException("No se puede cancelar una reserva a menos de 5 días de su expiración");
 
             reservation.Status = ReservationStatus.Cancelled;
             _reservationRepository.UpdateOne(reservation);
