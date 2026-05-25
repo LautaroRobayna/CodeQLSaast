@@ -35,3 +35,9 @@ Scenario: Cancelación no permitida de una reserva expirada
     And ingresa la clave pública "CLAVE-CANCEL-EXPIRADA" en el campo "#public-key-input"
     And hace clic en "#btn-buscar-reserva"
     Then el botón "#btn-cancelar-reserva" no debe estar visible
+
+Scenario: Restricción de modificación directa de medicamentos
+    Given existe una reserva en estado "Pendiente" con clave pública "CLAVE-MODIFY-TEST" y fecha de expiración "2026-07-01"
+    And ingresa la clave pública "CLAVE-MODIFY-TEST" en el campo "#public-key-input"
+    And hace clic en "#btn-buscar-reserva"
+    Then el sistema no debe mostrar controles para modificar los medicamentos

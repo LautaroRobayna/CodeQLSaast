@@ -58,3 +58,9 @@ Then('el sistema debe cambiar el estado de la reserva a {string}', (estadoEspera
 Then('el botón {string} no debe estar visible', (selector: string) => {
   cy.get(selector).should('not.exist');
 });
+
+Then('el sistema no debe mostrar controles para modificar los medicamentos', () => {
+  cy.get('input[type="number"]').should('not.exist');
+  cy.contains('button', 'Agregar').should('not.exist');
+  cy.contains('button', 'Eliminar').should('not.exist');
+});
