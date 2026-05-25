@@ -173,6 +173,7 @@ namespace PharmaGo.BusinessLogic
 
         public IEnumerable<Reservation> GetAllPending()
         {
+            ExpireOverdueReservations();
             return _reservationRepository.GetAllByExpression(r => r.Status == ReservationStatus.Pending);
         }
 
