@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -69,6 +69,7 @@ import {CustomFooterComponent} from './custom/custom-footer/custom-footer.compon
 import {CustomHeaderComponent} from './custom/custom-header/custom-header.component';
 import { StorageManager } from './utils/storage-manager';
 import { CommonService } from './services/CommonService';
+import { RetryInterceptor } from './interceptors/retry.interceptor';
 import { CustomToastComponent } from './custom/custom-toast/custom-toast.component';
 import { StockRequestComponent } from './pages/employee/stock-request/stock-request.component';
 import { CreateRequestComponent } from './pages/employee/create-request/create-request.component';
@@ -156,7 +157,9 @@ import { StockRequestOwnerComponent } from './pages/owner/stock-request-owner/st
     // DatePicker
     BsDatepickerModule,
   ],
-  providers: [IconSetService, StorageManager, CommonService],
+  providers: [IconSetService, StorageManager, CommonService,
+    { provide: HTTP_INTERCEPTORS, useClass: RetryInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
