@@ -23,7 +23,7 @@
             "name": "que el sistema tiene cargada la farmacia \"Farmacia Central\"",
             "result": {
               "status": "passed",
-              "duration": 61000000
+              "duration": 48000000
             }
           },
           {
@@ -33,7 +33,7 @@
             "name": "la \"Farmacia Central\" tiene el medicamento \"Paracetamol 500mg\" con stock de 10 unidades",
             "result": {
               "status": "passed",
-              "duration": 3000000
+              "duration": 2000000
             }
           },
           {
@@ -43,7 +43,7 @@
             "name": "la \"Farmacia Central\" tiene el medicamento \"Ibuprofeno 400mg\" con stock de 3 unidades",
             "result": {
               "status": "passed",
-              "duration": 4000000
+              "duration": 2000000
             }
           },
           {
@@ -53,7 +53,7 @@
             "name": "la \"Farmacia Central\" tiene el medicamento \"Amoxicilina 500mg\" que requiere receta con stock de 5 unidades",
             "result": {
               "status": "passed",
-              "duration": 4000000
+              "duration": 1000000
             }
           },
           {
@@ -63,7 +63,7 @@
             "name": "existe la farmacia \"Farmacia Norte\" con el medicamento \"Aspirina\"",
             "result": {
               "status": "passed",
-              "duration": 5000000
+              "duration": 2000000
             }
           },
           {
@@ -73,7 +73,7 @@
             "name": "un usuario no autenticado visita la página de reservas \"/reservations/create\"",
             "result": {
               "status": "passed",
-              "duration": 208000000
+              "duration": 133000000
             }
           },
           {
@@ -83,7 +83,7 @@
             "name": "selecciona la farmacia \"Farmacia Central\" de la lista desplegable \"#select-farmacia\"",
             "result": {
               "status": "passed",
-              "duration": 188000000
+              "duration": 193000000
             }
           },
           {
@@ -93,7 +93,7 @@
             "name": "agrega 3 unidades del medicamento \"Paracetamol 500mg\"",
             "result": {
               "status": "passed",
-              "duration": 375000000
+              "duration": 334000000
             }
           },
           {
@@ -103,7 +103,7 @@
             "name": "agrega 2 unidades del medicamento \"Ibuprofeno 400mg\"",
             "result": {
               "status": "passed",
-              "duration": 349000000
+              "duration": 345000000
             }
           },
           {
@@ -136,7 +136,7 @@
             "name": "completa el formulario de contacto con los siguientes datos:",
             "result": {
               "status": "passed",
-              "duration": 829000000
+              "duration": 805000000
             }
           },
           {
@@ -146,7 +146,7 @@
             "name": "hace clic en el botón \"#btn-confirmar-reserva\"",
             "result": {
               "status": "passed",
-              "duration": 92000000
+              "duration": 100000000
             }
           },
           {
@@ -156,7 +156,7 @@
             "name": "el sistema debe mostrar un mensaje en pantalla \"Reserva creada exitosamente. Guarda tu clave pública.\"",
             "result": {
               "status": "passed",
-              "duration": 8000000
+              "duration": 9000000
             }
           },
           {
@@ -166,7 +166,7 @@
             "name": "el sistema debe mostrar la clave publica \"PUB-12345\"",
             "result": {
               "status": "passed",
-              "duration": 6000000
+              "duration": 7000000
             }
           },
           {
@@ -176,7 +176,7 @@
             "name": "la base de datos debe registrar la reserva en estado \"Pendiente\"",
             "result": {
               "status": "passed",
-              "duration": 8000000
+              "duration": 5000000
             }
           },
           {
@@ -186,7 +186,7 @@
             "name": "el stock en backend de \"Paracetamol 500mg\" debe actualizarse a 7 unidades",
             "result": {
               "status": "passed",
-              "duration": 5000000
+              "duration": 3000000
             }
           },
           {
@@ -196,7 +196,7 @@
             "name": "el stock en backend de \"Ibuprofeno 400mg\" debe actualizarse a 1 unidad",
             "result": {
               "status": "passed",
-              "duration": 4000000
+              "duration": 6000000
             }
           }
         ]
@@ -216,7 +216,7 @@
             "name": "que el sistema tiene cargada la farmacia \"Farmacia Central\"",
             "result": {
               "status": "passed",
-              "duration": 35000000
+              "duration": 51000000
             }
           },
           {
@@ -226,7 +226,7 @@
             "name": "la \"Farmacia Central\" tiene el medicamento \"Paracetamol 500mg\" con stock de 10 unidades",
             "result": {
               "status": "passed",
-              "duration": 2000000
+              "duration": 3000000
             }
           },
           {
@@ -236,7 +236,7 @@
             "name": "la \"Farmacia Central\" tiene el medicamento \"Ibuprofeno 400mg\" con stock de 3 unidades",
             "result": {
               "status": "passed",
-              "duration": 3000000
+              "duration": 2000000
             }
           },
           {
@@ -256,7 +256,7 @@
             "name": "existe la farmacia \"Farmacia Norte\" con el medicamento \"Aspirina\"",
             "result": {
               "status": "passed",
-              "duration": 3000000
+              "duration": 2000000
             }
           },
           {
@@ -266,7 +266,7 @@
             "name": "un usuario no autenticado visita la página de reservas \"/reservations/create\"",
             "result": {
               "status": "passed",
-              "duration": 132000000
+              "duration": 88000000
             }
           },
           {
@@ -276,7 +276,7 @@
             "name": "selecciona la farmacia \"Farmacia Central\" de la lista desplegable \"#select-farmacia\"",
             "result": {
               "status": "passed",
-              "duration": 215000000
+              "duration": 176000000
             }
           },
           {
@@ -286,7 +286,7 @@
             "name": "el botón \"#btn-confirmar-reserva\" debe mantenerse deshabilitado",
             "result": {
               "status": "passed",
-              "duration": 4000000
+              "duration": 3000000
             }
           }
         ]
@@ -296,6 +296,146 @@
         "keyword": "Scenario",
         "line": 34,
         "name": "Intento de reserva superando el límite total de 15 unidades",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "que el sistema tiene cargada la farmacia \"Farmacia Central\"",
+            "result": {
+              "status": "passed",
+              "duration": 33000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "la \"Farmacia Central\" tiene el medicamento \"Paracetamol 500mg\" con stock de 10 unidades",
+            "result": {
+              "status": "passed",
+              "duration": 2000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 9,
+            "name": "la \"Farmacia Central\" tiene el medicamento \"Ibuprofeno 400mg\" con stock de 3 unidades",
+            "result": {
+              "status": "passed",
+              "duration": 1000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 10,
+            "name": "la \"Farmacia Central\" tiene el medicamento \"Amoxicilina 500mg\" que requiere receta con stock de 5 unidades",
+            "result": {
+              "status": "passed",
+              "duration": 2000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 11,
+            "name": "existe la farmacia \"Farmacia Norte\" con el medicamento \"Aspirina\"",
+            "result": {
+              "status": "passed",
+              "duration": 2000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 35,
+            "name": "un usuario no autenticado visita la página de reservas \"/reservations/create\"",
+            "result": {
+              "status": "passed",
+              "duration": 82000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 36,
+            "name": "selecciona la farmacia \"Farmacia Central\" de la lista desplegable \"#select-farmacia\"",
+            "result": {
+              "status": "passed",
+              "duration": 176000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 37,
+            "name": "agrega 5 unidades del medicamento \"Paracetamol 500mg\"",
+            "result": {
+              "status": "passed",
+              "duration": 327000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 38,
+            "name": "agrega 5 unidades del medicamento \"Amoxicilina 500mg\"",
+            "result": {
+              "status": "passed",
+              "duration": 331000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 39,
+            "name": "agrega 5 unidades del medicamento \"Aspirina 500mg\"",
+            "result": {
+              "status": "passed",
+              "duration": 369000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 40,
+            "name": "el usuario intenta agregar 1 unidad de \"Ibuprofeno 400mg\"",
+            "result": {
+              "status": "passed",
+              "duration": 248000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 41,
+            "name": "hace clic en el botón \"#btn-agregar-reserva\"",
+            "result": {
+              "status": "passed",
+              "duration": 97000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 42,
+            "name": "el sistema debe impedir la acción y mostrar la alerta \"#alert-error\" con el texto \"La reserva no puede superar las 15 unidades totales\"",
+            "result": {
+              "status": "passed",
+              "duration": 6000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "crear-una-reserva;intento-de-reserva-superando-el-límite-de-5-unidades-del-mismo-medicamento",
+        "keyword": "Scenario",
+        "line": 44,
+        "name": "Intento de reserva superando el límite de 5 unidades del mismo medicamento",
         "tags": [],
         "type": "scenario",
         "steps": [
@@ -316,7 +456,7 @@
             "name": "la \"Farmacia Central\" tiene el medicamento \"Paracetamol 500mg\" con stock de 10 unidades",
             "result": {
               "status": "passed",
-              "duration": 3000000
+              "duration": 1000000
             }
           },
           {
@@ -336,7 +476,7 @@
             "name": "la \"Farmacia Central\" tiene el medicamento \"Amoxicilina 500mg\" que requiere receta con stock de 5 unidades",
             "result": {
               "status": "passed",
-              "duration": 3000000
+              "duration": 1000000
             }
           },
           {
@@ -352,7 +492,7 @@
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 35,
+            "line": 45,
             "name": "un usuario no autenticado visita la página de reservas \"/reservations/create\"",
             "result": {
               "status": "passed",
@@ -362,28 +502,38 @@
           {
             "arguments": [],
             "keyword": "And ",
-            "line": 36,
+            "line": 46,
             "name": "selecciona la farmacia \"Farmacia Central\" de la lista desplegable \"#select-farmacia\"",
             "result": {
               "status": "passed",
-              "duration": 215000000
+              "duration": 176000000
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
-            "line": 37,
-            "name": "agrega 5 unidades del medicamento \"Paracetamol 500mg\"",
+            "line": 47,
+            "name": "el sistema debe permitir seleccionar como máximo 5 unidades por medicamento",
             "result": {
               "status": "passed",
-              "duration": 328000000
+              "duration": 16000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 48,
+            "name": "agrega 3 unidades del medicamento \"Paracetamol 500mg\"",
+            "result": {
+              "status": "passed",
+              "duration": 333000000
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
-            "line": 38,
-            "name": "agrega 5 unidades del medicamento \"Amoxicilina 500mg\"",
+            "line": 49,
+            "name": "agrega 3 unidades del medicamento \"Paracetamol 500mg\"",
             "result": {
               "status": "passed",
               "duration": 334000000
@@ -391,51 +541,31 @@
           },
           {
             "arguments": [],
-            "keyword": "And ",
-            "line": 39,
-            "name": "agrega 5 unidades del medicamento \"Aspirina 500mg\"",
-            "result": {
-              "status": "passed",
-              "duration": 398000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 40,
-            "name": "el usuario intenta agregar 1 unidad de \"Ibuprofeno 400mg\"",
-            "result": {
-              "status": "passed",
-              "duration": 250000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 41,
-            "name": "hace clic en el botón \"#btn-agregar-reserva\"",
-            "result": {
-              "status": "passed",
-              "duration": 97000000
-            }
-          },
-          {
-            "arguments": [],
             "keyword": "Then ",
-            "line": 42,
-            "name": "el sistema debe impedir la acción y mostrar la alerta \"#alert-error\" con el texto \"La reserva no puede superar las 15 unidades totales\"",
+            "line": 50,
+            "name": "el sistema debe mostrar un mensaje de error flotante con el texto \"No se permiten más de 5 unidades del mismo medicamento\"",
             "result": {
               "status": "passed",
-              "duration": 8000000
+              "duration": 256000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 51,
+            "name": "el botón \"#btn-confirmar-reserva\" debe mantenerse deshabilitado",
+            "result": {
+              "status": "passed",
+              "duration": 5000000
             }
           }
         ]
       },
       {
-        "id": "crear-una-reserva;intento-de-reserva-superando-el-límite-de-5-unidades-del-mismo-medicamento",
+        "id": "crear-una-reserva;intento-de-adición-que-supera-ambos-límites-simultáneamente",
         "keyword": "Scenario",
-        "line": 44,
-        "name": "Intento de reserva superando el límite de 5 unidades del mismo medicamento",
+        "line": 53,
+        "name": "Intento de adición que supera ambos límites simultáneamente",
         "tags": [],
         "type": "scenario",
         "steps": [
@@ -466,7 +596,7 @@
             "name": "la \"Farmacia Central\" tiene el medicamento \"Ibuprofeno 400mg\" con stock de 3 unidades",
             "result": {
               "status": "passed",
-              "duration": 3000000
+              "duration": 1000000
             }
           },
           {
@@ -487,136 +617,6 @@
             "result": {
               "status": "passed",
               "duration": 2000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Given ",
-            "line": 45,
-            "name": "un usuario no autenticado visita la página de reservas \"/reservations/create\"",
-            "result": {
-              "status": "passed",
-              "duration": 91000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 46,
-            "name": "selecciona la farmacia \"Farmacia Central\" de la lista desplegable \"#select-farmacia\"",
-            "result": {
-              "status": "passed",
-              "duration": 226000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 47,
-            "name": "el sistema debe permitir seleccionar como máximo 5 unidades por medicamento",
-            "result": {
-              "status": "passed",
-              "duration": 26000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 48,
-            "name": "agrega 3 unidades del medicamento \"Paracetamol 500mg\"",
-            "result": {
-              "status": "passed",
-              "duration": 354000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 49,
-            "name": "agrega 3 unidades del medicamento \"Paracetamol 500mg\"",
-            "result": {
-              "status": "passed",
-              "duration": 383000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Then ",
-            "line": 50,
-            "name": "el sistema debe mostrar un mensaje de error flotante con el texto \"No se permiten más de 5 unidades del mismo medicamento\"",
-            "result": {
-              "status": "passed",
-              "duration": 271000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 51,
-            "name": "el botón \"#btn-confirmar-reserva\" debe mantenerse deshabilitado",
-            "result": {
-              "status": "passed",
-              "duration": 14000000
-            }
-          }
-        ]
-      },
-      {
-        "id": "crear-una-reserva;intento-de-adición-que-supera-ambos-límites-simultáneamente",
-        "keyword": "Scenario",
-        "line": 53,
-        "name": "Intento de adición que supera ambos límites simultáneamente",
-        "tags": [],
-        "type": "scenario",
-        "steps": [
-          {
-            "arguments": [],
-            "keyword": "Given ",
-            "line": 7,
-            "name": "que el sistema tiene cargada la farmacia \"Farmacia Central\"",
-            "result": {
-              "status": "passed",
-              "duration": 46000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 8,
-            "name": "la \"Farmacia Central\" tiene el medicamento \"Paracetamol 500mg\" con stock de 10 unidades",
-            "result": {
-              "status": "passed",
-              "duration": 2000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 9,
-            "name": "la \"Farmacia Central\" tiene el medicamento \"Ibuprofeno 400mg\" con stock de 3 unidades",
-            "result": {
-              "status": "passed",
-              "duration": 2000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 10,
-            "name": "la \"Farmacia Central\" tiene el medicamento \"Amoxicilina 500mg\" que requiere receta con stock de 5 unidades",
-            "result": {
-              "status": "passed",
-              "duration": 2000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 11,
-            "name": "existe la farmacia \"Farmacia Norte\" con el medicamento \"Aspirina\"",
-            "result": {
-              "status": "passed",
-              "duration": 3000000
             }
           },
           {
@@ -626,7 +626,7 @@
             "name": "un usuario no autenticado visita la página de reservas \"/reservations/create\"",
             "result": {
               "status": "passed",
-              "duration": 102000000
+              "duration": 81000000
             }
           },
           {
@@ -636,7 +636,7 @@
             "name": "selecciona la farmacia \"Farmacia Central\" de la lista desplegable \"#select-farmacia\"",
             "result": {
               "status": "passed",
-              "duration": 173000000
+              "duration": 195000000
             }
           },
           {
@@ -646,7 +646,7 @@
             "name": "agrega 4 unidades del medicamento \"Paracetamol 500mg\"",
             "result": {
               "status": "passed",
-              "duration": 335000000
+              "duration": 346000000
             }
           },
           {
@@ -656,7 +656,7 @@
             "name": "agrega 5 unidades del medicamento \"Ibuprofeno 400mg\"",
             "result": {
               "status": "passed",
-              "duration": 333000000
+              "duration": 332000000
             }
           },
           {
@@ -666,7 +666,7 @@
             "name": "agrega 3 unidades del medicamento \"Amoxicilina 500mg\"",
             "result": {
               "status": "passed",
-              "duration": 350000000
+              "duration": 355000000
             }
           },
           {
@@ -676,7 +676,7 @@
             "name": "el usuario intenta agregar 6 unidades de \"Paracetamol 500mg\"",
             "result": {
               "status": "passed",
-              "duration": 265000000
+              "duration": 266000000
             }
           },
           {
@@ -696,7 +696,7 @@
             "name": "el sistema debe mostrar un mensaje de error flotante con el texto \"No se permiten más de 5 unidades del mismo medicamento\"",
             "result": {
               "status": "passed",
-              "duration": 252000000
+              "duration": 256000000
             }
           },
           {
@@ -706,7 +706,7 @@
             "name": "el botón \"#btn-confirmar-reserva\" debe mantenerse deshabilitado",
             "result": {
               "status": "passed",
-              "duration": 8000000
+              "duration": 5000000
             }
           }
         ]
@@ -726,7 +726,7 @@
             "name": "que el sistema tiene cargada la farmacia \"Farmacia Central\"",
             "result": {
               "status": "passed",
-              "duration": 39000000
+              "duration": 40000000
             }
           },
           {
@@ -736,7 +736,7 @@
             "name": "la \"Farmacia Central\" tiene el medicamento \"Paracetamol 500mg\" con stock de 10 unidades",
             "result": {
               "status": "passed",
-              "duration": 3000000
+              "duration": 2000000
             }
           },
           {
@@ -756,7 +756,7 @@
             "name": "la \"Farmacia Central\" tiene el medicamento \"Amoxicilina 500mg\" que requiere receta con stock de 5 unidades",
             "result": {
               "status": "passed",
-              "duration": 2000000
+              "duration": 1000000
             }
           },
           {
@@ -776,7 +776,7 @@
             "name": "un usuario no autenticado visita la página de reservas \"/reservations/create\"",
             "result": {
               "status": "passed",
-              "duration": 93000000
+              "duration": 80000000
             }
           },
           {
@@ -786,7 +786,7 @@
             "name": "selecciona la farmacia \"Farmacia Central\" de la lista desplegable \"#select-farmacia\"",
             "result": {
               "status": "passed",
-              "duration": 200000000
+              "duration": 196000000
             }
           },
           {
@@ -796,7 +796,7 @@
             "name": "agrega 4 unidades del medicamento \"Ibuprofeno 400mg\"",
             "result": {
               "status": "passed",
-              "duration": 358000000
+              "duration": 334000000
             }
           },
           {
@@ -806,7 +806,7 @@
             "name": "el sistema rechazará la creación de la reserva con el error \"La cantidad solicitada supera el stock disponible\"",
             "result": {
               "status": "passed",
-              "duration": 2000000
+              "duration": 1000000
             }
           },
           {
@@ -839,7 +839,7 @@
             "name": "completa el formulario de contacto con los siguientes datos:",
             "result": {
               "status": "passed",
-              "duration": 872000000
+              "duration": 796000000
             }
           },
           {
@@ -849,7 +849,7 @@
             "name": "hace clic en el botón \"#btn-confirmar-reserva\"",
             "result": {
               "status": "passed",
-              "duration": 84000000
+              "duration": 86000000
             }
           },
           {
@@ -859,7 +859,7 @@
             "name": "el sistema debe mostrar un mensaje de error flotante con el texto \"La cantidad solicitada supera el stock disponible\"",
             "result": {
               "status": "passed",
-              "duration": 298000000
+              "duration": 293000000
             }
           }
         ]
@@ -879,7 +879,7 @@
             "name": "que el sistema tiene cargada la farmacia \"Farmacia Central\"",
             "result": {
               "status": "passed",
-              "duration": 41000000
+              "duration": 37000000
             }
           },
           {
@@ -889,7 +889,7 @@
             "name": "la \"Farmacia Central\" tiene el medicamento \"Paracetamol 500mg\" con stock de 10 unidades",
             "result": {
               "status": "passed",
-              "duration": 2000000
+              "duration": 4000000
             }
           },
           {
@@ -899,7 +899,7 @@
             "name": "la \"Farmacia Central\" tiene el medicamento \"Ibuprofeno 400mg\" con stock de 3 unidades",
             "result": {
               "status": "passed",
-              "duration": 3000000
+              "duration": 1000000
             }
           },
           {
@@ -919,7 +919,7 @@
             "name": "existe la farmacia \"Farmacia Norte\" con el medicamento \"Aspirina\"",
             "result": {
               "status": "passed",
-              "duration": 3000000
+              "duration": 2000000
             }
           },
           {
@@ -929,7 +929,7 @@
             "name": "un usuario no autenticado visita la página de reservas \"/reservations/create\"",
             "result": {
               "status": "passed",
-              "duration": 102000000
+              "duration": 86000000
             }
           },
           {
@@ -939,7 +939,7 @@
             "name": "selecciona la farmacia \"Farmacia Central\" de la lista desplegable \"#select-farmacia\"",
             "result": {
               "status": "passed",
-              "duration": 202000000
+              "duration": 174000000
             }
           },
           {
@@ -949,7 +949,7 @@
             "name": "agrega 3 unidades del medicamento \"Paracetamol 500mg\"",
             "result": {
               "status": "passed",
-              "duration": 349000000
+              "duration": 333000000
             }
           },
           {
@@ -959,7 +959,7 @@
             "name": "intenta seleccionar la farmacia \"Farmacia Norte\" en el buscador",
             "result": {
               "status": "passed",
-              "duration": 150000000
+              "duration": 135000000
             }
           },
           {
@@ -969,7 +969,7 @@
             "name": "el sistema debe mostrar un mensaje de error flotante con el texto \"Una reserva solo puede contener medicamentos de una única farmacia\"",
             "result": {
               "status": "passed",
-              "duration": 340000000
+              "duration": 317000000
             }
           },
           {
@@ -979,7 +979,7 @@
             "name": "la selección debe revertirse automáticamente a \"Farmacia Central\"",
             "result": {
               "status": "passed",
-              "duration": 6000000
+              "duration": 4000000
             }
           }
         ]
@@ -999,7 +999,7 @@
             "name": "que el sistema tiene cargada la farmacia \"Farmacia Central\"",
             "result": {
               "status": "passed",
-              "duration": 42000000
+              "duration": 37000000
             }
           },
           {
@@ -1019,7 +1019,7 @@
             "name": "la \"Farmacia Central\" tiene el medicamento \"Ibuprofeno 400mg\" con stock de 3 unidades",
             "result": {
               "status": "passed",
-              "duration": 3000000
+              "duration": 1000000
             }
           },
           {
@@ -1039,7 +1039,7 @@
             "name": "existe la farmacia \"Farmacia Norte\" con el medicamento \"Aspirina\"",
             "result": {
               "status": "passed",
-              "duration": 4000000
+              "duration": 2000000
             }
           },
           {
@@ -1049,7 +1049,7 @@
             "name": "un usuario no autenticado visita la página de reservas \"/reservations/create\"",
             "result": {
               "status": "passed",
-              "duration": 105000000
+              "duration": 82000000
             }
           },
           {
@@ -1059,7 +1059,7 @@
             "name": "selecciona la farmacia \"Farmacia Central\" de la lista desplegable \"#select-farmacia\"",
             "result": {
               "status": "passed",
-              "duration": 180000000
+              "duration": 185000000
             }
           },
           {
@@ -1069,7 +1069,7 @@
             "name": "agrega 3 unidades del medicamento \"Paracetamol 500mg\"",
             "result": {
               "status": "passed",
-              "duration": 406000000
+              "duration": 334000000
             }
           },
           {
@@ -1102,7 +1102,7 @@
             "name": "completa el formulario de contacto con los siguientes datos:",
             "result": {
               "status": "passed",
-              "duration": 799000000
+              "duration": 761000000
             }
           },
           {
@@ -1112,7 +1112,7 @@
             "name": "hace clic en el botón \"#btn-confirmar-reserva\" con mail invalido",
             "result": {
               "status": "passed",
-              "duration": 91000000
+              "duration": 86000000
             }
           },
           {
@@ -1122,7 +1122,7 @@
             "name": "el sistema debe mostrar un mensaje de error flotante con el texto \"El email ingresado no es válido\"",
             "result": {
               "status": "passed",
-              "duration": 266000000
+              "duration": 275000000
             }
           },
           {
@@ -1132,7 +1132,7 @@
             "name": "el campo email debe mostrar un error de validación visual",
             "result": {
               "status": "passed",
-              "duration": 13000000
+              "duration": 11000000
             }
           }
         ]
@@ -1152,7 +1152,7 @@
             "name": "que el sistema tiene cargada la farmacia \"Farmacia Central\"",
             "result": {
               "status": "passed",
-              "duration": 48000000
+              "duration": 53000000
             }
           },
           {
@@ -1162,7 +1162,7 @@
             "name": "la \"Farmacia Central\" tiene el medicamento \"Paracetamol 500mg\" con stock de 10 unidades",
             "result": {
               "status": "passed",
-              "duration": 3000000
+              "duration": 2000000
             }
           },
           {
@@ -1172,7 +1172,7 @@
             "name": "la \"Farmacia Central\" tiene el medicamento \"Ibuprofeno 400mg\" con stock de 3 unidades",
             "result": {
               "status": "passed",
-              "duration": 4000000
+              "duration": 2000000
             }
           },
           {
@@ -1192,7 +1192,7 @@
             "name": "existe la farmacia \"Farmacia Norte\" con el medicamento \"Aspirina\"",
             "result": {
               "status": "passed",
-              "duration": 3000000
+              "duration": 2000000
             }
           },
           {
@@ -1202,7 +1202,7 @@
             "name": "un usuario no autenticado visita la página de reservas \"/reservations/create\"",
             "result": {
               "status": "passed",
-              "duration": 115000000
+              "duration": 100000000
             }
           },
           {
@@ -1212,7 +1212,7 @@
             "name": "selecciona la farmacia \"Farmacia Central\" de la lista desplegable \"#select-farmacia\"",
             "result": {
               "status": "passed",
-              "duration": 229000000
+              "duration": 188000000
             }
           },
           {
@@ -1222,7 +1222,7 @@
             "name": "agrega 3 unidades del medicamento \"Paracetamol 500mg\"",
             "result": {
               "status": "passed",
-              "duration": 335000000
+              "duration": 333000000
             }
           },
           {
@@ -1255,7 +1255,7 @@
             "name": "completa el formulario de contacto con los siguientes datos:",
             "result": {
               "status": "passed",
-              "duration": 897000000
+              "duration": 898000000
             }
           },
           {
@@ -1285,7 +1285,7 @@
             "name": "el sistema debe rechazar la solicitud mostrando un modal con el ID \"#modal-limite\"",
             "result": {
               "status": "passed",
-              "duration": 5000000
+              "duration": 6000000
             }
           },
           {
@@ -1295,7 +1295,7 @@
             "name": "el modal debe contener el texto \"No puedes tener más de 10 reservas activas simultáneamente\"",
             "result": {
               "status": "passed",
-              "duration": 278000000
+              "duration": 277000000
             }
           }
         ]

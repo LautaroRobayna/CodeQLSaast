@@ -34,8 +34,8 @@ Given('ingresa la clave pública {string} en el campo {string}', (publicKey: str
   cy.get(selector).clear().type(publicKey);
 });
 
-Given('hace clic en {string}', (selector: string) => {
-  cy.get(selector).click();
+Given('busca la reserva', () => {
+  cy.get('#btn-buscar-reserva').click();
   cy.wait('@getReservation');
 });
 

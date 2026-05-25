@@ -1,0 +1,373 @@
+[
+  {
+    "description": "    Como cliente\n    Quiero cancelar una reserva desde la página de consulta\n    Para poder liberar los medicamentos si ya no los necesito",
+    "keyword": "Feature",
+    "name": "Cancelar reserva",
+    "line": 1,
+    "id": "cancelar-reserva",
+    "tags": [],
+    "uri": "cancel-reservation.feature",
+    "elements": [
+      {
+        "id": "cancelar-reserva;cancelación-exitosa-de-una-reserva-pendiente",
+        "keyword": "Scenario",
+        "line": 6,
+        "name": "Cancelación exitosa de una reserva pendiente",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "existe una reserva en estado \"Pendiente\" con clave pública \"CLAVE-CANCEL-TEST\" y fecha de expiración \"2026-06-22\"",
+            "result": {
+              "status": "passed",
+              "duration": 33000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "el cliente visita la página \"/reservations\"",
+            "result": {
+              "status": "passed",
+              "duration": 538000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 9,
+            "name": "ingresa la clave pública \"CLAVE-CANCEL-TEST\" en el campo \"#public-key-input\"",
+            "result": {
+              "status": "passed",
+              "duration": 441000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 10,
+            "name": "busca la reserva",
+            "result": {
+              "status": "passed",
+              "duration": 346000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 11,
+            "name": "el sistema muestra el botón \"#btn-cancelar-reserva\"",
+            "result": {
+              "status": "passed",
+              "duration": 5000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "hace clic en \"#btn-cancelar-reserva\"",
+            "result": {
+              "status": "passed",
+              "duration": 82000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "el sistema debe cambiar el estado de la reserva a \"Cancelled\"",
+            "result": {
+              "status": "passed",
+              "duration": 8000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "el botón \"#btn-cancelar-reserva\" no debe estar visible",
+            "result": {
+              "status": "passed",
+              "duration": 3000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "cancelar-reserva;cancelación-de-una-reserva-confirmada",
+        "keyword": "Scenario",
+        "line": 16,
+        "name": "Cancelación de una reserva confirmada",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 17,
+            "name": "existe una reserva en estado \"Confirmada\" con clave pública \"CLAVE-CANCEL-CONFIRMADA\" y fecha de expiración \"2026-07-15\"",
+            "result": {
+              "status": "passed",
+              "duration": 35000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 18,
+            "name": "el cliente visita la página \"/reservations\"",
+            "result": {
+              "status": "passed",
+              "duration": 65000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 19,
+            "name": "ingresa la clave pública \"CLAVE-CANCEL-CONFIRMADA\" en el campo \"#public-key-input\"",
+            "result": {
+              "status": "passed",
+              "duration": 506000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 20,
+            "name": "busca la reserva",
+            "result": {
+              "status": "passed",
+              "duration": 83000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 21,
+            "name": "el sistema muestra el botón \"#btn-cancelar-reserva\"",
+            "result": {
+              "status": "passed",
+              "duration": 4000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 22,
+            "name": "hace clic en \"#btn-cancelar-reserva\"",
+            "result": {
+              "status": "passed",
+              "duration": 76000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 23,
+            "name": "el sistema debe cambiar el estado de la reserva a \"Cancelled\"",
+            "result": {
+              "status": "passed",
+              "duration": 9000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 24,
+            "name": "el botón \"#btn-cancelar-reserva\" no debe estar visible",
+            "result": {
+              "status": "passed",
+              "duration": 3000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "cancelar-reserva;cancelación-no-permitida-de-una-reserva-ya-cancelada",
+        "keyword": "Scenario",
+        "line": 26,
+        "name": "Cancelación no permitida de una reserva ya cancelada",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 27,
+            "name": "existe una reserva en estado \"Cancelled\" con clave pública \"CLAVE-CANCEL-YA-CANCELADA\" y fecha de expiración \"2026-06-22\"",
+            "result": {
+              "status": "passed",
+              "duration": 37000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 28,
+            "name": "el cliente visita la página \"/reservations\"",
+            "result": {
+              "status": "passed",
+              "duration": 75000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 29,
+            "name": "ingresa la clave pública \"CLAVE-CANCEL-YA-CANCELADA\" en el campo \"#public-key-input\"",
+            "result": {
+              "status": "passed",
+              "duration": 513000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 30,
+            "name": "busca la reserva",
+            "result": {
+              "status": "passed",
+              "duration": 82000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 31,
+            "name": "el botón \"#btn-cancelar-reserva\" no debe estar visible",
+            "result": {
+              "status": "passed",
+              "duration": 3000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "cancelar-reserva;cancelación-no-permitida-de-una-reserva-expirada",
+        "keyword": "Scenario",
+        "line": 33,
+        "name": "Cancelación no permitida de una reserva expirada",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 34,
+            "name": "existe una reserva en estado \"Expired\" con clave pública \"CLAVE-CANCEL-EXPIRADA\" y fecha de expiración \"2026-05-01\"",
+            "result": {
+              "status": "passed",
+              "duration": 33000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 35,
+            "name": "el cliente visita la página \"/reservations\"",
+            "result": {
+              "status": "passed",
+              "duration": 67000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 36,
+            "name": "ingresa la clave pública \"CLAVE-CANCEL-EXPIRADA\" en el campo \"#public-key-input\"",
+            "result": {
+              "status": "passed",
+              "duration": 465000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 37,
+            "name": "busca la reserva",
+            "result": {
+              "status": "passed",
+              "duration": 84000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 38,
+            "name": "el botón \"#btn-cancelar-reserva\" no debe estar visible",
+            "result": {
+              "status": "passed",
+              "duration": 3000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "cancelar-reserva;restricción-de-modificación-directa-de-medicamentos",
+        "keyword": "Scenario",
+        "line": 40,
+        "name": "Restricción de modificación directa de medicamentos",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 41,
+            "name": "existe una reserva en estado \"Pendiente\" con clave pública \"CLAVE-MODIFY-TEST\" y fecha de expiración \"2026-07-01\"",
+            "result": {
+              "status": "passed",
+              "duration": 33000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 42,
+            "name": "el cliente visita la página \"/reservations\"",
+            "result": {
+              "status": "passed",
+              "duration": 65000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 43,
+            "name": "ingresa la clave pública \"CLAVE-MODIFY-TEST\" en el campo \"#public-key-input\"",
+            "result": {
+              "status": "passed",
+              "duration": 421000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 44,
+            "name": "busca la reserva",
+            "result": {
+              "status": "passed",
+              "duration": 79000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 45,
+            "name": "el sistema no debe mostrar controles para modificar los medicamentos",
+            "result": {
+              "status": "passed",
+              "duration": 7000000
+            }
+          }
+        ]
+      }
+    ]
+  }
+]
