@@ -27,7 +27,7 @@ export class ValidateReservationsComponent implements OnInit {
 
   loadPending(): void {
     this.reservationService.getAllPending().subscribe((reservations) => {
-      this.pendingReservations = (reservations ?? []).filter(r => r.status === 'Pending');
+      this.pendingReservations = (reservations ?? []).filter(r => r.status === 'Pending' || r.status === 'Pendiente');
     });
   }
 

@@ -17,7 +17,7 @@ export class ReservationManageComponent {
 
   get showPrescriptionUpload(): boolean {
     return !!this.reservation &&
-      this.reservation.status === 'Pendiente' &&
+      (this.reservation.status === 'Pendiente' || this.reservation.status === 'Pending') &&
       !this.prescriptionUploaded &&
       (this.reservation.details?.some(d => d.requiresPrescription) ?? false);
   }

@@ -1,5 +1,7 @@
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 
+let reservationErrorIntercept: string | null = null;
+
 // ===== BACKGROUND STEPS =====
 
 Given('que el sistema tiene cargada la farmacia {string}', (pharmacyName: string) => {
@@ -31,7 +33,7 @@ Given('existe la farmacia {string} con el medicamento {string}', (pharmacyName: 
 // ===== SCENARIO STEPS =====
 
 Given('un usuario no autenticado visita la página de reservas {string}', (url: string) => {
-  Cypress.env('reservationErrorIntercept', null);
+  reservationErrorIntercept = null;
   cy.wrap({}).as('reservationQuantities');
   cy.wrap({}).as('stockByName');
 
@@ -165,7 +167,7 @@ When('hace clic en el botón {string}', (selector: string) => {
   }
 
   if (selector === '#btn-confirmar-reserva') {
-    const errorMessage = Cypress.env('reservationErrorIntercept');
+    const errorMessage = reservationErrorIntercept;
     if (errorMessage) {
       cy.intercept('POST', '**/api/reservation', {
         statusCode: 400,
@@ -186,7 +188,7 @@ When('hace clic en el botón {string}', (selector: string) => {
       cy.wrap(interception).as('createReservationResponse');
     });
 
-    if (!Cypress.env('reservationErrorIntercept')) {
+    if (!reservationErrorIntercept) {
       cy.get<Record<string, number>>('@reservationQuantities').then((quantities) => {
         cy.get<Record<string, number>>('@stockByName').then((stockByName) => {
           Object.entries(quantities).forEach(([name, qty]) => {
@@ -240,7 +242,7 @@ Then('el botón {string} debe mantenerse deshabilitado', (selector: string) => {
 });
 
 Given('el sistema rechazará la creación de la reserva con el error {string}', (errorMessage: string) => {
-  Cypress.env('reservationErrorIntercept', errorMessage);
+  reservationErrorIntercept = errorMessage;
 });
 
 When('intenta seleccionar la farmacia {string} en el buscador', (pharmacyName: string) => {
@@ -261,7 +263,7 @@ When('hace clic en el botón {string} con mail invalido', (selector: string) => 
 });
 
 Given('el sistema detecta que el usuario ya cuenta con {int} reservas activas', (count: number) => {
-  Cypress.env('reservationErrorIntercept', `No puedes tener más de ${count} reservas activas simultáneamente`);
+  reservationErrorIntercept = `No puedes tener más de ${count} reservas activas simultáneamente`;
 });
 
 Then('el sistema debe rechazar la solicitud mostrando un modal con el ID {string}', (modalSelector: string) => {
