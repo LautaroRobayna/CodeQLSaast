@@ -23,3 +23,9 @@ Scenario: Cancelación de una reserva confirmada
     When hace clic en "#btn-cancelar-reserva"
     Then el sistema debe cambiar el estado de la reserva a "Cancelled"
     And el botón "#btn-cancelar-reserva" no debe estar visible
+
+Scenario: Cancelación no permitida de una reserva ya cancelada
+    Given existe una reserva en estado "Cancelled" con clave pública "CLAVE-CANCEL-YA-CANCELADA" y fecha de expiración "2026-06-22"
+    And ingresa la clave pública "CLAVE-CANCEL-YA-CANCELADA" en el campo "#public-key-input"
+    And hace clic en "#btn-buscar-reserva"
+    Then el botón "#btn-cancelar-reserva" no debe estar visible
