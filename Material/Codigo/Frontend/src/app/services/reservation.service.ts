@@ -75,6 +75,14 @@ export class ReservationService {
       );
   }
 
+  cancelReservation(publicKey: string): Observable<ReservationResponse> {
+    return this.http.put<ReservationResponse>(`${this.url}/cancel?publicKey=${encodeURIComponent(publicKey)}`, null)
+      .pipe(
+        tap((cancelled: ReservationResponse) => console.log(`Cancelled reservation code=${cancelled.code}`)),
+        catchError(this.handleError<ReservationResponse>('Cancel Reservation'))
+      );
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       this.lastErrorMessage = error.error?.message || '';

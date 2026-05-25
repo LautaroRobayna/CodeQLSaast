@@ -55,6 +55,19 @@ export class ReservationManageComponent {
     reader.readAsDataURL(file);
   }
 
+  get showCancelButton(): boolean {
+    return !!this.reservation
+  }
+
+  cancelReservation(): void {
+    if (!this.reservation) return;
+    this.reservationService.cancelReservation(this.publicKey).subscribe(res => {
+      if (res) {
+        this.reservation = res;
+      }
+    });
+  }
+
   uploadPrescription(): void {
     if (!this.prescriptionBase64) return;
     this.reservationService.uploadPrescription(this.publicKey, this.prescriptionBase64, this.prescriptionFileName).subscribe(() => {
