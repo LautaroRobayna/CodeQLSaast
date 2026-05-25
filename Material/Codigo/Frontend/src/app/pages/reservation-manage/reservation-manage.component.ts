@@ -56,7 +56,9 @@ export class ReservationManageComponent {
   }
 
   get showCancelButton(): boolean {
-    return !!this.reservation
+    return !!this.reservation &&
+      this.reservation.status !== 'Cancelled' &&
+      this.reservation.status !== 'Cancelada'
   }
 
   cancelReservation(): void {
