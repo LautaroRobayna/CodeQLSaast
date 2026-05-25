@@ -137,7 +137,7 @@ namespace PharmaGo.BusinessLogic
         public void ExpireOverdueReservations()
         {
             var overdue = _reservationRepository.GetAllByExpression(r =>
-                r.Status == ReservationStatus.Pending &&
+                (r.Status == ReservationStatus.Pending || r.Status == ReservationStatus.Confirmed) &&
                 r.ReservationDate.AddDays(30) < DateTime.Now);
 
             foreach (var reservation in overdue)

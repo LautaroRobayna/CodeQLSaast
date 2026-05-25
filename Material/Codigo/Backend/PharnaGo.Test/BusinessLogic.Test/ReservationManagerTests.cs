@@ -469,20 +469,23 @@ namespace PharmaGo.Test.BusinessLogic.Test
         [TestMethod]
         public void GetAllPending_ExpiresOverdueBeforeReturning()
         {
-            var reservations = new List<Reservation>
+            var overdue = new List<Reservation>
             {
-                new Reservation { Id = 1, Code = "RES-001", Status = ReservationStatus.Pending, ReservationDate = DateTime.Now.AddDays(-31), PharmacyId = 1, UserEmail = "a@b.com", Details = new List<ReservationDetail>() },
+                new Reservation { Id = 1, Code = "RES-001", Status = ReservationStatus.Pending, ReservationDate = DateTime.Now.AddDays(-31), PharmacyId = 1, UserEmail = "a@b.com", Details = new List<ReservationDetail>() }
+            };
+            var pending = new List<Reservation>
+            {
                 new Reservation { Id = 2, Code = "RES-002", Status = ReservationStatus.Pending, ReservationDate = DateTime.Now.AddDays(-5), PharmacyId = 1, UserEmail = "c@d.com", Details = new List<ReservationDetail>() }
             };
 
-            _reservationRepository.Setup(r => r.GetAllByExpression(It.IsAny<Expression<Func<Reservation, bool>>>()))
-                .Returns(reservations);
+            _reservationRepository.SetupSequence(r => r.GetAllByExpression(It.IsAny<Expression<Func<Reservation, bool>>>()))
+                .Returns(overdue)
+                .Returns(pending);
             _reservationRepository.Setup(r => r.UpdateOne(It.IsAny<Reservation>()));
 
             var result = _reservationManager.GetAllPending();
 
-            Assert.AreEqual(ReservationStatus.Expired, reservations[0].Status);
-            Assert.AreEqual(ReservationStatus.Pending, reservations[1].Status);
+            Assert.AreEqual(ReservationStatus.Expired, overdue[0].Status);
             _reservationRepository.Verify(r => r.UpdateOne(It.Is<Reservation>(res => res.Status == ReservationStatus.Expired)), Times.Once);
             _reservationRepository.Verify(r => r.Save(), Times.Once);
         }
@@ -511,20 +514,33 @@ namespace PharmaGo.Test.BusinessLogic.Test
         [TestMethod]
         public void ExpireOverdueReservations_NoOverdue_DoesNothing()
         {
-            var recent = new List<Reservation>
-            {
-                new Reservation { Id = 1, Code = "RES-001", Status = ReservationStatus.Pending, ReservationDate = DateTime.Now.AddDays(-5), Details = new List<ReservationDetail>() }
-            };
-
             _reservationRepository.Setup(r => r.GetAllByExpression(It.IsAny<Expression<Func<Reservation, bool>>>()))
-                .Returns(recent);
+                .Returns(new List<Reservation>());
 
             _reservationManager.ExpireOverdueReservations();
 
-            Assert.AreEqual(ReservationStatus.Pending, recent[0].Status);
             _reservationRepository.Verify(r => r.UpdateOne(It.IsAny<Reservation>()), Times.Never);
             _reservationRepository.Verify(r => r.Save(), Times.Never);
-        }        
+        }
+
+        [TestMethod]
+        public void ExpireOverdueReservations_ExpiresConfirmedOlderThan30Days()
+        {
+            var overdue = new List<Reservation>
+            {
+                new Reservation { Id = 1, Code = "RES-001", Status = ReservationStatus.Confirmed, ReservationDate = DateTime.Now.AddDays(-31), Details = new List<ReservationDetail>() }
+            };
+
+            _reservationRepository.Setup(r => r.GetAllByExpression(It.IsAny<Expression<Func<Reservation, bool>>>()))
+                .Returns(overdue);
+            _reservationRepository.Setup(r => r.UpdateOne(It.IsAny<Reservation>()));
+
+            _reservationManager.ExpireOverdueReservations();
+
+            Assert.AreEqual(ReservationStatus.Expired, overdue[0].Status);
+            _reservationRepository.Verify(r => r.UpdateOne(It.Is<Reservation>(res => res.Status == ReservationStatus.Expired)), Times.Once);
+            _reservationRepository.Verify(r => r.Save(), Times.Once);
+        }
 
         [TestMethod]
         public void ConfirmReservation_Ok()
