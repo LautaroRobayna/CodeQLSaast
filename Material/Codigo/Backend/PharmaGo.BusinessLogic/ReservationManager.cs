@@ -230,6 +230,10 @@ namespace PharmaGo.BusinessLogic
             if (reservation.Status == ReservationStatus.Expired)
                 throw new InvalidResourceException("La reserva se encuentra expirada");
 
+            var daysUntilExpiration = (reservation.ReservationDate.AddDays(30) - DateTime.Now).Days;
+            if (daysUntilExpiration < 5)
+                throw new InvalidResourceException("No se puede cancelar una reserva a menos de 5 días de su expiración");
+
             reservation.Status = ReservationStatus.Cancelled;
             _reservationRepository.UpdateOne(reservation);
             _reservationRepository.Save();
