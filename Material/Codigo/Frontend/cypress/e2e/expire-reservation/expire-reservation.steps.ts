@@ -125,3 +125,7 @@ Then('el sistema debe mostrar la reserva como {string}', (status: string) => {
 Then('el sistema debe mostrar el mensaje {string}', (message: string) => {
   cy.get('[data-cy=reservation-message]').should('contain', message);
 });
+
+Then('el botón {string} no debe estar visible', (selector: string) => {
+  cy.get(selector).should('not.exist');
+});

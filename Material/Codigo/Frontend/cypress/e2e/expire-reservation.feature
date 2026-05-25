@@ -26,3 +26,8 @@ Scenario: Expiración automática de una reserva pendiente después de 30 días
     Given existe una reserva cancelada creada hace 31 días con clave pública "CANC-EXP-001"
     When el cliente busca su reserva con clave pública "CANC-EXP-001"
     Then el sistema debe mostrar la reserva como "Cancelled"
+
+  Scenario: Cancelación bloqueada si faltan menos de 5 días para la expiración
+    Given existe una reserva pendiente creada hace 27 días con clave pública "CLOSE-TO-EXPIRE"
+    When el cliente busca su reserva con clave pública "CLOSE-TO-EXPIRE"
+    Then el botón "#btn-cancelar-reserva" no debe estar visible
